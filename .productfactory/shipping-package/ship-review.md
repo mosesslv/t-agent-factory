@@ -6,9 +6,9 @@ This task was supposed to ship:
 
 ## Actually shipped
 
-- 
-- 
-- 
+-
+-
+-
 
 ## Validation result
 
@@ -19,23 +19,23 @@ This task was supposed to ship:
 
 ## Difference from plan
 
-- 
-- 
-- 
+-
+-
+-
 
 ## What should be remembered
 
 Reusable lesson:
 
-- 
-- 
-- 
+-
+-
+-
 
 Avoid next time:
 
-- 
-- 
-- 
+-
+-
+-
 
 ## Impact Loop
 

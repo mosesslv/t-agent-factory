@@ -26,15 +26,15 @@ One sentence:
 
 Must ship:
 
-- 
-- 
-- 
+-
+-
+-
 
 Not this time (at least 3):
 
-- 
-- 
-- 
+-
+-
+-
 
 ## Done means
 
@@ -49,9 +49,9 @@ The code could be correct while the product still fails if:
 
 ## ProductFactory sources
 
-- 
-- 
-- 
+-
+-
+-
 
 ## Impact Loop expectation
 

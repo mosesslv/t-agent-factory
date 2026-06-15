@@ -48,12 +48,12 @@
 
 ## Acceptable gaps this time
 
-- 
-- 
-- 
+-
+-
+-
 
 ## Unacceptable failures
 
-- 
-- 
-- 
+-
+-
+-
