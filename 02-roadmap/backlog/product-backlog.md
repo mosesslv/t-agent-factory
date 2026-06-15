@@ -78,9 +78,11 @@ These items make the t-agent workspace itself capable of managing knowledge upda
 | TA-KB-003 | Productivity Skills | `grill-me`, `handoff`, `write-a-skill`, `teach`, `self-improvement` pairing protocol | P0 | KB-0 | accepted | `09-agents/productivity-skills-integration.md` |
 | TA-KB-004 | Self-improvement | Learning event loop with promotion gates and no automatic canonical rewrites | P0 | KB-0 | accepted | `09-agents/self-improvement-protocol.md` |
 | TA-KB-005 | Local Skill | `.agents/skills/t-agent-knowledge-base-capability/` triggerable project skill | P0 | KB-0 | accepted | Local skill |
-| TA-KB-006 | Eval | Golden questions for knowledge-base capability behavior | P0 | KB-0 | draft | `07-evals/golden-questions/knowledge-base-capability-golden-questions.md` |
-| TA-KB-007 | Views | Obsidian Bases / Canvas or lightweight dashboard for sources, decisions, evals, learnings | P1 | KB-1 | candidate | Capability blueprint |
-| TA-KB-008 | Promotion Automation | Scripted checks for missing source, status, related files, and eval links | P1 | KB-1 | candidate | Docs-as-code governance |
+| TA-KB-006 | Eval | Golden questions for knowledge-base capability behavior | P0 | KB-0 | accepted | `07-evals/golden-questions/knowledge-base-capability-golden-questions.md` |
+| TA-KB-007 | Views | Obsidian Bases status view for sources, decisions, evals, learnings, agents, and skills | P1 | KB-1 | accepted | `06-iteration/views/knowledge-base-capability.base` |
+| TA-KB-008 | Promotion Automation | Scripted checks for required knowledge-base assets and eval links | P1 | KB-1 | accepted | `scripts/knowledge-base/eval-kb-capability.py` |
+| TA-KB-009 | Promotion Checklist | Reusable checklist for moving candidate knowledge into accepted assets | P0 | KB-1 | accepted | `06-iteration/templates/promotion-checklist.md` |
+| TA-KB-010 | Real Case Rehearsal | Run external repo source through intake -> evidence -> roundtable -> decision -> protocol -> eval | P0 | KB-1 | accepted | `06-iteration/reports/2026-06-15-kb1-self-improving-agent-rehearsal.md` |
 
 ## 3. V3 Backlog Seeds
 

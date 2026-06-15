@@ -1,0 +1,75 @@
+filters:
+  or:
+    - 'file.inFolder("06-iteration/inbox")'
+    - 'file.inFolder("06-iteration/review-queue")'
+    - 'file.inFolder("06-iteration/learnings")'
+    - 'file.inFolder("06-iteration/roundtables")'
+    - 'file.inFolder("04-sources/evidence-cards")'
+    - 'file.inFolder("05-decisions")'
+    - 'file.inFolder("07-evals")'
+    - 'file.inFolder("09-agents")'
+    - 'file.inFolder(".agents/skills")'
+    - 'file.inFolder("03-architecture")'
+
+formulas:
+  lifecycle: 'if(status, status, "missing-status")'
+  asset_type: 'if(type, type, "missing-type")'
+  age_days: '(now() - file.mtime).days.round(0)'
+
+properties:
+  type:
+    displayName: "Type"
+  status:
+    displayName: "Status"
+  updated:
+    displayName: "Updated"
+  formula.asset_type:
+    displayName: "Asset Type"
+  formula.lifecycle:
+    displayName: "Lifecycle"
+  formula.age_days:
+    displayName: "Age Days"
+  file.folder:
+    displayName: "Folder"
+  file.mtime:
+    displayName: "Modified"
+
+views:
+  - type: table
+    name: "Knowledge Assets"
+    order:
+      - file.name
+      - formula.asset_type
+      - formula.lifecycle
+      - updated
+      - file.folder
+      - formula.age_days
+    groupBy:
+      property: status
+      direction: ASC
+
+  - type: table
+    name: "Needs Status Or Type"
+    filters:
+      or:
+        - 'status == null'
+        - 'type == null'
+    order:
+      - file.name
+      - file.folder
+      - formula.asset_type
+      - formula.lifecycle
+      - file.mtime
+
+  - type: table
+    name: "Eval And Learning"
+    filters:
+      or:
+        - 'file.inFolder("07-evals")'
+        - 'file.inFolder("06-iteration/learnings")'
+    order:
+      - file.name
+      - formula.asset_type
+      - formula.lifecycle
+      - updated
+      - file.folder

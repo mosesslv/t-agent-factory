@@ -15,7 +15,7 @@ related:
 
 t-agent 的 self-improvement 不是让 agent 自动重写自己。
 
-它是一条受控学习闭环：
+它是一条 review-gated 的受控学习闭环：
 
 ```text
 Error / Correction / Missing Capability / Recurring Pattern

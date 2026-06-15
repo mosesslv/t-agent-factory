@@ -97,4 +97,5 @@ AI_DB_GPT baseline / 用户补充
 - 检查 ADR / PDR 是否有对应执行文档。
 - 检查 `06-iteration/learnings/` 是否有需要晋升的重复问题。
 - 检查 productivity skills 是否被正确落到 roundtable、eval、backlog 或 local skill。
+- 运行 `python3 scripts/knowledge-base/eval-kb-capability.py` 检查知识库能力基础链路。
 - 提交 Git。

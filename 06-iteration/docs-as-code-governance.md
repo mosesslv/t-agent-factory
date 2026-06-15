@@ -64,6 +64,7 @@ flowchart TD
 4. 写入最小正确位置。
 5. 如果影响 accepted truth，必须更新对应 decision、backlog 或 eval。
 6. 最后运行轻量校验：`git diff --check`、链接/路径检查、相关文件存在检查。
+7. 如果改动影响知识库能力本身，运行 `python3 scripts/knowledge-base/eval-kb-capability.py`。
 
 ## 5. Agent Routing
 
@@ -117,6 +118,18 @@ raw input
 3. source register / evidence card；
 4. backlog 或 eval 更新；
 5. Git diff 可审计。
+
+## 8.1 KB-1 操作资产
+
+当前可操作能力包括：
+
+| 能力 | 入口 |
+|---|---|
+| 知识输入 | `06-iteration/templates/knowledge-intake.md` |
+| 晋升检查 | `06-iteration/templates/promotion-checklist.md` |
+| 状态视图 | `06-iteration/views/knowledge-base-capability.base` |
+| 本地验证 | `scripts/knowledge-base/eval-kb-capability.py` |
+| 真实演练 | `06-iteration/reports/2026-06-15-kb1-self-improving-agent-rehearsal.md` |
 
 ## 9. 自我改进边界
 

@@ -64,6 +64,13 @@
 | `06-iteration/learnings/2026-06-15-learning-events.md` | learning-events | 当前工作区 | 用户纠偏：知识库治理必须成为能力，而不是回答或文档 | 支撑 self-improvement 实践 |
 | `07-evals/golden-questions/knowledge-base-capability-golden-questions.md` | eval-set | 当前工作区 | 知识库能力 golden questions 和 failure cases | 验收知识更新能力 |
 | `.agents/skills/t-agent-knowledge-base-capability/SKILL.md` | local-skill | 当前工作区 | 知识库能力更新入口 | Codex 项目内触发入口 |
+| `06-iteration/templates/knowledge-intake.md` | template | 当前工作区 | 知识更新输入模板 | 将外部来源、想法、纠偏和失败样例标准化进入工作台 |
+| `06-iteration/templates/promotion-checklist.md` | template | 当前工作区 | 知识晋升检查清单 | 判断 candidate 是否可进入 accepted truth |
+| `06-iteration/views/knowledge-base-capability.base` | obsidian-base | 当前工作区 | Obsidian 状态视图 | 查看知识资产 status/type/updated 和缺失状态 |
+| `scripts/knowledge-base/eval-kb-capability.py` | eval-runner | 当前工作区 | 知识库能力本地验证脚本 | 运行 KB-EVAL-001 到 KB-EVAL-010 |
+| `07-evals/eval-runs/2026-06-15-knowledge-base-capability-eval-run.md` | eval-run | 当前工作区 | KB-1 验收运行记录 | 证明当前知识库能力基础链路 10/10 通过 |
+| `06-iteration/inbox/2026-06-15-self-improving-agent-source-intake.md` | knowledge-intake | 当前工作区 | self-improving-agent 外部 repo 输入记录 | 真实案例演练入口 |
+| `06-iteration/reports/2026-06-15-kb1-self-improving-agent-rehearsal.md` | rehearsal-report | 当前工作区 | KB-1 外部 repo 全流程演练 | 验证外部 repo 从 intake 到 eval 的闭环 |
 
 ## 3. 关联图
 

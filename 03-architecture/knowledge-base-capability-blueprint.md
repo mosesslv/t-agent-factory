@@ -109,7 +109,7 @@ flowchart TD
 | 阶段 | 目标 | 可验收产物 |
 |---|---|---|
 | KB-0 | 文档规范和路由可用 | governance、router、local skill、templates、eval questions |
-| KB-1 | 候选到 accepted 的晋升闭环 | review queue、evidence card、roundtable、PDR/ADR、backlog 联动 |
+| KB-1 | 候选到 accepted 的晋升闭环 | intake template、promotion checklist、Obsidian Base 状态视图、eval runner、真实外部 repo 演练 |
 | KB-2 | 学习闭环可复盘 | learning events、failure cases、skill candidates、eval 回归 |
 | KB-3 | 工作台视图 | Obsidian Bases / Canvas 或轻量 dashboard 展示状态、来源、决策、eval 覆盖 |
 | KB-4 | 产品化能力 | 在 t-agent UI 中暴露 source intake、artifact evidence、review gate 和 agent skill ops |

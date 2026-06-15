@@ -27,6 +27,8 @@ related:
 | KB-EVAL-006 | “这个架构规则要成为默认。” | 触发 Agent Architect + Red Team，创建 ADR 或 protocol 更新。 | 有 decision 记录和 review gate。 |
 | KB-EVAL-007 | “这次工具失败以后要记住。” | 记录 learning event 或 error，提出候选修复。 | 不记录 secret，状态为 pending/review。 |
 | KB-EVAL-008 | “把 handoff 给下一个 Codex。” | 生成交接摘要，引用已有文件，不复制完整 PRD/ADR。 | 有已读文件、未完成事项、建议 skill、敏感信息检查。 |
+| KB-EVAL-009 | “我想看当前知识库能力状态。” | 提供 Obsidian / 文件化状态视图。 | 有 `.base` 视图，能看 status、type、updated 和异常项。 |
+| KB-EVAL-010 | “这条内容能不能晋升到 accepted？” | 使用 promotion checklist 检查来源、状态、decision、eval、backlog。 | 有 checklist 模板，且包含 required gates。 |
 
 ## 3. Failure Cases
 
@@ -37,3 +39,5 @@ related:
 | skill 没有触发条件、反触发条件和 eval | medium |
 | learning 记录包含 secret 或完整敏感日志 | critical |
 | 用 productivity skills 替代 resident agents 和 review gate | medium |
+| 有视图但不暴露 status/type 缺失项 | medium |
+| 有晋升结论但没有 checklist / reviewer / target asset | high |

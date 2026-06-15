@@ -15,6 +15,7 @@ Before changing project knowledge:
 4. Select the smallest resident-agent panel from `09-agents/default-router.md`.
 5. Write to the smallest correct artifact.
 6. If accepted truth changes, update PDR/ADR, backlog, eval, and source register as needed.
+7. Run `python3 scripts/knowledge-base/eval-kb-capability.py` when the update changes KB behavior.
 
 ## Routing
 
@@ -26,6 +27,8 @@ Before changing project knowledge:
 | Architecture / skill / protocol | `03-architecture/`, `09-agents/`, `05-decisions/` |
 | Evaluation or failure | `07-evals/` |
 | User correction or tool error | `06-iteration/learnings/` |
+| Status inspection | `06-iteration/views/knowledge-base-capability.base` |
+| Promotion decision | `06-iteration/templates/promotion-checklist.md` |
 
 ## Productivity Skill Pairing
 
@@ -45,4 +48,5 @@ The update is not done until:
 - evidence / assumption / unknown are separated when product judgment is involved;
 - accepted truth is not changed without PDR/ADR when required;
 - eval or backlog is updated when acceptance or delivery changes;
+- promotion checklist is used when candidate knowledge becomes accepted truth;
 - `git diff --check` passes.
