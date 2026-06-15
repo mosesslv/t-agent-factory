@@ -22,13 +22,14 @@ project_ssot:
 
 1. `agent.md`
 2. 本文件
-3. `05-decisions/` 下已接受的 PDR / ADR
-4. 当前 active PRD、backlog、contract、eval
-5. AI_DB_GPT canonical context / accepted ADR
-6. AI_DB_GPT research / inspiration
-7. `idealization/5月/` 历史材料
+3. `09-agents/expert-style-guide.md`
+4. `05-decisions/` 下已接受的 PDR / ADR
+5. 当前 active PRD、backlog、contract、eval
+6. AI_DB_GPT canonical context / accepted ADR
+7. AI_DB_GPT research / inspiration
+8. `idealization/5月/` 历史材料
 
-写作规则：路线图只写阶段目标、核心能力、非目标、验收门槛；不要在这里展开研究过程和长篇解释。
+写作规则：路线图默认使用中文，只写阶段目标、核心能力、非目标、验收门槛；不要在这里展开研究过程和长篇解释。外部研究和风格依据放入 `04-sources/evidence-cards/`，执行 overlay 放入 `02-roadmap/t-agent-reality-roadmap-2026-h2.md`。
 
 ## 1.1 路线图分层
 
@@ -43,6 +44,17 @@ project_ssot:
 - canonical roadmap 是北极星，不等于今年全部承诺交付。
 - reality roadmap 是执行 overlay，用于团队对齐、PRD、backlog、owner 和验收。
 - 如果 reality roadmap 改变版本含义，必须新增或更新 PDR，并同步更新 `agent.md` 与本文件。
+
+## 1.2 中文与专家风格
+
+本项目重要文档默认中文。
+
+Roadmap、PRD、架构、eval、PDR / ADR 必须采用 `09-agents/expert-style-guide.md` 中的专家风格：
+
+- 产品判断写清用户任务、产品承诺、非目标和验收；
+- 研究判断区分 evidence / assumption / unknown；
+- 技术判断写清对象契约、边界、数据流、控制流、失败模式和观测；
+- 系统性文档涉及三个以上组件时，优先补 Mermaid 图示 artifact。
 
 ## 2. 总览
 

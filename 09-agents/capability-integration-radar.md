@@ -29,8 +29,12 @@ New tools, community practices, Obsidian plugins, agent workflows, eval systems,
 | Product roundtable | `.agents/skills/t-agent-product-roundtable/` | Lets product topics silently route to resident agents | Active local skill |
 | Iteration direction research | `.agents/skills/t-agent-iteration-direction-research/` | Default for next-step, roadmap, open-source, AI community, and 1.0/2.0 questions | Active local skill |
 | Autonomous evolution intake | `.agents/skills/t-agent-autonomous-evolution/` | Manages new capability candidates, evidence cards, and radar updates | Active local skill |
+| Knowledge-base capability | `.agents/skills/t-agent-knowledge-base-capability/` | Turns random knowledge updates, corrections, sources, and productivity skill requests into governed project assets | Active local skill |
 | Agent router | `09-agents/default-router.md` | Keeps silent agent selection consistent | Active protocol |
 | Iteration research protocol | `09-agents/iteration-direction-research-protocol.md` | Forces credible search and source quality classification | Active protocol |
+| Docs-as-code governance | `06-iteration/docs-as-code-governance.md` | Defines how Codex section updates, sources, corrections, and accepted truth changes move through review | Active protocol |
+| Productivity skill pairing | `09-agents/productivity-skills-integration.md` | Maps grill-me, handoff, write-a-skill, teach, and self-improvement to resident agents and outputs | Active protocol |
+| Self-improvement loop | `09-agents/self-improvement-protocol.md` | Captures errors, corrections, missing capabilities, and recurring workflows with review gates | Active protocol |
 | Decision records | Product Decisions / ADRs | Prevents chat-only conclusions | `05-decisions/` |
 | Obsidian structure | Markdown frontmatter / Properties | Enables future Bases / Dataview dashboards | Use in new files |
 | Visual synthesis | Obsidian Canvas | Useful for roadmap, capability, and debate maps | Manual first, no custom plugin |
@@ -45,6 +49,7 @@ New tools, community practices, Obsidian plugins, agent workflows, eval systems,
 | Dashboard views | Obsidian Bases / Dataview / Tasks | Build decisions, sources, eval coverage, and open-question views | PM can see current state without asking Codex |
 | Prompt regression | Promptfoo | Convert V2 golden questions into a CLI eval POC | Can detect output regressions across prompts / skills |
 | LLM unit tests | DeepEval | Test answer relevancy / faithfulness for selected report outputs | Test result can guide prompt or skill changes |
+| Knowledge dashboard | Obsidian Bases / Canvas | Create source, decision, learning, and eval coverage views | PM can see knowledge-base state without asking Codex |
 
 ## Watch
 
@@ -93,3 +98,20 @@ Reason:
 
 - Next-iteration questions are a recurring PM workflow.
 - They require credible search, AI community signal handling, resident-agent debate, and durable artifact updates.
+
+### 2026-06-15: Knowledge-base capability and productivity skills
+
+Added:
+
+- `.agents/skills/t-agent-knowledge-base-capability/SKILL.md`
+- `03-architecture/knowledge-base-capability-blueprint.md`
+- `06-iteration/docs-as-code-governance.md`
+- `09-agents/productivity-skills-integration.md`
+- `09-agents/self-improvement-protocol.md`
+- `07-evals/golden-questions/knowledge-base-capability-golden-questions.md`
+- `05-decisions/product-decisions/PDR-2026-06-15-knowledge-base-capability.md`
+
+Reason:
+
+- The user clarified that this must become a knowledge-base capability, not merely an answer or a documentation patch.
+- Productivity skills such as `grill-me` should be paired with resident agents and durable outputs.

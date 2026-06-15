@@ -14,6 +14,8 @@
 | 知识工作台更新 | 2026-06-08 到 2026-06-13 | Agent Harness、知识更新、ToolSearch、企业技术部门定位 | `_workbench/`, `主题库/` |
 | 当前工作区 | 2026-06-15 | 根目录升级为 t-agent 产品建设工作空间 | `README.md`, `00-入口.md`, `01-product/`, `02-roadmap/`, `03-architecture/` |
 | 产品团队操作系统 | 2026-06-15 | 补齐 PRD、backlog、契约、eval、agents 和持续迭代机制 | `01-product/product-team-operating-model.md`, `06-iteration/operating-system.md`, `09-agents/` |
+| 中文专家风格标准 | 2026-06-15 | 重要文档默认中文，吸收 OpenAI / Anthropic / Google / Google DeepMind 风格，要求来源、证据、eval 和图示 | `09-agents/expert-style-guide.md`, `04-sources/evidence-cards/2026-06-15-ai-product-expert-style-benchmarks.md` |
+| 知识库能力 | 2026-06-15 | 把随机 Codex 更新、外部来源、用户纠正、失败样例、productivity skills 和 self-improvement 管成可晋升的项目能力 | `03-architecture/knowledge-base-capability-blueprint.md`, `06-iteration/docs-as-code-governance.md`, `09-agents/productivity-skills-integration.md`, `09-agents/self-improvement-protocol.md` |
 
 ## 2. 来源总表
 
@@ -49,6 +51,19 @@
 | `../CC-Learn/knowledge/agent-harness/harness-model.md` | pattern reference | 父级项目参考 | Tools + Knowledge + Observation + Action + Permissions | 常驻产品 agents harness 来源 |
 | `../CC-Learn/knowledge/agent-harness/governance-checklist.md` | checklist reference | 父级项目参考 | 工具、权限、上下文、运行治理 | agents 治理检查清单来源 |
 | `04-sources/evidence-cards/2026-06-15-cc-learn-workspace-governance.md` | evidence-card | 当前工作区 | 父级项目实施阶段和可迁移经验 | 支撑本轮工作空间治理迭代 |
+| `04-sources/evidence-cards/2026-06-15-ai-product-expert-style-benchmarks.md` | evidence-card | 当前工作区 | OpenAI / Anthropic / Google / Google DeepMind 风格研究、ProductFactory 命中来源 | 支撑中文专家风格指南和 reality roadmap 更新 |
+| `09-agents/expert-style-guide.md` | operating-standard | 当前工作区 | 中文默认、专家标杆、文档模板、图示规则 | 后续 PRD、roadmap、架构、eval、PDR / ADR 的写作标准 |
+| `03-architecture/diagrams/reality-roadmap-operating-architecture.md` | architecture-diagram | 当前工作区 | H2 reality roadmap 操作架构、可信分析闭环、专家面板路由 | 支撑路线图沟通和团队对齐 |
+| `04-sources/evidence-cards/2026-06-15-docs-as-code-self-improvement-sources.md` | evidence-card | 当前工作区 | Docs-as-code、self-improvement、productivity skills、ProductFactory 来源 | 支撑知识库能力建设 |
+| `06-iteration/roundtables/2026-06-15-knowledge-base-capability-and-productivity-skills.md` | roundtable | 当前工作区 | resident agents 对知识库能力和 productivity skills 搭配的建设判断 | 支撑 PDR 和能力蓝图 |
+| `05-decisions/product-decisions/PDR-2026-06-15-knowledge-base-capability.md` | product-decision | 当前工作区 | 决定把知识更新治理建设为工作台能力 | 当前能力建设决策 |
+| `03-architecture/knowledge-base-capability-blueprint.md` | architecture-blueprint | 当前工作区 | Knowledge Base Capability 对象、流程、agent、skill、阶段 | 知识库能力 SSOT |
+| `06-iteration/docs-as-code-governance.md` | operating-standard | 当前工作区 | Codex section、来源、纠正、learning、skill 的写入和晋升规则 | 后续知识更新默认规范 |
+| `09-agents/productivity-skills-integration.md` | agent-protocol | 当前工作区 | `grill-me`、`handoff`、`write-a-skill`、`teach`、`self-improvement` 和 resident agents 的搭配 | 后续 agent 协作默认规范 |
+| `09-agents/self-improvement-protocol.md` | agent-protocol | 当前工作区 | review-gated learning loop | 后续自我改进默认规范 |
+| `06-iteration/learnings/2026-06-15-learning-events.md` | learning-events | 当前工作区 | 用户纠偏：知识库治理必须成为能力，而不是回答或文档 | 支撑 self-improvement 实践 |
+| `07-evals/golden-questions/knowledge-base-capability-golden-questions.md` | eval-set | 当前工作区 | 知识库能力 golden questions 和 failure cases | 验收知识更新能力 |
+| `.agents/skills/t-agent-knowledge-base-capability/SKILL.md` | local-skill | 当前工作区 | 知识库能力更新入口 | Codex 项目内触发入口 |
 
 ## 3. 关联图
 
@@ -70,6 +85,11 @@ flowchart TD
   I --> F
   J["CC-Learn 工作空间治理"] --> I
   I --> K["PRD / Contract / Eval / Agents"]
+  L["中文专家风格标准"] --> I
+  L --> K
+  M["知识库能力"] --> I
+  M --> N["Docs-as-code / Skills / Learning / Eval"]
+  N --> K
 ```
 
 ## 4. 后续管理规则

@@ -67,6 +67,21 @@ These items come from `02-roadmap/t-agent-reality-roadmap-2026-h2.md`. They conv
 | TA-RR-006 | Delivery | Product + agent engineering + backend owner map and sprint split | P0 | 2026-H2 | candidate | Reality Roadmap |
 | TA-RR-007 | Governance Lite | PermissionAdapter / Policy / AuditLog / action gate skeleton | P1 | 2026-H2 | candidate | Reality Roadmap |
 
+## 2.6 Knowledge Base Capability Work Items
+
+These items make the t-agent workspace itself capable of managing knowledge updates as product assets.
+
+| ID | Epic | Feature | Priority | Version | Status | Source |
+|---|---|---|---:|---|---|---|
+| TA-KB-001 | Docs-as-code | Knowledge update governance for random Codex section, source, correction, and eval updates | P0 | KB-0 | accepted | `06-iteration/docs-as-code-governance.md` |
+| TA-KB-002 | Agent Routing | Resident agent routing for knowledge-base updates and productivity skill pairing | P0 | KB-0 | accepted | `09-agents/default-router.md` |
+| TA-KB-003 | Productivity Skills | `grill-me`, `handoff`, `write-a-skill`, `teach`, `self-improvement` pairing protocol | P0 | KB-0 | accepted | `09-agents/productivity-skills-integration.md` |
+| TA-KB-004 | Self-improvement | Learning event loop with promotion gates and no automatic canonical rewrites | P0 | KB-0 | accepted | `09-agents/self-improvement-protocol.md` |
+| TA-KB-005 | Local Skill | `.agents/skills/t-agent-knowledge-base-capability/` triggerable project skill | P0 | KB-0 | accepted | Local skill |
+| TA-KB-006 | Eval | Golden questions for knowledge-base capability behavior | P0 | KB-0 | draft | `07-evals/golden-questions/knowledge-base-capability-golden-questions.md` |
+| TA-KB-007 | Views | Obsidian Bases / Canvas or lightweight dashboard for sources, decisions, evals, learnings | P1 | KB-1 | candidate | Capability blueprint |
+| TA-KB-008 | Promotion Automation | Scripted checks for missing source, status, related files, and eval links | P1 | KB-1 | candidate | Docs-as-code governance |
+
 ## 3. V3 Backlog Seeds
 
 | ID | Epic | Feature | Priority | Version | Status | Source |
@@ -95,4 +110,5 @@ These items come from `02-roadmap/t-agent-reality-roadmap-2026-h2.md`. They conv
 - Any P0 requirement must have at least one PRD, contract, eval, or accepted decision source before entering `ready`.
 - Historical sales operating materials can seed eval/workflow packs, but they do not define V2 scope.
 - Any route change must update `05-decisions/` and this backlog together.
+- Knowledge-base capability changes must update docs-as-code governance, productivity skill pairing, self-improvement protocol, and eval cases together when relevant.
 - Each release review must label P0 items as `accepted`, `blocked`, or explicitly removed from scope.

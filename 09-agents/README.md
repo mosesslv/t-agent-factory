@@ -18,8 +18,10 @@ When a substantive topic arrives, Codex should:
 1. classify the topic;
 2. select the smallest useful agent panel;
 3. query ProductFactory if product judgment is involved;
-4. produce a recommendation, debate summary, or project artifact update;
-5. store durable conclusions in the correct project folder.
+4. apply `expert-style-guide.md` for Chinese writing, evidence discipline, and diagram expectations;
+5. produce a recommendation, debate summary, or project artifact update;
+6. for knowledge-base capability work, apply `productivity-skills-integration.md`, `self-improvement-protocol.md`, and `docs-as-code-governance.md`;
+7. store durable conclusions in the correct project folder.
 
 The routing rules live in:
 
@@ -64,6 +66,9 @@ Then it should converge the discussion into the smallest useful next artifact.
 - `default-router.md`: silent routing matrix.
 - `roundtable-protocol.md`: debate and decision protocol.
 - `iteration-direction-research-protocol.md`: source quality, AI community search, and roundtable synthesis protocol for next-iteration questions.
+- `expert-style-guide.md`: Chinese-first writing standard and Anthropic / Google / Google DeepMind inspired expert review style.
+- `productivity-skills-integration.md`: how `grill-me`, `handoff`, `write-a-skill`, `teach`, and `self-improvement` pair with resident agents.
+- `self-improvement-protocol.md`: review-gated learning loop for corrections, errors, recurring workflows, and skill promotion.
 - `obsidian-codex-workflow.md`: how Obsidian, Codex, ProductFactory, and Git fit together.
 - `agent-harness-spec.md`: profile structure and quality rules.
 
@@ -73,3 +78,4 @@ Then it should converge the discussion into the smallest useful next artifact.
 - Accepted product truth should live in Product Decisions, ADRs, PRDs, contracts, evals, or source records.
 - Do not promote raw discussion into accepted truth without an explicit decision artifact.
 - Do not use `idealization/5月/` as the active project root.
+- Do not let self-improvement or productivity skills bypass source, decision, or eval gates.

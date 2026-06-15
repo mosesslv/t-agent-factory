@@ -13,6 +13,8 @@
 - 数据契约初稿。
 - 销售经营候选黄金问题集。
 - 常驻产品 agents 初版。
+- Docs-as-code 知识库治理规范。
+- Knowledge Base Capability 蓝图、productivity skills 搭配协议和 self-improvement protocol。
 
 当前阶段：
 
@@ -33,6 +35,18 @@
   -> agent review
   -> iteration log
   -> git commit
+```
+
+知识库能力相关议题的最小流转：
+
+```text
+随机 Codex section / 外部链接 / 用户纠正 / 失败样例 / 重复 workflow
+  -> 06-iteration/docs-as-code-governance.md
+  -> resident agent routing
+  -> inbox / source-register / learning / review-queue
+  -> evidence-card / roundtable
+  -> PDR / ADR / PRD / contract / eval / backlog
+  -> git diff / iteration log
 ```
 
 Reality roadmap 相关议题的最小流转：
@@ -58,6 +72,7 @@ AI_DB_GPT baseline / 用户补充
 | decision | PRD / roadmap | 已接受 |
 | PRD | backlog / eval | 有验收项 |
 | eval | release | 有结果记录 |
+| learning | protocol / skill / eval | 有复现、边界和 review gate |
 
 ## 4. 常驻 agents 参与点
 
@@ -68,6 +83,9 @@ AI_DB_GPT baseline / 用户补充
 | 数据契约 | Data Product, Agent Architect |
 | 评测设计 | Eval Lead |
 | 方案风险 | Red Team |
+| grill-me 压测 | Red Team, Product Lead, Eval Lead |
+| skill 固化 | Agent Architect, Knowledge Librarian, Eval Lead |
+| self-improvement | Knowledge Librarian, Eval Lead, Red Team |
 | 版本发布 | Product Lead, Knowledge Librarian |
 
 ## 5. 每周维护动作
@@ -77,4 +95,6 @@ AI_DB_GPT baseline / 用户补充
 - 补充 evidence-card。
 - 检查 PRD 是否有对应 eval。
 - 检查 ADR / PDR 是否有对应执行文档。
+- 检查 `06-iteration/learnings/` 是否有需要晋升的重复问题。
+- 检查 productivity skills 是否被正确落到 roundtable、eval、backlog 或 local skill。
 - 提交 Git。
