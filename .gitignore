@@ -1,0 +1,30 @@
+# macOS and editor metadata
+.DS_Store
+._*
+.idea/
+.vscode/
+
+# Python caches and virtual environments
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+
+# Node and build outputs
+node_modules/
+dist/
+build/
+.next/
+out/
+
+# Logs and temporary files
+*.log
+tmp/
+temp/
+.cache/
+
+# Nested repository metadata from imported historical materials
+**/.git/

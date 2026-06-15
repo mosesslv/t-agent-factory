@@ -1,0 +1,26 @@
+type: debate-session
+required:
+  - id
+  - type
+  - topic
+  - status
+  - created
+  - updated
+  - stage
+  - participants
+  - source_sessions
+allowed_status:
+  - inbox
+  - draft
+  - reviewed
+  - promoted
+  - deprecated
+required_prefix:
+  id: db-
+notes:
+  - Debate files live under _workbench/debates.
+  - Debate content is process material, not formal knowledge.
+  - source_sessions should point to discussion-session ids that provide context.
+  - target_topic_path is optional during framing, but must start with 主题库/ when set.
+  - Mature debates should include structured round items with claim, evidence, risk, question, and recommendation.
+  - check-debate requires at least three expert positions with real Round 1 content.

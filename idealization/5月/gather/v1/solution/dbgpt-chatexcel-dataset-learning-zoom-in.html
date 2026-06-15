@@ -1,0 +1,890 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DB-GPT 企业数据分析平台 Zoom-in：ChatExcel 数据学习模块</title>
+  <style>
+    :root {
+      --ink: #111827;
+      --muted: #5d6675;
+      --line: #c9d1dc;
+      --deep: #0b1f33;
+      --blue: #1d4f86;
+      --cyan: #0f8fa6;
+      --red: #c41230;
+      --amber: #c98600;
+      --green: #1f7a5a;
+      --paper: #fff;
+      --bg: #f3f5f8;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", Arial, sans-serif;
+    }
+    .deck { display: grid; gap: 28px; padding: 28px; }
+    .slide {
+      width: 1280px;
+      height: 720px;
+      margin: 0 auto;
+      background: var(--paper);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 18px 60px rgba(17, 24, 39, .16);
+      padding: 42px 54px 38px;
+    }
+    .topline {
+      position: absolute;
+      left: 54px;
+      top: 0;
+      width: 170px;
+      height: 5px;
+      background: var(--red);
+    }
+    .kicker {
+      color: var(--red);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 1.4px;
+      text-transform: uppercase;
+      margin-bottom: 9px;
+    }
+    h1, h2, h3, p { margin: 0; }
+    h1 {
+      max-width: 1040px;
+      font-size: 42px;
+      line-height: 1.12;
+      font-weight: 760;
+      color: var(--deep);
+    }
+    h2 {
+      max-width: 1120px;
+      font-size: 31px;
+      line-height: 1.18;
+      font-weight: 760;
+      color: var(--deep);
+    }
+    h3 {
+      font-size: 18px;
+      color: var(--deep);
+      font-weight: 800;
+    }
+    .subtitle {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.42;
+      max-width: 1080px;
+    }
+    .footer {
+      position: absolute;
+      left: 54px;
+      right: 54px;
+      bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid #e2e6ec;
+      padding-top: 8px;
+      color: #87909e;
+      line-height: 1.15;
+      font-size: 10px;
+    }
+    .page-no { color: var(--red); font-weight: 800; }
+    .hero-grid {
+      margin-top: 34px;
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 34px;
+      align-items: stretch;
+    }
+    .panel {
+      border-top: 5px solid var(--red);
+      background: #f7f9fc;
+      padding: 18px;
+      min-height: 350px;
+    }
+    .panel.blue { border-top-color: var(--blue); }
+    .panel h3 { margin-bottom: 12px; }
+    .panel p {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.48;
+      margin-bottom: 12px;
+    }
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 18px;
+    }
+    .stat {
+      background: white;
+      border-left: 4px solid var(--blue);
+      padding: 12px;
+      min-height: 92px;
+      box-shadow: inset 0 0 0 1px #edf1f6;
+    }
+    .stat:nth-child(2) { border-left-color: var(--amber); }
+    .stat:nth-child(3) { border-left-color: var(--red); }
+    .stat strong {
+      display: block;
+      color: var(--deep);
+      font-size: 28px;
+      line-height: 1;
+      margin-bottom: 7px;
+    }
+    .stat span {
+      display: block;
+      color: var(--muted);
+      font-size: 12.2px;
+      line-height: 1.32;
+    }
+    .agenda { display: grid; gap: 10px; }
+    .agenda-item {
+      display: grid;
+      grid-template-columns: 42px 1fr;
+      gap: 12px;
+      align-items: center;
+      background: white;
+      border-left: 4px solid var(--blue);
+      padding: 11px 12px;
+      min-height: 58px;
+      box-shadow: inset 0 0 0 1px #edf1f6;
+    }
+    .agenda-item:nth-child(4), .agenda-item:nth-child(5) { border-left-color: var(--red); }
+    .agenda-no { color: var(--red); font-size: 22px; font-weight: 850; }
+    .agenda-item b { display: block; color: var(--deep); font-size: 14.5px; margin-bottom: 3px; }
+    .agenda-item span { display: block; color: var(--muted); font-size: 12.5px; line-height: 1.28; }
+    .layers { margin-top: 22px; display: grid; gap: 10px; }
+    .layer {
+      display: grid;
+      grid-template-columns: 145px 1fr 250px;
+      gap: 12px;
+      align-items: stretch;
+      min-height: 88px;
+    }
+    .layer-label {
+      background: var(--deep);
+      color: white;
+      padding: 13px 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border-left: 5px solid var(--red);
+    }
+    .layer-label b { font-size: 16px; line-height: 1.2; margin-bottom: 4px; }
+    .layer-label span { color: #b9c6d6; font-size: 11px; line-height: 1.3; }
+    .layer-modules {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      background: #f7f9fc;
+      border: 1px solid #dce3ec;
+      padding: 10px;
+    }
+    .module {
+      background: white;
+      border-top: 4px solid var(--blue);
+      padding: 9px 10px;
+      min-height: 62px;
+      box-shadow: inset 0 0 0 1px #edf1f6;
+    }
+    .module.cyan { border-top-color: var(--cyan); background: #f3fbfd; }
+    .module.amber { border-top-color: var(--amber); background: #fffaf0; }
+    .module.red { border-top-color: var(--red); background: #fff7f7; }
+    .module b { display: block; color: var(--deep); font-size: 13.2px; margin-bottom: 4px; }
+    .module span { display: block; color: var(--muted); font-size: 11.4px; line-height: 1.25; }
+    .layer-value {
+      border-left: 4px solid var(--line);
+      padding: 10px 12px;
+      background: #fbfcfe;
+      color: var(--muted);
+      font-size: 12.2px;
+      line-height: 1.35;
+    }
+    .layer-value b { display: block; color: var(--deep); font-size: 14px; margin-bottom: 4px; }
+    .focus-layer { border: 2px solid var(--red); background: #fff8f8; padding: 10px; }
+    .focus-layer .layer-label { background: var(--red); }
+    .arrow { text-align: center; color: var(--red); font-size: 18px; font-weight: 800; line-height: 1; }
+    table { border-collapse: collapse; width: 100%; }
+    .matrix { margin-top: 22px; font-size: 12.3px; }
+    .matrix th {
+      background: var(--deep);
+      color: white;
+      padding: 9px 8px;
+      text-align: left;
+      font-size: 11.5px;
+      vertical-align: bottom;
+    }
+    .matrix td {
+      border-bottom: 1px solid #dfe5ec;
+      padding: 9px 8px;
+      line-height: 1.3;
+      vertical-align: top;
+    }
+    .matrix tr:nth-child(even) td { background: #f8fafc; }
+    .matrix td:first-child { color: var(--deep); font-weight: 800; width: 160px; }
+    .highlight {
+      background: #fff7f7 !important;
+      border-left: 3px solid var(--red);
+      border-right: 3px solid var(--red);
+      color: var(--deep);
+      font-weight: 700;
+    }
+    .tag {
+      display: inline-block;
+      padding: 2px 7px;
+      border-radius: 10px;
+      background: #eef3fa;
+      color: var(--blue);
+      font-size: 11px;
+      font-weight: 800;
+      white-space: nowrap;
+      margin-bottom: 4px;
+    }
+    .timeline-grid {
+      margin-top: 24px;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+    }
+    .time-card {
+      background: #f8fafc;
+      border-top: 5px solid var(--blue);
+      min-height: 245px;
+      padding: 13px 12px;
+    }
+    .time-card:nth-child(2) { border-top-color: var(--cyan); }
+    .time-card:nth-child(3) { border-top-color: var(--amber); }
+    .time-card:nth-child(4), .time-card:nth-child(5) { border-top-color: var(--red); background: #fff8f8; }
+    .time-card b { display: block; color: var(--deep); font-size: 16px; margin-bottom: 7px; }
+    .time-card ul { margin: 0; padding-left: 16px; color: var(--muted); font-size: 12.2px; line-height: 1.42; }
+    .note-row {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    .note {
+      border-top: 4px solid var(--red);
+      padding-top: 10px;
+      font-size: 13px;
+      line-height: 1.38;
+      color: var(--muted);
+    }
+    .note:nth-child(2) { border-color: var(--blue); }
+    .note:nth-child(3) { border-color: var(--amber); }
+    .note b { display: block; color: var(--deep); font-size: 15px; margin-bottom: 4px; }
+    .zoom-layout {
+      margin-top: 24px;
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap: 24px;
+      align-items: start;
+    }
+    .gap-stack {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+    .gap-card {
+      min-height: 120px;
+      border-top: 5px solid var(--red);
+      background: #f8fafc;
+      padding: 13px 14px;
+    }
+    .gap-card:nth-child(2) { border-color: var(--blue); }
+    .gap-card:nth-child(3) { border-color: var(--amber); }
+    .gap-card:nth-child(4) { border-color: var(--cyan); }
+    .gap-card strong { color: var(--deep); font-size: 30px; display: block; line-height: 1; margin-bottom: 7px; }
+    .gap-card b { display: block; color: var(--deep); font-size: 15px; margin-bottom: 5px; }
+    .gap-card span { color: var(--muted); font-size: 12.2px; line-height: 1.35; }
+    .zoom-list { display: grid; gap: 10px; }
+    .zoom-item {
+      display: grid;
+      grid-template-columns: 118px 1fr 74px;
+      gap: 12px;
+      align-items: center;
+      min-height: 70px;
+      background: #f7f9fc;
+      border-left: 5px solid var(--blue);
+      padding: 10px 12px;
+    }
+    .zoom-item:nth-child(1), .zoom-item:nth-child(2) { border-left-color: var(--red); background: #fff8f8; }
+    .zoom-item b { color: var(--deep); font-size: 14px; }
+    .zoom-item span { color: var(--muted); font-size: 12.3px; line-height: 1.32; }
+    .prio {
+      text-align: center;
+      color: white;
+      background: var(--red);
+      font-size: 11px;
+      font-weight: 800;
+      padding: 5px 8px;
+      border-radius: 14px;
+    }
+    .prio.blue { background: var(--blue); }
+    .prio.amber { background: var(--amber); }
+    .flow {
+      margin-top: 24px;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+    }
+    .flow-step {
+      min-height: 155px;
+      background: #f8fafc;
+      border-top: 5px solid var(--blue);
+      padding: 13px 12px;
+    }
+    .flow-step:nth-child(2) { border-top-color: var(--cyan); }
+    .flow-step:nth-child(3) { border-top-color: var(--amber); }
+    .flow-step:nth-child(4), .flow-step:nth-child(5) { border-top-color: var(--red); background: #fff8f8; }
+    .flow-step strong { display: block; color: var(--red); font-size: 23px; line-height: 1; margin-bottom: 8px; }
+    .flow-step b { display: block; color: var(--deep); font-size: 15px; margin-bottom: 6px; }
+    .flow-step span { color: var(--muted); font-size: 12.2px; line-height: 1.34; }
+    .asset-strip {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      border-top: 2px solid var(--deep);
+      border-left: 1px solid var(--line);
+      font-size: 12px;
+    }
+    .asset {
+      min-height: 88px;
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 9px;
+      background: white;
+    }
+    .asset b { color: var(--deep); display: block; font-size: 13px; margin-bottom: 4px; }
+    .asset span { color: var(--muted); line-height: 1.3; }
+    .arch-map {
+      margin-top: 22px;
+      display: grid;
+      grid-template-columns: 210px 1fr 210px;
+      gap: 18px;
+      align-items: stretch;
+    }
+    .side-stack { display: grid; gap: 10px; }
+    .side-title {
+      border-top: 5px solid var(--blue);
+      padding-top: 10px;
+      color: var(--deep);
+      font-size: 18px;
+      font-weight: 800;
+    }
+    .side-stack.right .side-title { border-color: var(--red); }
+    .side-box {
+      background: #f7f9fc;
+      border-left: 4px solid var(--blue);
+      padding: 10px 11px;
+      min-height: 62px;
+      color: var(--muted);
+      font-size: 12.3px;
+      line-height: 1.3;
+    }
+    .side-stack.right .side-box { border-left-color: var(--red); }
+    .side-box b { display: block; color: var(--deep); font-size: 13.5px; margin-bottom: 4px; }
+    .core {
+      border: 2px solid #e6c1c8;
+      background: #fff8f8;
+      padding: 16px 18px;
+    }
+    .core-title { text-align: center; color: var(--red); font-size: 21px; font-weight: 850; margin-bottom: 13px; }
+    .core-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    .core-cap {
+      background: white;
+      border-top: 5px solid var(--red);
+      min-height: 114px;
+      padding: 11px;
+      box-shadow: inset 0 0 0 1px #f0d6db;
+    }
+    .core-cap:nth-child(2), .core-cap:nth-child(5) { border-top-color: var(--blue); }
+    .core-cap:nth-child(3), .core-cap:nth-child(6) { border-top-color: var(--amber); }
+    .core-cap b { display: block; color: var(--deep); font-size: 14.5px; margin-bottom: 6px; }
+    .core-cap span { color: var(--muted); font-size: 11.8px; line-height: 1.32; display: block; }
+    .workplan { margin-top: 21px; font-size: 12.1px; }
+    .workplan th {
+      background: var(--deep);
+      color: white;
+      text-align: left;
+      padding: 8px;
+      font-size: 11.2px;
+    }
+    .workplan td {
+      border-bottom: 1px solid #dfe5ec;
+      padding: 8px;
+      vertical-align: top;
+      line-height: 1.3;
+    }
+    .workplan tr:nth-child(even) td { background: #f8fafc; }
+    .workplan td:first-child { color: var(--deep); font-weight: 800; width: 132px; }
+    .phase-now { color: var(--red); font-weight: 800; }
+    .phase-next { color: var(--blue); font-weight: 800; }
+    .investment {
+      margin-top: 14px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    .invest-card {
+      border-top: 4px solid var(--red);
+      padding-top: 10px;
+      color: var(--muted);
+      font-size: 12.5px;
+      line-height: 1.34;
+    }
+    .invest-card:nth-child(2) { border-color: var(--blue); }
+    .invest-card:nth-child(3) { border-color: var(--amber); }
+    .invest-card b { display: block; color: var(--deep); font-size: 15px; margin-bottom: 4px; }
+    .decision-table { margin-top: 22px; font-size: 12.7px; }
+    .decision-table th {
+      background: var(--deep);
+      color: white;
+      text-align: left;
+      padding: 9px 10px;
+      font-size: 11.5px;
+    }
+    .decision-table td {
+      border-bottom: 1px solid #dfe5ec;
+      padding: 9px 10px;
+      line-height: 1.35;
+      vertical-align: top;
+    }
+    .decision-table tr:nth-child(even) td { background: #f8fafc; }
+    .decision-table td:first-child { width: 180px; color: var(--deep); font-weight: 800; }
+    .decision-table td:nth-child(2) {
+      border-left: 4px solid var(--red);
+      background: #fff8f8;
+      color: var(--deep);
+      font-weight: 700;
+    }
+    .final-row { margin-top: 18px; display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .final-box {
+      background: #f7f9fc;
+      border-top: 5px solid var(--blue);
+      padding: 14px;
+      min-height: 125px;
+    }
+    .final-box:nth-child(2) { border-color: var(--red); background: #fff8f8; }
+    .final-box b { color: var(--deep); font-size: 16px; display: block; margin-bottom: 8px; }
+    .final-box ul { margin: 0; padding-left: 18px; color: var(--muted); font-size: 12.7px; line-height: 1.42; }
+    @media print {
+      body { background: white; }
+      .deck { padding: 0; gap: 0; }
+      .slide { box-shadow: none; margin: 0; page-break-after: always; }
+    }
+  </style>
+</head>
+<body>
+  <main class="deck">
+    <section class="slide">
+      <div class="topline"></div>
+      <div class="kicker">Zoom-in appendix | ChatExcel 数据学习</div>
+      <h1>在企业级 Data Agent 规划中，ChatExcel 数据学习是把“能问”推进到“问得准”的第一块落地抓手</h1>
+      <p class="subtitle">本材料承接《企业数据分析平台能力规划汇报 v2》，先复述平台级产品规划，再下钻到附件中 ChatExcel 模块 4-6 周迭代包的功能方案、建设路径、投入与决策事项。</p>
+      <div class="hero-grid">
+        <div class="panel">
+          <h3>管理层要回答的核心问题</h3>
+          <p>DB-GPT 现有 ChatExcel 已经具备文件上传、DuckDB 问数、SQL 生成和图表返回能力，但缺少可持续复用的数据集语义资产。</p>
+          <p>本轮 zoom-in 的判断是：不重写 ChatExcel，而是在它前面新增 Dataset Learning 层，让数据集、字段注释、问题模板和安全约束沉淀为可管理资产。</p>
+          <div class="stat-row">
+            <div class="stat"><strong>4-6周</strong><span>展开附件中 ChatExcel 模块的 4-6 周迭代包。</span></div>
+            <div class="stat"><strong>55-80pd</strong><span>MVP 级投入，覆盖后端、前端、算法、产品和 QA。</span></div>
+            <div class="stat"><strong>报告MVP</strong><span>为 T+4-6 周的经营报告 MVP 提供可信问数和分析结果。</span></div>
+          </div>
+        </div>
+        <div class="panel blue">
+          <h3>材料结构</h3>
+          <div class="agenda">
+            <div class="agenda-item"><div class="agenda-no">1</div><div><b>平台规划回顾</b><span>Data Agent 在企业数据分析平台中的定位。</span></div></div>
+            <div class="agenda-item"><div class="agenda-no">2</div><div><b>能力差距定位</b><span>DB-GPT 当前可复用能力与缺口。</span></div></div>
+            <div class="agenda-item"><div class="agenda-no">3</div><div><b>总体时间线对齐</b><span>保持附件底部平台里程碑口径不变。</span></div></div>
+            <div class="agenda-item"><div class="agenda-no">4</div><div><b>ChatExcel 下钻</b><span>展开模块表中的 4-6 周建设包。</span></div></div>
+            <div class="agenda-item"><div class="agenda-no">5</div><div><b>投入与决策</b><span>明确 MVP 边界、投入、人力和立项决策点。</span></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="footer">
+        <span>Context: 本材料是主汇报材料的 zoom-in 附件，不替代总体平台规划</span>
+        <span class="page-no">1 / 8</span>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="topline"></div>
+      <div class="kicker">1. Product planning recap | 平台产品定位</div>
+      <h2>Data Agent 的平台定位，是把数据资产、分析能力和业务入口聚合为可运营的企业智能分析服务</h2>
+      <p class="subtitle">平台不重做数仓、不替代 BI，也不绑定单一入口；它在中间层统一可问数据集、业务口径、分析知识、问数过程、结果产物和运行反馈。</p>
+      <div class="layers">
+        <div class="layer">
+          <div class="layer-label"><b>业务入口层</b><span>用户在哪里使用</span></div>
+          <div class="layer-modules">
+            <div class="module"><b>ChatBI / 小Q</b><span>自然语言问数、多轮追问、结果解释。</span></div>
+            <div class="module cyan"><b>FineBI / 看板</b><span>稳定报表、图表门户、经营监控。</span></div>
+            <div class="module amber"><b>T-Claw / PI-Claw</b><span>个人级或部门级智能入口。</span></div>
+            <div class="module red"><b>Data Agent 市场</b><span>应用分发、模板和技能市场。</span></div>
+          </div>
+          <div class="layer-value"><b>价值</b>业务用户可以从多入口使用同一套可信分析能力。</div>
+        </div>
+        <div class="arrow">↑</div>
+        <div class="layer focus-layer">
+          <div class="layer-label"><b>Data Agent</b><span>统一编排和治理</span></div>
+          <div class="layer-modules">
+            <div class="module red"><b>领域黄金数据集</b><span>字段含义、指标口径、数据质量说明。</span></div>
+            <div class="module red"><b>分析知识库</b><span>术语、诊断框架、样例问题、报告模板。</span></div>
+            <div class="module amber"><b>Agent 人设</b><span>角色边界、输出标准、风险提示。</span></div>
+            <div class="module red"><b>任务编排</b><span>组织问数、解读、洞察和报告。</span></div>
+          </div>
+          <div class="layer-value"><b>价值</b>把分散能力变成可复用、可追踪、可评估的平台服务。</div>
+        </div>
+        <div class="arrow">↑</div>
+        <div class="layer">
+          <div class="layer-label"><b>数据资产层</b><span>源头提供什么</span></div>
+          <div class="layer-modules">
+            <div class="module"><b>文件与库表</b><span>Excel、CSV、数据库表和接口数据。</span></div>
+            <div class="module cyan"><b>主题宽表</b><span>销售、财务、供应链等分析对象。</span></div>
+            <div class="module amber"><b>指标与口径</b><span>指标定义、维度层级、计算规则。</span></div>
+            <div class="module red"><b>业务知识</b><span>术语、SOP、历史报告和经验。</span></div>
+          </div>
+          <div class="layer-value"><b>价值</b>把数据内容变成 AI 可以理解、用户可以消费的数据资产。</div>
+        </div>
+      </div>
+      <div class="footer">
+        <span>Key message: 数据学习属于 Data Agent 的数据资产底座，不只是 ChatExcel 的一个提示词增强</span>
+        <span class="page-no">2 / 8</span>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="topline"></div>
+      <div class="kicker">2. DB-GPT current fit | 能力差距定位</div>
+      <h2>DB-GPT 已具备运行时雏形，但要对标小Q式问数，必须补齐数据集语义资产和可信运行机制</h2>
+      <p class="subtitle">当前可复用的是连接、Scene、LLM、Excel/CSV 读取、DuckDB 查询和图表展示；核心缺口在 Dataset、Field、Question、Run、Trace、Permission 和 Eval。</p>
+      <table class="matrix">
+        <thead>
+          <tr>
+            <th>能力域</th>
+            <th>当前 DB-GPT 基础</th>
+            <th>对标小Q缺口</th>
+            <th>建设优先级</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>ChatExcel 问数</td>
+            <td>上传 Excel/CSV，注册 DuckDB 内存表，LLM 生成 SQL 和图表指令。</td>
+            <td class="highlight">学习结果只在会话历史中，不能跨会话复用，不能人工校准。</td>
+            <td><span class="tag">P0</span><br/>本轮 zoom-in</td>
+          </tr>
+          <tr>
+            <td>数据集资产</td>
+            <td>只有文件选择和 `select_param`，没有可管理数据集目录。</td>
+            <td>缺数据集状态、字段目录、字段画像、问题模板和版本。</td>
+            <td><span class="tag">P0</span><br/>平台基础对象</td>
+          </tr>
+          <tr>
+            <td>ChatDB / ChatData</td>
+            <td>已有 schema 问数和 SQL 执行。</td>
+            <td>缺可问数据集层、只读约束、字段白名单和审计。</td>
+            <td><span class="tag">P1</span><br/>复用同一学习层</td>
+          </tr>
+          <tr>
+            <td>报告与洞察</td>
+            <td>已有 Dashboard 图表与 mvt_demo 报告链路。</td>
+            <td>缺稳定的数据引用、分析过程留痕和报告素材资产。</td>
+            <td><span class="tag">P1</span><br/>依赖问数稳定性</td>
+          </tr>
+          <tr>
+            <td>治理与评估</td>
+            <td>已有基础会话历史和 trace 能力。</td>
+            <td>缺准确率、成功率、成本、延迟、用户反馈和回归评测。</td>
+            <td><span class="tag">P1/P2</span><br/>持续运营能力</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="note-row">
+        <div class="note"><b>可复用</b>文件读取、DuckDB、LLM 调用、Chat Scene、图表展示。</div>
+        <div class="note"><b>必须新增</b>Dataset Learning 资产层，承载字段注释、问题模板和学习状态。</div>
+        <div class="note"><b>不可拖后</b>SQL 安全和运行记录，否则演示可用但生产不可控。</div>
+      </div>
+      <div class="footer">
+        <span>Strategic answer: DB-GPT 更适合作为开放可控的 Data Agent Runtime，而不是简单复制 Quick BI 产品壳</span>
+        <span class="page-no">3 / 8</span>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="topline"></div>
+      <div class="kicker">3. Overall roadmap alignment | 总体时间线对齐</div>
+      <h2>总体时间线保持附件口径不变；本材料只展开其中 ChatExcel 的 4-6 周建设包</h2>
+      <p class="subtitle">附件最后一页底部时间线是平台整体里程碑；本 zoom-in 对应的是上方模块表中 ChatExcel 行的“4-6周：上传 Excel/CSV 或选取业务表，结合黄金数据集做深度问数”。两者需要并行对齐，而不是互相替换。</p>
+      <div class="timeline-grid">
+        <div class="time-card">
+          <b>T+1 周</b>
+          <ul>
+            <li>先接入黄金数据集</li>
+            <li>用户可围绕业务对象直接提问</li>
+            <li>看到基础表、图和初步结论</li>
+          </ul>
+        </div>
+        <div class="time-card">
+          <b>T+2 周</b>
+          <ul>
+            <li>用户可先选业务表</li>
+            <li>再做趋势、字段统计和对比分析</li>
+            <li>形成可解释的基础分析结果</li>
+          </ul>
+        </div>
+        <div class="time-card">
+          <b>T+4-6 周</b>
+          <ul>
+            <li>完成可看的分析报告初版</li>
+            <li>支持把分析结果整理成经营报告 MVP</li>
+            <li>本材料展开 ChatExcel 4-6 周建设包</li>
+          </ul>
+        </div>
+        <div class="time-card">
+          <b>T+8-12 周</b>
+          <ul>
+            <li>补齐分析知识库和运行留痕</li>
+            <li>每次分析过程可追踪、可复盘</li>
+            <li>支持持续优化</li>
+          </ul>
+        </div>
+        <div class="time-card">
+          <b>T+12-16 周</b>
+          <ul>
+            <li>统一问数、分析和报告入口</li>
+            <li>支持自定义分析 Agent</li>
+            <li>沉淀人设和知识资产</li>
+          </ul>
+        </div>
+      </div>
+      <div class="note-row">
+        <div class="note"><b>附件口径</b>底部时间线仍表达平台整体里程碑：T+4-6 周是报告 MVP 节点。</div>
+        <div class="note"><b>本材料口径</b>展开的是模块表中的 ChatExcel 4-6 周迭代内容，不改变总体里程碑。</div>
+        <div class="note"><b>对齐方式</b>ChatExcel 先把数据学习和深度问数做稳，为报告 MVP 提供可信分析结果。</div>
+      </div>
+      <div class="footer">
+        <span>Transition: 从附件总体时间线下钻到模块表中 ChatExcel 的 4-6 周迭代包</span>
+        <span class="page-no">4 / 8</span>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="topline"></div>
+      <div class="kicker">4. Zoom-in | 为什么先聚焦 ChatExcel 数据学习</div>
+      <h2>ChatExcel 是最适合做第一阶段样板的模块，因为它既有可复用运行链路，也暴露了平台化数据学习的关键缺口</h2>
+      <p class="subtitle">现有 ChatExcel 可以“跑起来”，但还不能让数据集被持续学习、校准和复用。新增数据学习层后，它可以成为后续 ChatDB、报告和洞察能力的共同底座。</p>
+      <div class="zoom-layout">
+        <div class="gap-stack">
+          <div class="gap-card"><strong>35%</strong><b>当前覆盖</b><span>上传、抽样、DuckDB、NL2SQL 和图表已有基础。</span></div>
+          <div class="gap-card"><strong>P0</strong><b>核心缺口</b><span>没有可管理的数据集语义资产，问数依赖历史消息。</span></div>
+          <div class="gap-card"><strong>低</strong><b>工程切入风险</b><span>文件场景优先，暂不触碰复杂数仓权限和跨库查询。</span></div>
+          <div class="gap-card"><strong>高</strong><b>业务可见度</b><span>用户可以直接看到字段学习、快捷问题和问数效果提升。</span></div>
+        </div>
+        <div class="zoom-list">
+          <div class="zoom-item"><b>数据集选择</b><span>从“上传后直接问”升级为“选择已学习数据集或上传生成临时数据集”。</span><div class="prio">P0</div></div>
+          <div class="zoom-item"><b>数据集学习</b><span>识别字段语义、维度度量、日期字段、质量画像和样例问题。</span><div class="prio">P0</div></div>
+          <div class="zoom-item"><b>人工校准</b><span>用户可修改字段注释、同义词、默认聚合、是否可问。</span><div class="prio blue">P0</div></div>
+          <div class="zoom-item"><b>快捷提问</b><span>初始化用户可以问的问题，并支持编辑、排序、启停。</span><div class="prio blue">P0</div></div>
+          <div class="zoom-item"><b>安全问数</b><span>学习资产进入 Prompt，SQL 通过只读、字段白名单和限行校验。</span><div class="prio amber">P1</div></div>
+          <div class="zoom-item"><b>运行反馈</b><span>记录问题、SQL、状态、耗时、错误和用户反馈，支撑后续评估。</span><div class="prio amber">P1</div></div>
+        </div>
+      </div>
+      <div class="footer">
+        <span>Key message: ChatExcel 数据学习不是附属功能，它是“可问数据集”平台对象的第一版</span>
+        <span class="page-no">5 / 8</span>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="topline"></div>
+      <div class="kicker">5. Functional solution | 功能级解决方案</div>
+      <h2>新增 Dataset Learning 层，把一次性 ExcelLearning 升级为可保存、可编辑、可复用的数据集学习资产</h2>
+      <p class="subtitle">改造原则是不重写 ChatExcel 运行链路，而是在前置学习阶段沉淀数据集语义；ChatExcel 运行时只消费学习产物，并通过 SQL Guard 保证可控执行。</p>
+      <div class="flow">
+        <div class="flow-step"><strong>01</strong><b>选择或创建数据集</b><span>支持 Excel/CSV 上传，生成 `dataset_uid`，记录来源、行列数、状态和采样策略。</span></div>
+        <div class="flow-step"><strong>02</strong><b>自动学习</b><span>Profiler 计算类型、分布、空值率、TopN；LLM 生成字段解释和问题模板。</span></div>
+        <div class="flow-step"><strong>03</strong><b>人工校准</b><span>业务用户调整字段注释、语义角色、同义词、默认聚合和可问状态。</span></div>
+        <div class="flow-step"><strong>04</strong><b>引导问数</b><span>在 ChatExcel 中展示快捷提问，注入字段目录和学习摘要生成 SQL。</span></div>
+        <div class="flow-step"><strong>05</strong><b>留痕评估</b><span>保存问题、SQL、命中字段、执行状态、错误和用户反馈，进入迭代闭环。</span></div>
+      </div>
+      <div class="asset-strip">
+        <div class="asset"><b>Dataset</b><span>数据集名称、来源、类型、状态、所有者。</span></div>
+        <div class="asset"><b>DatasetField</b><span>字段类型、注释、维度/度量、同义词、是否可问。</span></div>
+        <div class="asset"><b>DatasetProfile</b><span>空值率、唯一值、TopN、样例值、时间范围。</span></div>
+        <div class="asset"><b>QuestionTemplate</b><span>快捷问题、意图、字段引用、排序和启停。</span></div>
+        <div class="asset"><b>LearningJob</b><span>学习状态、进度、建议、失败原因和重试。</span></div>
+        <div class="asset"><b>QueryRun</b><span>问数 SQL、结果状态、耗时、反馈和审计。</span></div>
+      </div>
+      <div class="note-row">
+        <div class="note"><b>保留</b>ExcelReader、DuckDB、LLM 问数和图表渲染链路。</div>
+        <div class="note"><b>新增</b>数据集资产表、学习任务、字段编辑和问题模板。</div>
+        <div class="note"><b>改造</b>ChatExcel Prompt 从“读历史”变为“读数据集学习产物”。</div>
+      </div>
+      <div class="footer">
+        <span>Design principle: 学习产物显式化，问数运行受约束，反馈数据可沉淀</span>
+        <span class="page-no">6 / 8</span>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="topline"></div>
+      <div class="kicker">6. Architecture zoom-in | 模块架构</div>
+      <h2>技术实现上新增一个隔离的 Dataset Learning 服务层，避免大改 DB-GPT 核心框架</h2>
+      <p class="subtitle">后端新增数据集学习 API、Service、DAO、Profiler 和 SQL Guard；ChatExcel 只在运行时加载 dataset context，前端增加数据集选择、字段编辑和快捷提问配置。</p>
+      <div class="arch-map">
+        <div class="side-stack">
+          <div class="side-title">输入资产</div>
+          <div class="side-box"><b>Excel / CSV</b>沿用当前 ChatExcel 文件读取和 DuckDB 注册能力。</div>
+          <div class="side-box"><b>DB 表 / 视图</b>P1 扩展，只读连接、采样 SQL、超时约束。</div>
+          <div class="side-box"><b>业务知识</b>字段口径、术语、同义词、常见问题。</div>
+          <div class="side-box"><b>用户校准</b>人工注释、字段角色、启停配置。</div>
+        </div>
+        <div class="core">
+          <div class="core-title">Dataset Learning 服务层</div>
+          <div class="core-grid">
+            <div class="core-cap"><b>Dataset Registry</b><span>统一管理数据集目录、状态、来源和版本。</span></div>
+            <div class="core-cap"><b>Profiler</b><span>计算字段类型、分布、空值率、样例值和质量提示。</span></div>
+            <div class="core-cap"><b>LLM Learner</b><span>生成字段语义、维度度量识别和快捷问题。</span></div>
+            <div class="core-cap"><b>Manual Curation</b><span>保存用户修订注释、同义词、聚合方式和可问字段。</span></div>
+            <div class="core-cap"><b>Prompt Builder</b><span>把学习产物压缩成 ChatExcel 可用上下文。</span></div>
+            <div class="core-cap"><b>SQL Guard</b><span>执行只读、白名单、限行、超时和审计约束。</span></div>
+          </div>
+        </div>
+        <div class="side-stack right">
+          <div class="side-title">消费入口</div>
+          <div class="side-box"><b>ChatExcel</b>优先消费学习后的字段目录和快捷问题。</div>
+          <div class="side-box"><b>ChatDB</b>P1 复用数据集资产层，连接真实库表。</div>
+          <div class="side-box"><b>报告服务</b>引用问数结果、字段口径和分析上下文。</div>
+          <div class="side-box"><b>运营评估</b>统计成功率、准确率、成本、延迟和反馈。</div>
+        </div>
+      </div>
+      <div class="note-row">
+        <div class="note"><b>工程边界</b>新增 `pilot/server/dataset_learning` 和 `chat_excel/dataset_learning`，少改核心 Scene。</div>
+        <div class="note"><b>MVP 数据源</b>先 Excel/CSV，降低权限、连接和大数据查询风险。</div>
+        <div class="note"><b>前端策略</b>优先找回源码；若不可得，先做轻量独立管理页验证闭环。</div>
+      </div>
+      <div class="footer">
+        <span>Implementation posture: 以隔离模块方式增强现有 DB-GPT，而不是重构整个框架</span>
+        <span class="page-no">7 / 8</span>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="topline"></div>
+      <div class="kicker">7. Delivery plan | 排期、人力与决策</div>
+      <h2>ChatExcel 4-6 周迭代包建议以 55-80 人天完成，并作为报告 MVP 的前置可信问数能力</h2>
+      <p class="subtitle">本页不是重写平台整体排期，而是展开附件模块表中 ChatExcel 的 4-6 周工作包：第一阶段只承诺单数据集、Excel/CSV 优先、可学习、可编辑、可问数；DB 表、复杂权限、多数据集和指标平台放到后续阶段。</p>
+      <table class="workplan">
+        <thead>
+          <tr>
+            <th>阶段</th>
+            <th>周期</th>
+            <th>核心交付</th>
+            <th>关键角色</th>
+            <th>用户可见结果</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>方案和模型</td>
+            <td>0.5 周</td>
+            <td>数据模型、API、Prompt 输出格式、验收数据集。</td>
+            <td>产品、后端、算法</td>
+            <td>范围冻结，避免 MVP 扩散。</td>
+          </tr>
+          <tr>
+            <td>元数据后端</td>
+            <td>1 周</td>
+            <td>Dataset / Field / Question / LearningJob / QueryRun。</td>
+            <td>后端</td>
+            <td>可创建、查看、预览数据集。</td>
+          </tr>
+          <tr>
+            <td>学习任务</td>
+            <td>1 周</td>
+            <td>Profiler、LLM Learner、结构化解析、学习状态。</td>
+            <td>算法、后端</td>
+            <td>生成字段注释、画像和快捷问题。</td>
+          </tr>
+          <tr>
+            <td>校准和问数</td>
+            <td>1.5-2 周</td>
+            <td>字段编辑、问题模板、Prompt Builder、SQL Guard。</td>
+            <td>前端、后端、算法</td>
+            <td>人工修订后，ChatExcel 使用新语义问数。</td>
+          </tr>
+          <tr>
+            <td>测试和演示</td>
+            <td>0.5-1 周</td>
+            <td>端到端测试、演示脚本、失败兜底、验收指标。</td>
+            <td>QA、产品、研发</td>
+            <td>向报告 MVP 输出可信分析结果。</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="investment">
+        <div class="invest-card"><b><span class="phase-now">ChatExcel 4-6 周包：55-80 人天</span></b>后端 1、前端 1、算法/Prompt 1、产品 0.5、QA 0.5，4-6 周交付。</div>
+        <div class="invest-card"><b><span class="phase-next">平台雏形：140-220 人天</span></b>扩展 DB 表、权限、评估、反馈、前端体验，10-12 周交付。</div>
+        <div class="invest-card"><b>企业增强：300-500+ 人天</b>多数据集、指标平台、主题域治理、学习加速、报告和洞察联动。</div>
+      </div>
+      <table class="decision-table">
+        <thead>
+          <tr>
+            <th>决策事项</th>
+            <th>推荐选择</th>
+            <th>原因</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>MVP 数据源</td>
+            <td>Excel/CSV 优先</td>
+            <td>复用现有 ChatExcel，最快形成演示闭环，避开真实数仓权限和性能风险。</td>
+          </tr>
+          <tr>
+            <td>多数据集</td>
+            <td>MVP 不做</td>
+            <td>先证明单数据集语义学习和问数准确率，多表关联放入 P2。</td>
+          </tr>
+          <tr>
+            <td>前端路线</td>
+            <td>优先找回源码；否则轻量管理页</td>
+            <td>当前仓库主要是构建产物，直接改 `_next` 不适合作为长期方案。</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="final-row">
+        <div class="final-box">
+          <b>MVP 验收口径</b>
+          <ul>
+            <li>字段识别覆盖率不低于 90%。</li>
+            <li>快捷问题可执行率不低于 80%。</li>
+            <li>常见问数 SQL 成功率不低于 80%。</li>
+          </ul>
+        </div>
+        <div class="final-box">
+          <b>本轮立项请求</b>
+          <ul>
+            <li>确认 MVP 范围只做单数据集和 Excel/CSV。</li>
+            <li>确认第一批演示数据集和业务验收人。</li>
+            <li>确认是否投入前端源码恢复或轻量管理页。</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer">
+        <span>Decision request: MVP 范围 / 演示数据 / 前端路线 / 验收标准</span>
+        <span class="page-no">8 / 8</span>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

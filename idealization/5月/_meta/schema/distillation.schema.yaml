@@ -1,0 +1,26 @@
+type: distillation-candidate
+required:
+  - id
+  - type
+  - topic
+  - status
+  - created
+  - updated
+  - source_sessions
+  - target_topic_path
+  - promotion_status
+allowed_status:
+  - draft
+  - reviewed
+  - promoted
+  - deprecated
+allowed_promotion_status:
+  - pending-human-review
+  - approved-for-promotion
+  - promoted
+  - rejected
+required_prefix:
+  id: ds-
+notes:
+  - Distillation files live under _workbench/distillations.
+  - Promote checks must verify source_sessions exist before formal knowledge is created.

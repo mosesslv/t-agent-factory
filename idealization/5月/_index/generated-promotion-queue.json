@@ -1,0 +1,16 @@
+{
+  "generated_by": "tools/kb refresh-index",
+  "updated": "2026-06-13",
+  "items": [
+    {
+      "promotion_status": "pending-human-review",
+      "id": "ds-20260613-001",
+      "topic": "agent-harness-skill-system",
+      "target_topic_path": "主题库/Agent协作与Harness/",
+      "source_sessions": [
+        "ws-20260613-001"
+      ],
+      "path": "_workbench/distillations/2026-06-13-ToolSearch与知识库主动被动更新机制-沉淀候选.md"
+    }
+  ]
+}

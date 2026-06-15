@@ -1,0 +1,458 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Knowledge Workbench UI</title>
+  <style>
+    :root {
+      --bg: #f6f8fb;
+      --surface: #ffffff;
+      --surface-strong: #eef3f8;
+      --ink: #17212b;
+      --muted: #617181;
+      --line: #d9e1e8;
+      --accent: #0f766e;
+      --accent-ink: #0b3f3b;
+      --blue: #2563eb;
+      --amber: #b45309;
+      --red: #b42318;
+      --shadow: 0 14px 34px rgba(23, 33, 43, 0.08);
+      color-scheme: light;
+      font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    a, button { color: inherit; }
+    button {
+      border: 1px solid var(--line);
+      background: var(--surface);
+      border-radius: 8px;
+      cursor: pointer;
+      font: inherit;
+    }
+    button:focus-visible { outline: 3px solid rgba(37, 99, 235, 0.28); outline-offset: 2px; }
+    .shell {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 260px minmax(0, 1fr);
+    }
+    aside {
+      position: sticky;
+      top: 0;
+      align-self: start;
+      min-height: 100vh;
+      padding: 28px 22px;
+      background: #17212b;
+      color: #f7fafc;
+    }
+    aside h1 {
+      margin: 0;
+      font-size: 22px;
+      line-height: 1.12;
+      letter-spacing: 0;
+    }
+    aside .meta {
+      margin-top: 18px;
+      display: grid;
+      gap: 8px;
+      color: #bfd0df;
+      font-size: 12px;
+    }
+    nav {
+      display: grid;
+      gap: 8px;
+      margin-top: 30px;
+    }
+    nav a {
+      color: #e8f0f7;
+      text-decoration: none;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    }
+    main { padding: 28px; }
+    main, .grid, .grid > div, section {
+      min-width: 0;
+    }
+    .topline {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: end;
+      margin-bottom: 22px;
+    }
+    .topline h2 {
+      margin: 0;
+      font-size: 26px;
+      letter-spacing: 0;
+    }
+    .mode {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid #93c5fd;
+      color: #1d4ed8;
+      background: #eff6ff;
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 22px;
+    }
+    .metric {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px;
+      box-shadow: var(--shadow);
+    }
+    .metric span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      margin-bottom: 4px;
+    }
+    .metric strong {
+      font-size: 25px;
+      line-height: 1;
+      letter-spacing: 0;
+    }
+    .metric-ready strong { color: var(--accent); }
+    .metric-risk strong { color: var(--amber); }
+    .grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.55fr) minmax(320px, 0.85fr);
+      gap: 18px;
+      align-items: start;
+    }
+    section {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      margin-bottom: 18px;
+      max-width: 100%;
+    }
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--line);
+      background: var(--surface-strong);
+    }
+    .section-head h3 {
+      margin: 0;
+      font-size: 15px;
+      letter-spacing: 0;
+    }
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .filters button {
+      padding: 5px 9px;
+      color: var(--muted);
+    }
+    .filters button[aria-pressed="true"] {
+      background: #dcfce7;
+      border-color: #86efac;
+      color: var(--accent-ink);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
+    th, td {
+      padding: 11px 12px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+      overflow-wrap: anywhere;
+    }
+    th {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      background: #fbfcfe;
+    }
+    td span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 3px;
+    }
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 12px;
+      color: #243447;
+    }
+    .copy-button {
+      padding: 5px 8px;
+      color: var(--accent-ink);
+      border-color: #99d8d0;
+      background: #ecfdf5;
+      white-space: nowrap;
+    }
+    .copy-button.copied {
+      border-color: #60a5fa;
+      background: #eff6ff;
+      color: #1d4ed8;
+    }
+    .state, .scope, .scope-chip {
+      display: inline-flex;
+      width: fit-content;
+      border-radius: 999px;
+      padding: 3px 8px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .state-ready, .scope-include, .scope-chip.scope-include {
+      background: #dcfce7;
+      color: #166534;
+    }
+    .state-idle, .state-clear {
+      background: #e0f2fe;
+      color: #075985;
+    }
+    .state-needs-work, .state-blocked-by-human-review, .scope-cautious, .scope-chip.scope-cautious {
+      background: #fef3c7;
+      color: #92400e;
+    }
+    .scope-exclude, .scope-chip.scope-exclude {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+    .list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .list li {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 10px;
+      align-items: center;
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--line);
+    }
+    .link-list li {
+      grid-template-columns: 120px minmax(0, 1fr) minmax(0, 1fr);
+    }
+    .link-list span {
+      font-weight: 700;
+    }
+    .scope-summary {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--line);
+    }
+    .empty { color: var(--muted); }
+    @media (max-width: 1100px) {
+      .shell { grid-template-columns: 1fr; }
+      aside {
+        position: static;
+        min-height: auto;
+      }
+      nav { grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: 18px; }
+      .metric-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 720px) {
+      main { padding: 18px; }
+      .grid > div { max-width: 100%; }
+      .topline { align-items: start; flex-direction: column; }
+      .topline h2 { overflow-wrap: anywhere; }
+      .metric-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      nav { grid-template-columns: 1fr 1fr; }
+      .section-head { align-items: flex-start; flex-direction: column; }
+      .filters { width: 100%; }
+      section { overflow-x: auto; }
+      table { min-width: 680px; table-layout: fixed; }
+      #rag table { min-width: 760px; }
+      #gates table { min-width: 620px; }
+      th, td { padding: 9px; }
+      .link-list li { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <aside>
+      <h1>Knowledge Workbench</h1>
+      <div class="meta">
+        <span>Updated 2026-06-13</span>
+        <span>Generated by tools/kb refresh-index</span>
+        <span>read-only-static-export</span>
+      </div>
+      <nav aria-label="Workspace sections">
+        <a href="#focus">Decision Focus</a>
+        <a href="#gates">Gate Status</a>
+        <a href="#rag">RAG Scope</a>
+        <a href="#commands">Commands</a>
+      </nav>
+    </aside>
+    <main>
+      <div class="topline">
+        <h2>Knowledge Workbench Dashboard</h2>
+        <span class="mode">Read-only export</span>
+      </div>
+      <div class="metric-grid" aria-label="Workspace metrics">
+        <article class="metric"><span>Typed files</span><strong>46</strong></article>
+<article class="metric metric-ready"><span>Source review</span><strong>1</strong></article>
+<article class="metric metric-ready"><span>Distillation review</span><strong>1</strong></article>
+<article class="metric"><span>Approved</span><strong>0</strong></article>
+<article class="metric"><span>Active sessions</span><strong>5</strong></article>
+<article class="metric metric-risk"><span>High-risk tools</span><strong>5</strong></article>
+      </div>
+      <div class="grid">
+        <div>
+          <section id="focus">
+            <div class="section-head">
+              <h3>Decision Focus</h3>
+              <div class="filters" aria-label="Filter decision focus">
+                <button type="button" data-filter="all" aria-pressed="true">All</button>
+                <button type="button" data-filter="source-note" aria-pressed="false">Source</button>
+                <button type="button" data-filter="distillation-candidate" aria-pressed="false">Distillation</button>
+                <button type="button" data-filter="debate-session" aria-pressed="false">Debate</button>
+              </div>
+            </div>
+            <table>
+              <thead>
+                <tr><th>Priority</th><th>Kind</th><th>Reason</th><th>Topic</th><th>Path</th><th>Preview</th></tr>
+              </thead>
+              <tbody><tr data-kind="source-note"><td><strong>10</strong></td><td>source-note</td><td>source ready for human review<span>preview-source-review</span></td><td>agent-harness-skill-system</td><td><code>_workbench/inbox/2026-06-13-Claude-Code-ToolSearch机制研究.md</code></td><td><button class="copy-button" type="button" data-copy="tools/kb preview-source-review _workbench/inbox/2026-06-13-Claude-Code-ToolSearch机制研究.md" aria-label="Copy command tools/kb preview-source-review _workbench/inbox/2026-06-13-Claude-Code-ToolSearch机制研究.md">Copy</button></td></tr>
+<tr data-kind="distillation-candidate"><td><strong>20</strong></td><td>distillation-candidate</td><td>distillation ready for human review<span>preview-distillation-review</span></td><td>agent-harness-skill-system</td><td><code>_workbench/distillations/2026-06-13-ToolSearch与知识库主动被动更新机制-沉淀候选.md</code></td><td><button class="copy-button" type="button" data-copy="tools/kb preview-distillation-review _workbench/distillations/2026-06-13-ToolSearch与知识库主动被动更新机制-沉淀候选.md" aria-label="Copy command tools/kb preview-distillation-review _workbench/distillations/2026-06-13-ToolSearch与知识库主动被动更新机制-沉淀候选.md">Copy</button></td></tr>
+<tr data-kind="debate-session"><td><strong>88</strong></td><td>debate-session</td><td>debate already drafted a distillation<span>distillation-drafted</span></td><td>enterprise-ai-tech-org</td><td><code>_workbench/debates/2026-06-09-企业技术部门-AI-转型红蓝攻防.md</code></td><td><button class="copy-button" type="button" data-copy="tools/kb preview-debate-review _workbench/debates/2026-06-09-企业技术部门-AI-转型红蓝攻防.md" aria-label="Copy command tools/kb preview-debate-review _workbench/debates/2026-06-09-企业技术部门-AI-转型红蓝攻防.md">Copy</button></td></tr>
+<tr data-kind="source-note"><td><strong>90</strong></td><td>source-note</td><td>source already reviewed<span>source-reviewed</span></td><td>agent-harness-skill-system</td><td><code>_workbench/inbox/2026-06-09-Anthropic-Skills-官方仓库-skill-creator.md</code></td><td><button class="copy-button" type="button" data-copy="tools/kb preview-source-review _workbench/inbox/2026-06-09-Anthropic-Skills-官方仓库-skill-creator.md" aria-label="Copy command tools/kb preview-source-review _workbench/inbox/2026-06-09-Anthropic-Skills-官方仓库-skill-creator.md">Copy</button></td></tr>
+<tr data-kind="source-note"><td><strong>90</strong></td><td>source-note</td><td>source already reviewed<span>source-reviewed</span></td><td>enterprise-ai-tech-org</td><td><code>_workbench/inbox/2026-06-08-Agent时代企业技术部门资料占位.md</code></td><td><button class="copy-button" type="button" data-copy="tools/kb preview-source-review _workbench/inbox/2026-06-08-Agent时代企业技术部门资料占位.md" aria-label="Copy command tools/kb preview-source-review _workbench/inbox/2026-06-08-Agent时代企业技术部门资料占位.md">Copy</button></td></tr></tbody>
+            </table>
+          </section>
+          <section id="rag">
+            <div class="section-head">
+              <h3>RAG Scope</h3>
+            </div>
+            <div class="scope-summary"><span class="scope-chip scope-cautious">cautious 3</span>
+<span class="scope-chip scope-exclude">exclude 2</span>
+<span class="scope-chip scope-include">include 5</span></div>
+            <table>
+              <thead>
+                <tr><th>Scope</th><th>Priority</th><th>ID</th><th>Path</th><th>Risk</th></tr>
+              </thead>
+              <tbody><tr data-scope="include"><td><span class="scope scope-include">include</span></td><td>high</td><td>formal-topic-library</td><td><code>主题库/</code></td><td>low</td></tr>
+<tr data-scope="include"><td><span class="scope scope-include">include</span></td><td>high</td><td>generated-core-indexes</td><td><code>_index/generated-manifest.json, _index/generated-review-queue.json, _index/generated-review-packet.json, _index/generated-decision-guide.json, _index/generated-rag-scope.json, _index/generated-workspace-dashboard.json, _index/generated-tool-catalog.json</code></td><td>low</td></tr>
+<tr data-scope="include"><td><span class="scope scope-include">include</span></td><td>high</td><td>governance-rules</td><td><code>_meta/知识入库规则.md, _meta/工作流说明.md, _meta/版本管理规则.md, _meta/Knowledge Workbench V0 实施计划.md</code></td><td>low</td></tr>
+<tr data-scope="include"><td><span class="scope scope-include">include</span></td><td>medium</td><td>agent-profiles</td><td><code>_agents/</code></td><td>medium</td></tr>
+<tr data-scope="include"><td><span class="scope scope-include">include</span></td><td>medium</td><td>integration-docs</td><td><code>_integrations/</code></td><td>medium</td></tr>
+<tr data-scope="cautious"><td><span class="scope scope-cautious">cautious</span></td><td>low</td><td>distillation-candidates</td><td><code>_workbench/distillations/</code></td><td>high</td></tr>
+<tr data-scope="cautious"><td><span class="scope scope-cautious">cautious</span></td><td>low</td><td>debate-sessions</td><td><code>_workbench/debates/</code></td><td>high</td></tr>
+<tr data-scope="cautious"><td><span class="scope scope-cautious">cautious</span></td><td>low</td><td>discussion-sessions</td><td><code>_workbench/sessions/</code></td><td>high</td></tr>
+<tr data-scope="exclude"><td><span class="scope scope-exclude">exclude</span></td><td>none</td><td>raw-inbox</td><td><code>_workbench/inbox/</code></td><td>critical</td></tr>
+<tr data-scope="exclude"><td><span class="scope scope-exclude">exclude</span></td><td>none</td><td>templates-and-local-runtime</td><td><code>_meta/templates/, 模版表/, .git/, .obsidian/workspace*, .DS_Store, screenshots, binary media</code></td><td>medium</td></tr></tbody>
+            </table>
+          </section>
+        </div>
+        <div>
+          <section id="gates">
+            <div class="section-head">
+              <h3>Gate Status</h3>
+            </div>
+            <table>
+              <thead>
+                <tr><th>Gate</th><th>Count</th><th>State</th><th>Next</th></tr>
+              </thead>
+              <tbody><tr><td>来源资料人工审阅</td><td>1</td><td><span class="state state-ready">ready</span></td><td>preview-source-review, then human review-source decision</td></tr>
+<tr><td>来源资料补全</td><td>0</td><td><span class="state state-clear">clear</span></td><td>prepare-source or draft-source-summary</td></tr>
+<tr><td>沉淀候选人工审阅</td><td>1</td><td><span class="state state-ready">ready</span></td><td>preview-distillation-review, then human review-distillation decision</td></tr>
+<tr><td>正式入库确认</td><td>0</td><td><span class="state state-blocked-by-human-review">blocked-by-human-review</span></td><td>promote-audit before promote --confirm</td></tr></tbody>
+            </table>
+          </section>
+          <section id="commands">
+            <div class="section-head">
+              <h3>Safe Read Commands</h3>
+            </div>
+            <ul class="list"><li><code>tools/kb workspace-dashboard</code><button class="copy-button" type="button" data-copy="tools/kb workspace-dashboard" aria-label="Copy command tools/kb workspace-dashboard">Copy</button></li>
+<li><code>tools/kb workspace-ui</code><button class="copy-button" type="button" data-copy="tools/kb workspace-ui" aria-label="Copy command tools/kb workspace-ui">Copy</button></li>
+<li><code>tools/kb decision-guide --limit 3</code><button class="copy-button" type="button" data-copy="tools/kb decision-guide --limit 3" aria-label="Copy command tools/kb decision-guide --limit 3">Copy</button></li>
+<li><code>tools/kb rag-scope --json</code><button class="copy-button" type="button" data-copy="tools/kb rag-scope --json" aria-label="Copy command tools/kb rag-scope --json">Copy</button></li>
+<li><code>tools/kb review-packet --limit 3</code><button class="copy-button" type="button" data-copy="tools/kb review-packet --limit 3" aria-label="Copy command tools/kb review-packet --limit 3">Copy</button></li>
+<li><code>tools/kb tool-catalog --json</code><button class="copy-button" type="button" data-copy="tools/kb tool-catalog --json" aria-label="Copy command tools/kb tool-catalog --json">Copy</button></li>
+<li><code>tools/kb agent-brief --json</code><button class="copy-button" type="button" data-copy="tools/kb agent-brief --json" aria-label="Copy command tools/kb agent-brief --json">Copy</button></li>
+<li><code>tools/kb version-status</code><button class="copy-button" type="button" data-copy="tools/kb version-status" aria-label="Copy command tools/kb version-status">Copy</button></li></ul>
+          </section>
+          <section>
+            <div class="section-head">
+              <h3>Protected Actions</h3>
+            </div>
+            <ul class="list"><li><code>tools/kb review-source &lt;source&gt; reviewed --note &lt;note&gt;</code></li>
+<li><code>tools/kb review-distillation &lt;distillation&gt; approve --note &lt;note&gt;</code></li>
+<li><code>tools/kb approve-distillation &lt;distillation&gt;</code></li>
+<li><code>tools/kb promote --confirm &lt;distillation&gt;</code></li></ul>
+          </section>
+          <section>
+            <div class="section-head">
+              <h3>Entry Links</h3>
+            </div>
+            <ul class="list link-list"><li><span>只读工作台 UI</span><code>_index/generated-workspace-ui.html</code><code>_index/generated-workspace-dashboard.json</code></li>
+<li><span>审阅队列</span><code>_index/generated-review-queue.md</code><code>_index/generated-review-queue.json</code></li>
+<li><span>决策指南</span><code>_index/generated-decision-guide.md</code><code>_index/generated-decision-guide.json</code></li>
+<li><span>RAG 范围</span><code>_index/generated-rag-scope.md</code><code>_index/generated-rag-scope.json</code></li>
+<li><span>审阅包</span><code>_index/generated-review-packet.md</code><code>_index/generated-review-packet.json</code></li>
+<li><span>Agent 接手简报</span><code>_index/generated-agent-brief.md</code><code>_index/generated-agent-brief.json</code></li>
+<li><span>工具边界目录</span><code>_index/generated-tool-catalog.md</code><code>_index/generated-tool-catalog.json</code></li>
+<li><span>入库审计</span><code>_index/generated-promote-audit.md</code><code>_index/generated-promote-audit.json</code></li>
+<li><span>版本状态</span><code>_index/generated-version-status.md</code><code>_index/generated-version-status.json</code></li></ul>
+          </section>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script id="workspace-data" type="application/json">{"updated": "2026-06-13", "title": "Knowledge Workbench UI", "mode": "read-only-static-export", "dashboard": {"updated": "2026-06-13", "title": "Knowledge Workbench Dashboard", "summary": {"total_typed_files": 46, "types": {"agent-profile": 7, "debate-session": 1, "decision-record": 3, "discussion-session": 4, "distillation-candidate": 4, "governance-rule": 2, "implementation-plan": 1, "index": 4, "integration-plan": 6, "knowledge-card": 3, "source-note": 3, "tool-doc": 1, "topic-index": 3, "workflow": 3, "workspace-home": 1}, "statuses": {"active": 21, "draft": 12, "accepted": 3, "reviewed": 4, "promoted": 6}, "source_review_ready": 1, "source_needs_completion": 0, "distillation_review_ready": 1, "distillation_approved_for_promotion": 0, "active_sessions": 5, "high_risk_tools": 5}, "decision_focus": [{"kind": "source-note", "priority": 10, "reason": "source ready for human review", "path": "_workbench/inbox/2026-06-13-Claude-Code-ToolSearch机制研究.md", "topic": "agent-harness-skill-system", "status": "draft", "review_status": "linked-to-session", "check_ok": true, "blocking_checks": [], "next_action": "preview-source-review", "preview_command": "tools/kb preview-source-review _workbench/inbox/2026-06-13-Claude-Code-ToolSearch机制研究.md", "decision_commands": ["tools/kb review-source _workbench/inbox/2026-06-13-Claude-Code-ToolSearch机制研究.md reviewed --note \"摘要和初步判断已人工确认\"", "tools/kb review-source _workbench/inbox/2026-06-13-Claude-Code-ToolSearch机制研究.md needs-evidence --note \"需要补充或修订\"", "tools/kb review-source _workbench/inbox/2026-06-13-Claude-Code-ToolSearch机制研究.md rejected --note \"不采用该来源\""]}, {"kind": "distillation-candidate", "priority": 20, "reason": "distillation ready for human review", "path": "_workbench/distillations/2026-06-13-ToolSearch与知识库主动被动更新机制-沉淀候选.md", "id": "ds-20260613-001", "topic": "agent-harness-skill-system", "promotion_status": "pending-human-review", "target_topic_path": "主题库/Agent协作与Harness/", "check_ok": true, "promotion_conflict_free": true, "blocking_checks": [], "conflicts": [], "next_action": "preview-distillation-review", "preview_command": "tools/kb preview-distillation-review _workbench/distillations/2026-06-13-ToolSearch与知识库主动被动更新机制-沉淀候选.md", "decision_commands": ["tools/kb review-distillation _workbench/distillations/2026-06-13-ToolSearch与知识库主动被动更新机制-沉淀候选.md approve --note \"沉淀内容和入库计划已人工确认\"", "tools/kb review-distillation _workbench/distillations/2026-06-13-ToolSearch与知识库主动被动更新机制-沉淀候选.md needs-revision --note \"需要补充或修订\"", "tools/kb review-distillation _workbench/distillations/2026-06-13-ToolSearch与知识库主动被动更新机制-沉淀候选.md reject --note \"不进入正式知识库\""]}, {"kind": "debate-session", "priority": 88, "reason": "debate already drafted a distillation", "path": "_workbench/debates/2026-06-09-企业技术部门-AI-转型红蓝攻防.md", "id": "db-20260609-001", "topic": "enterprise-ai-tech-org", "status": "draft", "stage": "convergence", "check_ok": true, "blocking_checks": [], "next_action": "distillation-drafted", "preview_command": "tools/kb preview-debate-review _workbench/debates/2026-06-09-企业技术部门-AI-转型红蓝攻防.md", "decision_commands": ["tools/kb preview-debate-review _workbench/debates/2026-06-09-企业技术部门-AI-转型红蓝攻防.md", "tools/kb preview-distillation-review _workbench/distillations/2026-06-08-企业技术部门在Agent时代的定位-沉淀候选.md"]}, {"kind": "source-note", "priority": 90, "reason": "source already reviewed", "path": "_workbench/inbox/2026-06-09-Anthropic-Skills-官方仓库-skill-creator.md", "topic": "agent-harness-skill-system", "status": "reviewed", "review_status": "reviewed", "check_ok": true, "blocking_checks": [], "next_action": "source-reviewed", "preview_command": "tools/kb preview-source-review _workbench/inbox/2026-06-09-Anthropic-Skills-官方仓库-skill-creator.md", "decision_commands": []}, {"kind": "source-note", "priority": 90, "reason": "source already reviewed", "path": "_workbench/inbox/2026-06-08-Agent时代企业技术部门资料占位.md", "topic": "enterprise-ai-tech-org", "status": "reviewed", "review_status": "reviewed", "check_ok": true, "blocking_checks": [], "next_action": "source-reviewed", "preview_command": "tools/kb preview-source-review _workbench/inbox/2026-06-08-Agent时代企业技术部门资料占位.md", "decision_commands": []}], "gate_status": [{"id": "source-review", "label": "来源资料人工审阅", "count": 1, "state": "ready", "next": "preview-source-review, then human review-source decision"}, {"id": "source-completion", "label": "来源资料补全", "count": 0, "state": "clear", "next": "prepare-source or draft-source-summary"}, {"id": "distillation-review", "label": "沉淀候选人工审阅", "count": 1, "state": "ready", "next": "preview-distillation-review, then human review-distillation decision"}, {"id": "promotion-confirm", "label": "正式入库确认", "count": 0, "state": "blocked-by-human-review", "next": "promote-audit before promote --confirm"}], "workspace_layers": [{"id": "formal-knowledge", "label": "正式知识库", "paths": ["主题库/"], "counts": {"topic-index": 3, "knowledge-card": 3, "decision-record": 3}, "rule": "Only reviewed and promoted knowledge belongs here."}, {"id": "workbench", "label": "工作台", "paths": ["_workbench/inbox/", "_workbench/sessions/", "_workbench/debates/", "_workbench/distillations/"], "counts": {"source-note": 3, "discussion-session": 4, "debate-session": 1, "distillation-candidate": 4}, "rule": "Process materials stay here until human-reviewed."}, {"id": "agents", "label": "专家层", "paths": ["_agents/"], "counts": {"agent-profile": 7}, "rule": "Expert roles and long-running viewpoints."}, {"id": "governance", "label": "规则和集成", "paths": ["_meta/", "_integrations/", "tools/"], "counts": {"workflow": 3, "governance-rule": 2, "implementation-plan": 1, "integration-plan": 6, "tool-doc": 1}, "rule": "Defines how humans, agents, and tools collaborate."}], "safe_read_commands": ["tools/kb workspace-dashboard", "tools/kb workspace-ui", "tools/kb decision-guide --limit 3", "tools/kb rag-scope --json", "tools/kb review-packet --limit 3", "tools/kb tool-catalog --json", "tools/kb agent-brief --json", "tools/kb version-status"], "protected_actions": ["tools/kb review-source \u003csource> reviewed --note \u003cnote>", "tools/kb review-distillation \u003cdistillation> approve --note \u003cnote>", "tools/kb approve-distillation \u003cdistillation>", "tools/kb promote --confirm \u003cdistillation>"], "entry_links": [{"label": "只读工作台 UI", "path": "_index/generated-workspace-ui.html", "json_path": "_index/generated-workspace-dashboard.json"}, {"label": "审阅队列", "path": "_index/generated-review-queue.md", "json_path": "_index/generated-review-queue.json"}, {"label": "决策指南", "path": "_index/generated-decision-guide.md", "json_path": "_index/generated-decision-guide.json"}, {"label": "RAG 范围", "path": "_index/generated-rag-scope.md", "json_path": "_index/generated-rag-scope.json"}, {"label": "审阅包", "path": "_index/generated-review-packet.md", "json_path": "_index/generated-review-packet.json"}, {"label": "Agent 接手简报", "path": "_index/generated-agent-brief.md", "json_path": "_index/generated-agent-brief.json"}, {"label": "工具边界目录", "path": "_index/generated-tool-catalog.md", "json_path": "_index/generated-tool-catalog.json"}, {"label": "入库审计", "path": "_index/generated-promote-audit.md", "json_path": "_index/generated-promote-audit.json"}, {"label": "版本状态", "path": "_index/generated-version-status.md", "json_path": "_index/generated-version-status.json"}]}, "review_queue": {"items": [{"kind": "source-note", "priority": 10, "reason": "source ready for human review", "path": "_workbench/inbox/2026-06-13-Claude-Code-ToolSearch机制研究.md", "topic": "agent-harness-skill-system", "status": "draft", "review_status": "linked-to-session", "check_ok": true, "blocking_checks": [], "next_action": "preview-source-review", "preview_command": "tools/kb preview-source-review _workbench/inbox/2026-06-13-Claude-Code-ToolSearch机制研究.md", "decision_commands": ["tools/kb review-source _workbench/inbox/2026-06-13-Claude-Code-ToolSearch机制研究.md reviewed --note \"摘要和初步判断已人工确认\"", "tools/kb review-source _workbench/inbox/2026-06-13-Claude-Code-ToolSearch机制研究.md needs-evidence --note \"需要补充或修订\"", "tools/kb review-source _workbench/inbox/2026-06-13-Claude-Code-ToolSearch机制研究.md rejected --note \"不采用该来源\""]}, {"kind": "distillation-candidate", "priority": 20, "reason": "distillation ready for human review", "path": "_workbench/distillations/2026-06-13-ToolSearch与知识库主动被动更新机制-沉淀候选.md", "id": "ds-20260613-001", "topic": "agent-harness-skill-system", "promotion_status": "pending-human-review", "target_topic_path": "主题库/Agent协作与Harness/", "check_ok": true, "promotion_conflict_free": true, "blocking_checks": [], "conflicts": [], "next_action": "preview-distillation-review", "preview_command": "tools/kb preview-distillation-review _workbench/distillations/2026-06-13-ToolSearch与知识库主动被动更新机制-沉淀候选.md", "decision_commands": ["tools/kb review-distillation _workbench/distillations/2026-06-13-ToolSearch与知识库主动被动更新机制-沉淀候选.md approve --note \"沉淀内容和入库计划已人工确认\"", "tools/kb review-distillation _workbench/distillations/2026-06-13-ToolSearch与知识库主动被动更新机制-沉淀候选.md needs-revision --note \"需要补充或修订\"", "tools/kb review-distillation _workbench/distillations/2026-06-13-ToolSearch与知识库主动被动更新机制-沉淀候选.md reject --note \"不进入正式知识库\""]}, {"kind": "debate-session", "priority": 88, "reason": "debate already drafted a distillation", "path": "_workbench/debates/2026-06-09-企业技术部门-AI-转型红蓝攻防.md", "id": "db-20260609-001", "topic": "enterprise-ai-tech-org", "status": "draft", "stage": "convergence", "check_ok": true, "blocking_checks": [], "next_action": "distillation-drafted", "preview_command": "tools/kb preview-debate-review _workbench/debates/2026-06-09-企业技术部门-AI-转型红蓝攻防.md", "decision_commands": ["tools/kb preview-debate-review _workbench/debates/2026-06-09-企业技术部门-AI-转型红蓝攻防.md", "tools/kb preview-distillation-review _workbench/distillations/2026-06-08-企业技术部门在Agent时代的定位-沉淀候选.md"]}, {"kind": "source-note", "priority": 90, "reason": "source already reviewed", "path": "_workbench/inbox/2026-06-09-Anthropic-Skills-官方仓库-skill-creator.md", "topic": "agent-harness-skill-system", "status": "reviewed", "review_status": "reviewed", "check_ok": true, "blocking_checks": [], "next_action": "source-reviewed", "preview_command": "tools/kb preview-source-review _workbench/inbox/2026-06-09-Anthropic-Skills-官方仓库-skill-creator.md", "decision_commands": []}, {"kind": "source-note", "priority": 90, "reason": "source already reviewed", "path": "_workbench/inbox/2026-06-08-Agent时代企业技术部门资料占位.md", "topic": "enterprise-ai-tech-org", "status": "reviewed", "review_status": "reviewed", "check_ok": true, "blocking_checks": [], "next_action": "source-reviewed", "preview_command": "tools/kb preview-source-review _workbench/inbox/2026-06-08-Agent时代企业技术部门资料占位.md", "decision_commands": []}]}, "rag_scope": {"schema_version": "2026-06-09", "updated": "2026-06-13", "catalog_id": "knowledge-workbench-rag-scope", "retrieval_policy": {"default_formal_answer_scope": "include", "stable_claim_priority": "主题库/ first, then governance rules, then generated review context.", "workbench_default": "cautious or exclude unless the user asks for process context.", "citation_rule": "When citing cautious material, include path and review or promotion status."}, "scope_counts": {"include": 5, "cautious": 3, "exclude": 2}, "items": [{"id": "formal-topic-library", "path": "主题库/", "scope": "include", "priority": "high", "audience": ["human", "agent", "rag"], "reason": "Formal knowledge cards, decision records, and topic indexes live here after review and promotion.", "conditions": ["Prefer files with type knowledge-card, decision-record, or topic-index.", "Use source_sessions and status fields when citing claims."], "risk": "low"}, {"id": "generated-core-indexes", "path": "_index/generated-manifest.json, _index/generated-review-queue.json, _index/generated-review-packet.json, _index/generated-decision-guide.json, _index/generated-rag-scope.json, _index/generated-workspace-dashboard.json, _index/generated-tool-catalog.json", "scope": "include", "priority": "high", "audience": ["agent", "rag"], "reason": "Machine-readable status, review context, dashboard, and tool boundary snapshots.", "conditions": ["Refresh with tools/kb refresh-index after accepted writes.", "Treat generated-agent-brief, generated-promote-audit, and generated-version-status as runtime-local snapshots."], "risk": "low"}, {"id": "governance-rules", "path": "_meta/知识入库规则.md, _meta/工作流说明.md, _meta/版本管理规则.md, _meta/Knowledge Workbench V0 实施计划.md", "scope": "include", "priority": "high", "audience": ["human", "agent", "rag"], "reason": "Defines admission, workflow, versioning, and current implementation goals.", "conditions": ["Use these rules to interpret workbench state before proposing writes.", "Do not override explicit human review gates."], "risk": "low"}, {"id": "agent-profiles", "path": "_agents/", "scope": "include", "priority": "medium", "audience": ["human", "agent", "rag"], "reason": "Expert personas and durable viewpoints used to structure multi-expert discussions.", "conditions": ["Use as role context, not as factual evidence.", "Separate expert stance from confirmed knowledge claims."], "risk": "medium"}, {"id": "integration-docs", "path": "_integrations/", "scope": "include", "priority": "medium", "audience": ["human", "agent"], "reason": "Adapter plans for Obsidian, Khoj, MCP, and input workflows.", "conditions": ["Use for integration behavior and UI entry points.", "Do not treat draft integration plans as completed implementation."], "risk": "medium"}, {"id": "distillation-candidates", "path": "_workbench/distillations/", "scope": "cautious", "priority": "low", "audience": ["human", "agent", "rag"], "reason": "Condensed candidate knowledge before formal promotion.", "conditions": ["Only cite with promotion_status and path.", "Pending-human-review content can inform discussion but is not formal knowledge.", "Approved-for-promotion still requires promote-audit and promote --confirm before entering 主题库/."], "risk": "high"}, {"id": "debate-sessions", "path": "_workbench/debates/", "scope": "cautious", "priority": "low", "audience": ["human", "agent"], "reason": "Red-blue debate traces and multi-expert reasoning history.", "conditions": ["Use for process context, objections, and unresolved assumptions.", "Do not answer stable factual questions from debate text alone."], "risk": "high"}, {"id": "discussion-sessions", "path": "_workbench/sessions/", "scope": "cautious", "priority": "low", "audience": ["human", "agent"], "reason": "Persistent brainstorm and discussion records.", "conditions": ["Use to reconstruct context and source_sessions.", "Treat claims as provisional unless promoted or reviewed elsewhere."], "risk": "high"}, {"id": "raw-inbox", "path": "_workbench/inbox/", "scope": "exclude", "priority": "none", "audience": ["agent"], "reason": "Raw or semi-processed source notes may contain unverified, clipped, or placeholder material.", "conditions": ["Use only when explicitly reviewing a source note.", "Do not include by default in broad RAG answers.", "Promote source value through review-source or distillation workflows, not direct retrieval priority."], "risk": "critical"}, {"id": "templates-and-local-runtime", "path": "_meta/templates/, 模版表/, .git/, .obsidian/workspace*, .DS_Store, screenshots, binary media", "scope": "exclude", "priority": "none", "audience": ["agent"], "reason": "Templates, local runtime state, Git internals, and media are not stable knowledge sources.", "conditions": ["Only inspect when debugging a template, Obsidian setup, Git issue, or visual asset.", "Never use these paths as formal answer evidence."], "risk": "medium"}], "recommended_query_order": [{"step": 1, "label": "Formal knowledge and rules", "paths": ["主题库/", "_meta/知识入库规则.md", "_meta/工作流说明.md", "_meta/版本管理规则.md"], "scope": "include", "use_for": "Stable claims, decisions, admission rules, workflow, and versioning."}, {"step": 2, "label": "Generated machine context", "paths": ["_index/generated-workspace-dashboard.json", "_index/generated-review-queue.json", "_index/generated-review-packet.json", "_index/generated-decision-guide.json", "_index/generated-rag-scope.json", "_index/generated-tool-catalog.json"], "scope": "include", "use_for": "Current state, queues, human decision context, and safe tool boundaries."}, {"step": 3, "label": "Expert and integration context", "paths": ["_agents/", "_integrations/"], "scope": "include", "use_for": "Expert perspectives, adapter behavior, and UI or client integration plans."}, {"step": 4, "label": "Workbench process context", "paths": ["_workbench/distillations/", "_workbench/debates/", "_workbench/sessions/"], "scope": "cautious", "use_for": "Reasoning traces, provisional candidates, objections, and source reconstruction."}], "guardrails": ["Retrieval scope does not equal formal knowledge promotion.", "Prefer 主题库/ for stable claims and cite source_sessions when available.", "Use _workbench/ material as process context unless a human explicitly asks to inspect it.", "Never treat _workbench/inbox/ as default RAG evidence.", "Generated runtime snapshots should be refreshed before cross-client handoff.", "Do not call review-source, review-distillation, approve-distillation, or promote --confirm from retrieval results alone."]}}</script>
+  <script>
+    const filters = document.querySelectorAll("[data-filter]");
+    const rows = document.querySelectorAll("#focus tbody tr[data-kind]");
+    filters.forEach((button) => {
+      button.addEventListener("click", () => {
+        const value = button.dataset.filter;
+        filters.forEach((item) => item.setAttribute("aria-pressed", String(item === button)));
+        rows.forEach((row) => {
+          row.hidden = value !== "all" && row.dataset.kind !== value;
+        });
+      });
+    });
+    document.querySelectorAll("[data-copy]").forEach((button) => {
+      button.addEventListener("click", async () => {
+        const text = button.dataset.copy;
+        try {
+          await navigator.clipboard.writeText(text);
+          button.classList.add("copied");
+          button.textContent = "Copied";
+          window.setTimeout(() => {
+            button.classList.remove("copied");
+            button.textContent = "Copy";
+          }, 1200);
+        } catch (error) {
+          button.textContent = "Copy failed";
+        }
+      });
+    });
+  </script>
+</body>
+</html>

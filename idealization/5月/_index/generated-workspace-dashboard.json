@@ -1,0 +1,278 @@
+{
+  "generated_by": "tools/kb refresh-index",
+  "updated": "2026-06-13",
+  "title": "Knowledge Workbench Dashboard",
+  "summary": {
+    "total_typed_files": 46,
+    "types": {
+      "agent-profile": 7,
+      "debate-session": 1,
+      "decision-record": 3,
+      "discussion-session": 4,
+      "distillation-candidate": 4,
+      "governance-rule": 2,
+      "implementation-plan": 1,
+      "index": 4,
+      "integration-plan": 6,
+      "knowledge-card": 3,
+      "source-note": 3,
+      "tool-doc": 1,
+      "topic-index": 3,
+      "workflow": 3,
+      "workspace-home": 1
+    },
+    "statuses": {
+      "active": 21,
+      "draft": 12,
+      "accepted": 3,
+      "reviewed": 4,
+      "promoted": 6
+    },
+    "source_review_ready": 1,
+    "source_needs_completion": 0,
+    "distillation_review_ready": 1,
+    "distillation_approved_for_promotion": 0,
+    "active_sessions": 5,
+    "high_risk_tools": 5
+  },
+  "decision_focus": [
+    {
+      "kind": "source-note",
+      "priority": 10,
+      "reason": "source ready for human review",
+      "path": "_workbench/inbox/2026-06-13-Claude-Code-ToolSearch机制研究.md",
+      "topic": "agent-harness-skill-system",
+      "status": "draft",
+      "review_status": "linked-to-session",
+      "check_ok": true,
+      "blocking_checks": [],
+      "next_action": "preview-source-review",
+      "preview_command": "tools/kb preview-source-review _workbench/inbox/2026-06-13-Claude-Code-ToolSearch机制研究.md",
+      "decision_commands": [
+        "tools/kb review-source _workbench/inbox/2026-06-13-Claude-Code-ToolSearch机制研究.md reviewed --note \"摘要和初步判断已人工确认\"",
+        "tools/kb review-source _workbench/inbox/2026-06-13-Claude-Code-ToolSearch机制研究.md needs-evidence --note \"需要补充或修订\"",
+        "tools/kb review-source _workbench/inbox/2026-06-13-Claude-Code-ToolSearch机制研究.md rejected --note \"不采用该来源\""
+      ]
+    },
+    {
+      "kind": "distillation-candidate",
+      "priority": 20,
+      "reason": "distillation ready for human review",
+      "path": "_workbench/distillations/2026-06-13-ToolSearch与知识库主动被动更新机制-沉淀候选.md",
+      "id": "ds-20260613-001",
+      "topic": "agent-harness-skill-system",
+      "promotion_status": "pending-human-review",
+      "target_topic_path": "主题库/Agent协作与Harness/",
+      "check_ok": true,
+      "promotion_conflict_free": true,
+      "blocking_checks": [],
+      "conflicts": [],
+      "next_action": "preview-distillation-review",
+      "preview_command": "tools/kb preview-distillation-review _workbench/distillations/2026-06-13-ToolSearch与知识库主动被动更新机制-沉淀候选.md",
+      "decision_commands": [
+        "tools/kb review-distillation _workbench/distillations/2026-06-13-ToolSearch与知识库主动被动更新机制-沉淀候选.md approve --note \"沉淀内容和入库计划已人工确认\"",
+        "tools/kb review-distillation _workbench/distillations/2026-06-13-ToolSearch与知识库主动被动更新机制-沉淀候选.md needs-revision --note \"需要补充或修订\"",
+        "tools/kb review-distillation _workbench/distillations/2026-06-13-ToolSearch与知识库主动被动更新机制-沉淀候选.md reject --note \"不进入正式知识库\""
+      ]
+    },
+    {
+      "kind": "debate-session",
+      "priority": 88,
+      "reason": "debate already drafted a distillation",
+      "path": "_workbench/debates/2026-06-09-企业技术部门-AI-转型红蓝攻防.md",
+      "id": "db-20260609-001",
+      "topic": "enterprise-ai-tech-org",
+      "status": "draft",
+      "stage": "convergence",
+      "check_ok": true,
+      "blocking_checks": [],
+      "next_action": "distillation-drafted",
+      "preview_command": "tools/kb preview-debate-review _workbench/debates/2026-06-09-企业技术部门-AI-转型红蓝攻防.md",
+      "decision_commands": [
+        "tools/kb preview-debate-review _workbench/debates/2026-06-09-企业技术部门-AI-转型红蓝攻防.md",
+        "tools/kb preview-distillation-review _workbench/distillations/2026-06-08-企业技术部门在Agent时代的定位-沉淀候选.md"
+      ]
+    },
+    {
+      "kind": "source-note",
+      "priority": 90,
+      "reason": "source already reviewed",
+      "path": "_workbench/inbox/2026-06-09-Anthropic-Skills-官方仓库-skill-creator.md",
+      "topic": "agent-harness-skill-system",
+      "status": "reviewed",
+      "review_status": "reviewed",
+      "check_ok": true,
+      "blocking_checks": [],
+      "next_action": "source-reviewed",
+      "preview_command": "tools/kb preview-source-review _workbench/inbox/2026-06-09-Anthropic-Skills-官方仓库-skill-creator.md",
+      "decision_commands": []
+    },
+    {
+      "kind": "source-note",
+      "priority": 90,
+      "reason": "source already reviewed",
+      "path": "_workbench/inbox/2026-06-08-Agent时代企业技术部门资料占位.md",
+      "topic": "enterprise-ai-tech-org",
+      "status": "reviewed",
+      "review_status": "reviewed",
+      "check_ok": true,
+      "blocking_checks": [],
+      "next_action": "source-reviewed",
+      "preview_command": "tools/kb preview-source-review _workbench/inbox/2026-06-08-Agent时代企业技术部门资料占位.md",
+      "decision_commands": []
+    }
+  ],
+  "gate_status": [
+    {
+      "id": "source-review",
+      "label": "来源资料人工审阅",
+      "count": 1,
+      "state": "ready",
+      "next": "preview-source-review, then human review-source decision"
+    },
+    {
+      "id": "source-completion",
+      "label": "来源资料补全",
+      "count": 0,
+      "state": "clear",
+      "next": "prepare-source or draft-source-summary"
+    },
+    {
+      "id": "distillation-review",
+      "label": "沉淀候选人工审阅",
+      "count": 1,
+      "state": "ready",
+      "next": "preview-distillation-review, then human review-distillation decision"
+    },
+    {
+      "id": "promotion-confirm",
+      "label": "正式入库确认",
+      "count": 0,
+      "state": "blocked-by-human-review",
+      "next": "promote-audit before promote --confirm"
+    }
+  ],
+  "workspace_layers": [
+    {
+      "id": "formal-knowledge",
+      "label": "正式知识库",
+      "paths": [
+        "主题库/"
+      ],
+      "counts": {
+        "topic-index": 3,
+        "knowledge-card": 3,
+        "decision-record": 3
+      },
+      "rule": "Only reviewed and promoted knowledge belongs here."
+    },
+    {
+      "id": "workbench",
+      "label": "工作台",
+      "paths": [
+        "_workbench/inbox/",
+        "_workbench/sessions/",
+        "_workbench/debates/",
+        "_workbench/distillations/"
+      ],
+      "counts": {
+        "source-note": 3,
+        "discussion-session": 4,
+        "debate-session": 1,
+        "distillation-candidate": 4
+      },
+      "rule": "Process materials stay here until human-reviewed."
+    },
+    {
+      "id": "agents",
+      "label": "专家层",
+      "paths": [
+        "_agents/"
+      ],
+      "counts": {
+        "agent-profile": 7
+      },
+      "rule": "Expert roles and long-running viewpoints."
+    },
+    {
+      "id": "governance",
+      "label": "规则和集成",
+      "paths": [
+        "_meta/",
+        "_integrations/",
+        "tools/"
+      ],
+      "counts": {
+        "workflow": 3,
+        "governance-rule": 2,
+        "implementation-plan": 1,
+        "integration-plan": 6,
+        "tool-doc": 1
+      },
+      "rule": "Defines how humans, agents, and tools collaborate."
+    }
+  ],
+  "safe_read_commands": [
+    "tools/kb workspace-dashboard",
+    "tools/kb workspace-ui",
+    "tools/kb decision-guide --limit 3",
+    "tools/kb rag-scope --json",
+    "tools/kb review-packet --limit 3",
+    "tools/kb tool-catalog --json",
+    "tools/kb agent-brief --json",
+    "tools/kb version-status"
+  ],
+  "protected_actions": [
+    "tools/kb review-source <source> reviewed --note <note>",
+    "tools/kb review-distillation <distillation> approve --note <note>",
+    "tools/kb approve-distillation <distillation>",
+    "tools/kb promote --confirm <distillation>"
+  ],
+  "entry_links": [
+    {
+      "label": "只读工作台 UI",
+      "path": "_index/generated-workspace-ui.html",
+      "json_path": "_index/generated-workspace-dashboard.json"
+    },
+    {
+      "label": "审阅队列",
+      "path": "_index/generated-review-queue.md",
+      "json_path": "_index/generated-review-queue.json"
+    },
+    {
+      "label": "决策指南",
+      "path": "_index/generated-decision-guide.md",
+      "json_path": "_index/generated-decision-guide.json"
+    },
+    {
+      "label": "RAG 范围",
+      "path": "_index/generated-rag-scope.md",
+      "json_path": "_index/generated-rag-scope.json"
+    },
+    {
+      "label": "审阅包",
+      "path": "_index/generated-review-packet.md",
+      "json_path": "_index/generated-review-packet.json"
+    },
+    {
+      "label": "Agent 接手简报",
+      "path": "_index/generated-agent-brief.md",
+      "json_path": "_index/generated-agent-brief.json"
+    },
+    {
+      "label": "工具边界目录",
+      "path": "_index/generated-tool-catalog.md",
+      "json_path": "_index/generated-tool-catalog.json"
+    },
+    {
+      "label": "入库审计",
+      "path": "_index/generated-promote-audit.md",
+      "json_path": "_index/generated-promote-audit.json"
+    },
+    {
+      "label": "版本状态",
+      "path": "_index/generated-version-status.md",
+      "json_path": "_index/generated-version-status.json"
+    }
+  ]
+}

@@ -1,0 +1,149 @@
+{
+  "generated_by": "tools/kb refresh-index",
+  "updated": "2026-06-13",
+  "source_notes": [
+    {
+      "path": "_workbench/inbox/2026-06-13-Claude-Code-ToolSearch机制研究.md",
+      "topic": "agent-harness-skill-system",
+      "status": "draft",
+      "review_status": "linked-to-session",
+      "source_type": "codex-attachment",
+      "source_title": "Claude Code ToolSearch 机制研究摘录",
+      "updated": "2026-06-13",
+      "check_ok": true,
+      "blocking_checks": [],
+      "next_action": "preview-source-review",
+      "preview_command": "tools/kb preview-source-review _workbench/inbox/2026-06-13-Claude-Code-ToolSearch机制研究.md",
+      "decision_commands": [
+        "tools/kb review-source _workbench/inbox/2026-06-13-Claude-Code-ToolSearch机制研究.md reviewed --note \"摘要和初步判断已人工确认\"",
+        "tools/kb review-source _workbench/inbox/2026-06-13-Claude-Code-ToolSearch机制研究.md needs-evidence --note \"需要补充或修订\"",
+        "tools/kb review-source _workbench/inbox/2026-06-13-Claude-Code-ToolSearch机制研究.md rejected --note \"不采用该来源\""
+      ]
+    },
+    {
+      "path": "_workbench/inbox/2026-06-08-Agent时代企业技术部门资料占位.md",
+      "topic": "enterprise-ai-tech-org",
+      "status": "reviewed",
+      "review_status": "reviewed",
+      "source_type": "manual",
+      "source_title": "Agent时代企业技术部门资料占位",
+      "updated": "2026-06-09",
+      "check_ok": true,
+      "blocking_checks": [],
+      "next_action": "source-reviewed",
+      "preview_command": "tools/kb preview-source-review _workbench/inbox/2026-06-08-Agent时代企业技术部门资料占位.md",
+      "decision_commands": []
+    },
+    {
+      "path": "_workbench/inbox/2026-06-09-Anthropic-Skills-官方仓库-skill-creator.md",
+      "topic": "agent-harness-skill-system",
+      "status": "reviewed",
+      "review_status": "reviewed",
+      "source_type": "github-repo",
+      "source_title": "Anthropic Skills 官方仓库 skill-creator",
+      "updated": "2026-06-09",
+      "check_ok": true,
+      "blocking_checks": [],
+      "next_action": "source-reviewed",
+      "preview_command": "tools/kb preview-source-review _workbench/inbox/2026-06-09-Anthropic-Skills-官方仓库-skill-creator.md",
+      "decision_commands": []
+    }
+  ],
+  "pending_promotions": [
+    {
+      "path": "_workbench/distillations/2026-06-13-ToolSearch与知识库主动被动更新机制-沉淀候选.md",
+      "id": "ds-20260613-001",
+      "topic": "agent-harness-skill-system",
+      "promotion_status": "pending-human-review",
+      "target_topic_path": "主题库/Agent协作与Harness/",
+      "updated": "2026-06-13",
+      "check_ok": true,
+      "promotion_conflict_free": true,
+      "blocking_checks": [],
+      "conflicts": [],
+      "next_action": "preview-distillation-review",
+      "preview_command": "tools/kb preview-distillation-review _workbench/distillations/2026-06-13-ToolSearch与知识库主动被动更新机制-沉淀候选.md",
+      "decision_commands": [
+        "tools/kb review-distillation _workbench/distillations/2026-06-13-ToolSearch与知识库主动被动更新机制-沉淀候选.md approve --note \"沉淀内容和入库计划已人工确认\"",
+        "tools/kb review-distillation _workbench/distillations/2026-06-13-ToolSearch与知识库主动被动更新机制-沉淀候选.md needs-revision --note \"需要补充或修订\"",
+        "tools/kb review-distillation _workbench/distillations/2026-06-13-ToolSearch与知识库主动被动更新机制-沉淀候选.md reject --note \"不进入正式知识库\""
+      ]
+    }
+  ],
+  "active_sessions": [
+    {
+      "type": "discussion-session",
+      "path": "_workbench/sessions/2026-06-09-Anthropic-Skills-官方仓库与-harness-思想.md",
+      "id": "ws-20260609-001",
+      "topic": "agent-harness-skill-system",
+      "status": "draft",
+      "stage": "distillation",
+      "updated": "2026-06-09",
+      "check_ok": null,
+      "blocking_checks": [],
+      "next_action": "continue-session",
+      "preview_command": "",
+      "decision_commands": []
+    },
+    {
+      "type": "discussion-session",
+      "path": "_workbench/sessions/2026-06-13-ToolSearch与知识更新机制审计.md",
+      "id": "ws-20260613-001",
+      "topic": "agent-harness-skill-system",
+      "status": "draft",
+      "stage": "distillation",
+      "updated": "2026-06-13",
+      "check_ok": null,
+      "blocking_checks": [],
+      "next_action": "continue-session",
+      "preview_command": "",
+      "decision_commands": []
+    },
+    {
+      "type": "debate-session",
+      "path": "_workbench/debates/2026-06-09-企业技术部门-AI-转型红蓝攻防.md",
+      "id": "db-20260609-001",
+      "topic": "enterprise-ai-tech-org",
+      "status": "draft",
+      "stage": "convergence",
+      "updated": "2026-06-09",
+      "check_ok": true,
+      "blocking_checks": [],
+      "next_action": "distillation-drafted",
+      "preview_command": "tools/kb preview-debate-review _workbench/debates/2026-06-09-企业技术部门-AI-转型红蓝攻防.md",
+      "decision_commands": [
+        "tools/kb preview-debate-review _workbench/debates/2026-06-09-企业技术部门-AI-转型红蓝攻防.md",
+        "tools/kb preview-distillation-review _workbench/distillations/2026-06-08-企业技术部门在Agent时代的定位-沉淀候选.md"
+      ],
+      "target_topic_path": "主题库/企业技术部门AI转型/"
+    },
+    {
+      "type": "discussion-session",
+      "path": "_workbench/sessions/2026-06-08-企业技术部门在Agent时代的定位.md",
+      "id": "ws-20260608-002",
+      "topic": "enterprise-ai-tech-org",
+      "status": "reviewed",
+      "stage": "distillation",
+      "updated": "2026-06-08",
+      "check_ok": null,
+      "blocking_checks": [],
+      "next_action": "continue-session",
+      "preview_command": "",
+      "decision_commands": []
+    },
+    {
+      "type": "discussion-session",
+      "path": "_workbench/sessions/2026-06-08-人和Agent共同编织知识网络.md",
+      "id": "ws-20260608-001",
+      "topic": "human-agent-knowledge-network",
+      "status": "reviewed",
+      "stage": "distillation",
+      "updated": "2026-06-08",
+      "check_ok": null,
+      "blocking_checks": [],
+      "next_action": "continue-session",
+      "preview_command": "",
+      "decision_commands": []
+    }
+  ]
+}

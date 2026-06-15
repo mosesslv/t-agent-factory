@@ -1,0 +1,240 @@
+{
+  "generated_by": "tools/kb refresh-index",
+  "updated": "2026-06-13",
+  "schema_version": "2026-06-09",
+  "catalog_id": "knowledge-workbench-rag-scope",
+  "retrieval_policy": {
+    "default_formal_answer_scope": "include",
+    "stable_claim_priority": "主题库/ first, then governance rules, then generated review context.",
+    "workbench_default": "cautious or exclude unless the user asks for process context.",
+    "citation_rule": "When citing cautious material, include path and review or promotion status."
+  },
+  "scope_counts": {
+    "include": 5,
+    "cautious": 3,
+    "exclude": 2
+  },
+  "items": [
+    {
+      "id": "formal-topic-library",
+      "path": "主题库/",
+      "scope": "include",
+      "priority": "high",
+      "audience": [
+        "human",
+        "agent",
+        "rag"
+      ],
+      "reason": "Formal knowledge cards, decision records, and topic indexes live here after review and promotion.",
+      "conditions": [
+        "Prefer files with type knowledge-card, decision-record, or topic-index.",
+        "Use source_sessions and status fields when citing claims."
+      ],
+      "risk": "low"
+    },
+    {
+      "id": "generated-core-indexes",
+      "path": "_index/generated-manifest.json, _index/generated-review-queue.json, _index/generated-review-packet.json, _index/generated-decision-guide.json, _index/generated-rag-scope.json, _index/generated-workspace-dashboard.json, _index/generated-tool-catalog.json",
+      "scope": "include",
+      "priority": "high",
+      "audience": [
+        "agent",
+        "rag"
+      ],
+      "reason": "Machine-readable status, review context, dashboard, and tool boundary snapshots.",
+      "conditions": [
+        "Refresh with tools/kb refresh-index after accepted writes.",
+        "Treat generated-agent-brief, generated-promote-audit, and generated-version-status as runtime-local snapshots."
+      ],
+      "risk": "low"
+    },
+    {
+      "id": "governance-rules",
+      "path": "_meta/知识入库规则.md, _meta/工作流说明.md, _meta/版本管理规则.md, _meta/Knowledge Workbench V0 实施计划.md",
+      "scope": "include",
+      "priority": "high",
+      "audience": [
+        "human",
+        "agent",
+        "rag"
+      ],
+      "reason": "Defines admission, workflow, versioning, and current implementation goals.",
+      "conditions": [
+        "Use these rules to interpret workbench state before proposing writes.",
+        "Do not override explicit human review gates."
+      ],
+      "risk": "low"
+    },
+    {
+      "id": "agent-profiles",
+      "path": "_agents/",
+      "scope": "include",
+      "priority": "medium",
+      "audience": [
+        "human",
+        "agent",
+        "rag"
+      ],
+      "reason": "Expert personas and durable viewpoints used to structure multi-expert discussions.",
+      "conditions": [
+        "Use as role context, not as factual evidence.",
+        "Separate expert stance from confirmed knowledge claims."
+      ],
+      "risk": "medium"
+    },
+    {
+      "id": "integration-docs",
+      "path": "_integrations/",
+      "scope": "include",
+      "priority": "medium",
+      "audience": [
+        "human",
+        "agent"
+      ],
+      "reason": "Adapter plans for Obsidian, Khoj, MCP, and input workflows.",
+      "conditions": [
+        "Use for integration behavior and UI entry points.",
+        "Do not treat draft integration plans as completed implementation."
+      ],
+      "risk": "medium"
+    },
+    {
+      "id": "distillation-candidates",
+      "path": "_workbench/distillations/",
+      "scope": "cautious",
+      "priority": "low",
+      "audience": [
+        "human",
+        "agent",
+        "rag"
+      ],
+      "reason": "Condensed candidate knowledge before formal promotion.",
+      "conditions": [
+        "Only cite with promotion_status and path.",
+        "Pending-human-review content can inform discussion but is not formal knowledge.",
+        "Approved-for-promotion still requires promote-audit and promote --confirm before entering 主题库/."
+      ],
+      "risk": "high"
+    },
+    {
+      "id": "debate-sessions",
+      "path": "_workbench/debates/",
+      "scope": "cautious",
+      "priority": "low",
+      "audience": [
+        "human",
+        "agent"
+      ],
+      "reason": "Red-blue debate traces and multi-expert reasoning history.",
+      "conditions": [
+        "Use for process context, objections, and unresolved assumptions.",
+        "Do not answer stable factual questions from debate text alone."
+      ],
+      "risk": "high"
+    },
+    {
+      "id": "discussion-sessions",
+      "path": "_workbench/sessions/",
+      "scope": "cautious",
+      "priority": "low",
+      "audience": [
+        "human",
+        "agent"
+      ],
+      "reason": "Persistent brainstorm and discussion records.",
+      "conditions": [
+        "Use to reconstruct context and source_sessions.",
+        "Treat claims as provisional unless promoted or reviewed elsewhere."
+      ],
+      "risk": "high"
+    },
+    {
+      "id": "raw-inbox",
+      "path": "_workbench/inbox/",
+      "scope": "exclude",
+      "priority": "none",
+      "audience": [
+        "agent"
+      ],
+      "reason": "Raw or semi-processed source notes may contain unverified, clipped, or placeholder material.",
+      "conditions": [
+        "Use only when explicitly reviewing a source note.",
+        "Do not include by default in broad RAG answers.",
+        "Promote source value through review-source or distillation workflows, not direct retrieval priority."
+      ],
+      "risk": "critical"
+    },
+    {
+      "id": "templates-and-local-runtime",
+      "path": "_meta/templates/, 模版表/, .git/, .obsidian/workspace*, .DS_Store, screenshots, binary media",
+      "scope": "exclude",
+      "priority": "none",
+      "audience": [
+        "agent"
+      ],
+      "reason": "Templates, local runtime state, Git internals, and media are not stable knowledge sources.",
+      "conditions": [
+        "Only inspect when debugging a template, Obsidian setup, Git issue, or visual asset.",
+        "Never use these paths as formal answer evidence."
+      ],
+      "risk": "medium"
+    }
+  ],
+  "recommended_query_order": [
+    {
+      "step": 1,
+      "label": "Formal knowledge and rules",
+      "paths": [
+        "主题库/",
+        "_meta/知识入库规则.md",
+        "_meta/工作流说明.md",
+        "_meta/版本管理规则.md"
+      ],
+      "scope": "include",
+      "use_for": "Stable claims, decisions, admission rules, workflow, and versioning."
+    },
+    {
+      "step": 2,
+      "label": "Generated machine context",
+      "paths": [
+        "_index/generated-workspace-dashboard.json",
+        "_index/generated-review-queue.json",
+        "_index/generated-review-packet.json",
+        "_index/generated-decision-guide.json",
+        "_index/generated-rag-scope.json",
+        "_index/generated-tool-catalog.json"
+      ],
+      "scope": "include",
+      "use_for": "Current state, queues, human decision context, and safe tool boundaries."
+    },
+    {
+      "step": 3,
+      "label": "Expert and integration context",
+      "paths": [
+        "_agents/",
+        "_integrations/"
+      ],
+      "scope": "include",
+      "use_for": "Expert perspectives, adapter behavior, and UI or client integration plans."
+    },
+    {
+      "step": 4,
+      "label": "Workbench process context",
+      "paths": [
+        "_workbench/distillations/",
+        "_workbench/debates/",
+        "_workbench/sessions/"
+      ],
+      "scope": "cautious",
+      "use_for": "Reasoning traces, provisional candidates, objections, and source reconstruction."
+    }
+  ],
+  "guardrails": [
+    "Retrieval scope does not equal formal knowledge promotion.",
+    "Prefer 主题库/ for stable claims and cite source_sessions when available.",
+    "Use _workbench/ material as process context unless a human explicitly asks to inspect it.",
+    "Never treat _workbench/inbox/ as default RAG evidence.",
+    "Generated runtime snapshots should be refreshed before cross-client handoff.",
+    "Do not call review-source, review-distillation, approve-distillation, or promote --confirm from retrieval results alone."
+  ]
+}

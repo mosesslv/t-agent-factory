@@ -1,0 +1,612 @@
+{
+  "generated_by": "tools/kb refresh-index",
+  "updated": "2026-06-13",
+  "schema_version": "2026-06-09",
+  "catalog_id": "knowledge-workbench-tool-catalog",
+  "permission_classes": [
+    {
+      "id": "read-only",
+      "risk": "low",
+      "auto_callable": true,
+      "writes": [],
+      "description": "Only reads Markdown, generated indexes, or Git state."
+    },
+    {
+      "id": "index-write",
+      "risk": "low",
+      "auto_callable": true,
+      "writes": [
+        "_index/"
+      ],
+      "description": "Regenerates derived index snapshots without changing source knowledge."
+    },
+    {
+      "id": "workbench-write",
+      "risk": "medium",
+      "auto_callable": false,
+      "writes": [
+        "_workbench/"
+      ],
+      "description": "Creates or updates process materials, sessions, debates, sources, or distillation drafts."
+    },
+    {
+      "id": "review-decision",
+      "risk": "high",
+      "auto_callable": false,
+      "writes": [
+        "_workbench/"
+      ],
+      "description": "Records a human review decision. Must not be called without explicit human confirmation."
+    },
+    {
+      "id": "formal-structure-write",
+      "risk": "high",
+      "auto_callable": false,
+      "writes": [
+        "主题库/"
+      ],
+      "description": "Creates formal topic structure only; still requires explicit user intent."
+    },
+    {
+      "id": "formal-knowledge-write",
+      "risk": "critical",
+      "auto_callable": false,
+      "writes": [
+        "主题库/",
+        "_workbench/"
+      ],
+      "description": "Writes formal knowledge. Requires prior human approval and an explicit confirm command."
+    }
+  ],
+  "resources": [
+    {
+      "id": "agent-brief",
+      "path": "_index/generated-agent-brief.md",
+      "json_path": "_index/generated-agent-brief.json",
+      "source_command": "tools/kb agent-brief --json",
+      "runtime": true,
+      "description": "Cross-client handoff context with version status and next actions."
+    },
+    {
+      "id": "tool-catalog",
+      "path": "_index/generated-tool-catalog.md",
+      "json_path": "_index/generated-tool-catalog.json",
+      "source_command": "tools/kb tool-catalog --json",
+      "runtime": false,
+      "description": "Machine-readable tool, resource, permission, and risk catalog."
+    },
+    {
+      "id": "workspace-dashboard",
+      "path": "_index/generated-workspace-dashboard.md",
+      "json_path": "_index/generated-workspace-dashboard.json",
+      "source_command": "tools/kb workspace-dashboard --json",
+      "runtime": false,
+      "description": "Human-facing Obsidian dashboard with decision focus and gate status."
+    },
+    {
+      "id": "workspace-ui",
+      "path": "_index/generated-workspace-ui.html",
+      "json_path": "_index/generated-workspace-dashboard.json",
+      "source_command": "tools/kb workspace-ui",
+      "runtime": false,
+      "description": "Static read-only HTML dashboard for browser-based review."
+    },
+    {
+      "id": "decision-guide",
+      "path": "_index/generated-decision-guide.md",
+      "json_path": "_index/generated-decision-guide.json",
+      "source_command": "tools/kb decision-guide --json",
+      "runtime": false,
+      "description": "Read-only human decision guide for review tasks."
+    },
+    {
+      "id": "rag-scope",
+      "path": "_index/generated-rag-scope.md",
+      "json_path": "_index/generated-rag-scope.json",
+      "source_command": "tools/kb rag-scope --json",
+      "runtime": false,
+      "description": "Read-only retrieval scope, priority, and exclusion catalog for RAG clients."
+    },
+    {
+      "id": "review-queue",
+      "path": "_index/generated-review-queue.md",
+      "json_path": "_index/generated-review-queue.json",
+      "source_command": "tools/kb review-queue --json",
+      "runtime": false,
+      "description": "Prioritized human review tasks."
+    },
+    {
+      "id": "review-packet",
+      "path": "_index/generated-review-packet.md",
+      "json_path": "_index/generated-review-packet.json",
+      "source_command": "tools/kb review-packet --json",
+      "runtime": false,
+      "description": "Detailed read-only packet for top review tasks."
+    },
+    {
+      "id": "workbench-queue",
+      "path": "_index/generated-workbench-queue.md",
+      "json_path": "_index/generated-workbench-queue.json",
+      "source_command": "tools/kb queue --json",
+      "runtime": false,
+      "description": "Actionable queues for source notes, promotions, sessions, and debates."
+    },
+    {
+      "id": "promote-audit",
+      "path": "_index/generated-promote-audit.md",
+      "json_path": "_index/generated-promote-audit.json",
+      "source_command": "tools/kb promote-audit <distillation> --json",
+      "runtime": true,
+      "description": "Local preflight for formal promotion."
+    },
+    {
+      "id": "version-status",
+      "path": "_index/generated-version-status.md",
+      "json_path": "_index/generated-version-status.json",
+      "source_command": "tools/kb version-status --json",
+      "runtime": true,
+      "description": "Local Git branch, HEAD, dirty state, and recent commits."
+    }
+  ],
+  "tools": [
+    {
+      "id": "validate",
+      "command": "tools/kb validate",
+      "permission_class": "read-only",
+      "mcp_kind": "tool",
+      "description": "Validate typed Markdown frontmatter.",
+      "risk": "low",
+      "auto_callable": true,
+      "writes": [],
+      "requires_human_confirmation": false,
+      "requires_explicit_confirm": false,
+      "requires_explicit_user_intent": false,
+      "runtime": false
+    },
+    {
+      "id": "status",
+      "command": "tools/kb status --json",
+      "permission_class": "read-only",
+      "mcp_kind": "tool",
+      "description": "Read typed file status and pending promotions.",
+      "risk": "low",
+      "auto_callable": true,
+      "writes": [],
+      "requires_human_confirmation": false,
+      "requires_explicit_confirm": false,
+      "requires_explicit_user_intent": false,
+      "runtime": false
+    },
+    {
+      "id": "version-status",
+      "command": "tools/kb version-status --json",
+      "permission_class": "read-only",
+      "mcp_kind": "tool",
+      "runtime": true,
+      "description": "Read local Git status.",
+      "risk": "low",
+      "auto_callable": true,
+      "writes": [],
+      "requires_human_confirmation": false,
+      "requires_explicit_confirm": false,
+      "requires_explicit_user_intent": false
+    },
+    {
+      "id": "agent-brief",
+      "command": "tools/kb agent-brief --json",
+      "permission_class": "read-only",
+      "mcp_kind": "resource",
+      "runtime": true,
+      "description": "Read cross-client handoff context.",
+      "risk": "low",
+      "auto_callable": true,
+      "writes": [],
+      "requires_human_confirmation": false,
+      "requires_explicit_confirm": false,
+      "requires_explicit_user_intent": false
+    },
+    {
+      "id": "tool-catalog",
+      "command": "tools/kb tool-catalog --json",
+      "permission_class": "read-only",
+      "mcp_kind": "resource",
+      "description": "Read MCP-ready tool and permission catalog.",
+      "risk": "low",
+      "auto_callable": true,
+      "writes": [],
+      "requires_human_confirmation": false,
+      "requires_explicit_confirm": false,
+      "requires_explicit_user_intent": false,
+      "runtime": false
+    },
+    {
+      "id": "workspace-dashboard",
+      "command": "tools/kb workspace-dashboard --json",
+      "permission_class": "read-only",
+      "mcp_kind": "resource",
+      "description": "Read human-facing Obsidian dashboard state.",
+      "risk": "low",
+      "auto_callable": true,
+      "writes": [],
+      "requires_human_confirmation": false,
+      "requires_explicit_confirm": false,
+      "requires_explicit_user_intent": false,
+      "runtime": false
+    },
+    {
+      "id": "workspace-ui",
+      "command": "tools/kb workspace-ui",
+      "permission_class": "read-only",
+      "mcp_kind": "resource",
+      "description": "Render a static read-only HTML dashboard to stdout.",
+      "risk": "low",
+      "auto_callable": true,
+      "writes": [],
+      "requires_human_confirmation": false,
+      "requires_explicit_confirm": false,
+      "requires_explicit_user_intent": false,
+      "runtime": false
+    },
+    {
+      "id": "decision-guide",
+      "command": "tools/kb decision-guide --json",
+      "permission_class": "read-only",
+      "mcp_kind": "resource",
+      "description": "Read human decision options and note templates without making decisions.",
+      "risk": "low",
+      "auto_callable": true,
+      "writes": [],
+      "requires_human_confirmation": false,
+      "requires_explicit_confirm": false,
+      "requires_explicit_user_intent": false,
+      "runtime": false
+    },
+    {
+      "id": "rag-scope",
+      "command": "tools/kb rag-scope --json",
+      "permission_class": "read-only",
+      "mcp_kind": "resource",
+      "description": "Read retrieval scope, priorities, exclusions, and RAG guardrails.",
+      "risk": "low",
+      "auto_callable": true,
+      "writes": [],
+      "requires_human_confirmation": false,
+      "requires_explicit_confirm": false,
+      "requires_explicit_user_intent": false,
+      "runtime": false
+    },
+    {
+      "id": "queue",
+      "command": "tools/kb queue --json",
+      "permission_class": "read-only",
+      "mcp_kind": "resource",
+      "description": "Read actionable workbench queues.",
+      "risk": "low",
+      "auto_callable": true,
+      "writes": [],
+      "requires_human_confirmation": false,
+      "requires_explicit_confirm": false,
+      "requires_explicit_user_intent": false,
+      "runtime": false
+    },
+    {
+      "id": "review-queue",
+      "command": "tools/kb review-queue --json",
+      "permission_class": "read-only",
+      "mcp_kind": "resource",
+      "description": "Read prioritized human review tasks.",
+      "risk": "low",
+      "auto_callable": true,
+      "writes": [],
+      "requires_human_confirmation": false,
+      "requires_explicit_confirm": false,
+      "requires_explicit_user_intent": false,
+      "runtime": false
+    },
+    {
+      "id": "review-packet",
+      "command": "tools/kb review-packet --json",
+      "permission_class": "read-only",
+      "mcp_kind": "resource",
+      "description": "Read detailed task context without making decisions.",
+      "risk": "low",
+      "auto_callable": true,
+      "writes": [],
+      "requires_human_confirmation": false,
+      "requires_explicit_confirm": false,
+      "requires_explicit_user_intent": false,
+      "runtime": false
+    },
+    {
+      "id": "search",
+      "command": "tools/kb search <query>",
+      "permission_class": "read-only",
+      "mcp_kind": "tool",
+      "description": "Search Markdown content in configured knowledge roots.",
+      "risk": "low",
+      "auto_callable": true,
+      "writes": [],
+      "requires_human_confirmation": false,
+      "requires_explicit_confirm": false,
+      "requires_explicit_user_intent": false,
+      "runtime": false
+    },
+    {
+      "id": "source-preview",
+      "command": "tools/kb check-source <source>; tools/kb preview-source-review <source> --json",
+      "permission_class": "read-only",
+      "mcp_kind": "tool",
+      "description": "Check and preview source notes before human review.",
+      "risk": "low",
+      "auto_callable": true,
+      "writes": [],
+      "requires_human_confirmation": false,
+      "requires_explicit_confirm": false,
+      "requires_explicit_user_intent": false,
+      "runtime": false
+    },
+    {
+      "id": "debate-preview",
+      "command": "tools/kb check-debate <debate>; tools/kb preview-debate-review <debate> --json",
+      "permission_class": "read-only",
+      "mcp_kind": "tool",
+      "description": "Check and preview debate sessions before distillation.",
+      "risk": "low",
+      "auto_callable": true,
+      "writes": [],
+      "requires_human_confirmation": false,
+      "requires_explicit_confirm": false,
+      "requires_explicit_user_intent": false,
+      "runtime": false
+    },
+    {
+      "id": "distillation-preview",
+      "command": "tools/kb check-distillation <distillation>; tools/kb preview-distillation-review <distillation> --json",
+      "permission_class": "read-only",
+      "mcp_kind": "tool",
+      "description": "Check and preview distillation candidates before review.",
+      "risk": "low",
+      "auto_callable": true,
+      "writes": [],
+      "requires_human_confirmation": false,
+      "requires_explicit_confirm": false,
+      "requires_explicit_user_intent": false,
+      "runtime": false
+    },
+    {
+      "id": "promote-preview",
+      "command": "tools/kb preview-promote <distillation> --json; tools/kb promote-audit <distillation> --json",
+      "permission_class": "read-only",
+      "mcp_kind": "tool",
+      "runtime": true,
+      "description": "Preview formal promotion files, gates, Git state, and rollback guidance.",
+      "risk": "low",
+      "auto_callable": true,
+      "writes": [],
+      "requires_human_confirmation": false,
+      "requires_explicit_confirm": false,
+      "requires_explicit_user_intent": false
+    },
+    {
+      "id": "refresh-index",
+      "command": "tools/kb refresh-index",
+      "permission_class": "index-write",
+      "mcp_kind": "tool",
+      "writes": [
+        "_index/generated-*.md",
+        "_index/generated-*.json"
+      ],
+      "description": "Regenerate derived index snapshots.",
+      "risk": "low",
+      "auto_callable": true,
+      "requires_human_confirmation": false,
+      "requires_explicit_confirm": false,
+      "requires_explicit_user_intent": false,
+      "runtime": false
+    },
+    {
+      "id": "new-session",
+      "command": "tools/kb new-session <title> --topic <topic>",
+      "permission_class": "workbench-write",
+      "mcp_kind": "tool",
+      "writes": [
+        "_workbench/sessions/"
+      ],
+      "description": "Create a discussion session.",
+      "risk": "medium",
+      "auto_callable": false,
+      "requires_human_confirmation": false,
+      "requires_explicit_confirm": false,
+      "requires_explicit_user_intent": false,
+      "runtime": false
+    },
+    {
+      "id": "new-debate",
+      "command": "tools/kb new-debate <title> --session <session-id> --target-topic-path <path>",
+      "permission_class": "workbench-write",
+      "mcp_kind": "tool",
+      "writes": [
+        "_workbench/debates/"
+      ],
+      "description": "Create a multi-expert debate session.",
+      "risk": "medium",
+      "auto_callable": false,
+      "requires_human_confirmation": false,
+      "requires_explicit_confirm": false,
+      "requires_explicit_user_intent": false,
+      "runtime": false
+    },
+    {
+      "id": "new-source",
+      "command": "tools/kb new-source <title> --url <url> --topic <topic>",
+      "permission_class": "workbench-write",
+      "mcp_kind": "tool",
+      "writes": [
+        "_workbench/inbox/"
+      ],
+      "description": "Create an inbox source note.",
+      "risk": "medium",
+      "auto_callable": false,
+      "requires_human_confirmation": false,
+      "requires_explicit_confirm": false,
+      "requires_explicit_user_intent": false,
+      "runtime": false
+    },
+    {
+      "id": "link-source",
+      "command": "tools/kb link-source <source> <session>",
+      "permission_class": "workbench-write",
+      "mcp_kind": "tool",
+      "writes": [
+        "_workbench/inbox/",
+        "_workbench/sessions/"
+      ],
+      "description": "Link a source note to a discussion session.",
+      "risk": "medium",
+      "auto_callable": false,
+      "requires_human_confirmation": false,
+      "requires_explicit_confirm": false,
+      "requires_explicit_user_intent": false,
+      "runtime": false
+    },
+    {
+      "id": "prepare-source",
+      "command": "tools/kb prepare-source <source>; tools/kb draft-source-summary <source>",
+      "permission_class": "workbench-write",
+      "mcp_kind": "tool",
+      "writes": [
+        "_workbench/inbox/"
+      ],
+      "description": "Add completion tasks or a summary draft to a source note.",
+      "risk": "medium",
+      "auto_callable": false,
+      "requires_human_confirmation": false,
+      "requires_explicit_confirm": false,
+      "requires_explicit_user_intent": false,
+      "runtime": false
+    },
+    {
+      "id": "apply-source-draft",
+      "command": "tools/kb apply-source-draft <source> --confirm",
+      "permission_class": "workbench-write",
+      "mcp_kind": "tool",
+      "writes": [
+        "_workbench/inbox/"
+      ],
+      "requires_explicit_confirm": true,
+      "description": "Copy a drafted source summary into formal source sections.",
+      "risk": "medium",
+      "auto_callable": false,
+      "requires_human_confirmation": false,
+      "requires_explicit_user_intent": false,
+      "runtime": false
+    },
+    {
+      "id": "draft-distillation-from-debate",
+      "command": "tools/kb draft-distillation-from-debate <debate>",
+      "permission_class": "workbench-write",
+      "mcp_kind": "tool",
+      "writes": [
+        "_workbench/distillations/"
+      ],
+      "description": "Draft a distillation candidate from a debate.",
+      "risk": "medium",
+      "auto_callable": false,
+      "requires_human_confirmation": false,
+      "requires_explicit_confirm": false,
+      "requires_explicit_user_intent": false,
+      "runtime": false
+    },
+    {
+      "id": "review-source",
+      "command": "tools/kb review-source <source> reviewed|needs-evidence|rejected --note <note>",
+      "permission_class": "review-decision",
+      "mcp_kind": "tool",
+      "writes": [
+        "_workbench/inbox/"
+      ],
+      "requires_human_confirmation": true,
+      "description": "Record a human source review decision.",
+      "risk": "high",
+      "auto_callable": false,
+      "requires_explicit_confirm": false,
+      "requires_explicit_user_intent": false,
+      "runtime": false
+    },
+    {
+      "id": "review-distillation",
+      "command": "tools/kb review-distillation <distillation> approve|needs-revision|reject --note <note>",
+      "permission_class": "review-decision",
+      "mcp_kind": "tool",
+      "writes": [
+        "_workbench/distillations/"
+      ],
+      "requires_human_confirmation": true,
+      "description": "Record a human distillation review decision.",
+      "risk": "high",
+      "auto_callable": false,
+      "requires_explicit_confirm": false,
+      "requires_explicit_user_intent": false,
+      "runtime": false
+    },
+    {
+      "id": "approve-distillation",
+      "command": "tools/kb approve-distillation <distillation>",
+      "permission_class": "review-decision",
+      "mcp_kind": "tool",
+      "writes": [
+        "_workbench/distillations/"
+      ],
+      "requires_human_confirmation": true,
+      "preferred_alternative": "tools/kb review-distillation <distillation> approve --note <note>",
+      "description": "Compatibility command for marking a distillation approved.",
+      "risk": "high",
+      "auto_callable": false,
+      "requires_explicit_confirm": false,
+      "requires_explicit_user_intent": false,
+      "runtime": false
+    },
+    {
+      "id": "new-topic",
+      "command": "tools/kb new-topic <title> --topic <topic>",
+      "permission_class": "formal-structure-write",
+      "mcp_kind": "tool",
+      "writes": [
+        "主题库/"
+      ],
+      "requires_explicit_user_intent": true,
+      "description": "Create a formal topic skeleton without promoting knowledge.",
+      "risk": "high",
+      "auto_callable": false,
+      "requires_human_confirmation": false,
+      "requires_explicit_confirm": false,
+      "runtime": false
+    },
+    {
+      "id": "promote-confirm",
+      "command": "tools/kb promote --confirm <distillation>",
+      "permission_class": "formal-knowledge-write",
+      "mcp_kind": "tool",
+      "writes": [
+        "主题库/",
+        "_workbench/distillations/"
+      ],
+      "requires_human_confirmation": true,
+      "requires_prior_status": "approved-for-promotion",
+      "requires_clean_audit": true,
+      "description": "Write formal knowledge files from an approved distillation.",
+      "risk": "critical",
+      "auto_callable": false,
+      "requires_explicit_confirm": false,
+      "requires_explicit_user_intent": false,
+      "runtime": false
+    }
+  ],
+  "guardrails": [
+    "Expose read-only tools and resources first.",
+    "Do not auto-call review-decision, formal-structure-write, or formal-knowledge-write tools.",
+    "Do not call promote-confirm unless the user explicitly approved the distillation and promote-audit gates are understood.",
+    "Keep Markdown and Git as the source of truth; MCP clients are adapters, not owners of knowledge state.",
+    "Refresh generated indexes after any accepted write."
+  ]
+}

@@ -1,0 +1,24 @@
+type: knowledge-card
+required:
+  - id
+  - type
+  - topic
+  - status
+  - confidence
+  - created
+  - updated
+  - source_sessions
+allowed_status:
+  - draft
+  - reviewed
+  - promoted
+  - deprecated
+allowed_confidence:
+  - low
+  - medium
+  - high
+required_prefix:
+  id: kc-
+notes:
+  - Knowledge cards live under formal topic directories in 主题库.
+  - Every card should be traceable to one or more workbench sessions.

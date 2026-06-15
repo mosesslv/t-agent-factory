@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Data Agent 门户原型 v3</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="window-bar"><span></span><span></span><span></span></div>
+      <nav class="nav">
+        <button class="nav-item active" data-route="new-analysis"><span>＋</span>新建分析</button>
+        <button class="nav-item" data-route="market"><span>▦</span>Agent 广场</button>
+        <button class="nav-item" data-route="datasets"><span>◎</span>数据集</button>
+        <button class="nav-item" data-route="knowledge"><span>▣</span>知识库</button>
+        <button class="nav-item" data-route="skills"><span>⚡</span>SkillHub</button>
+        <button class="nav-item" data-route="history"><span>◷</span>历史报告</button>
+      </nav>
+
+      <section class="side-group grow">
+        <div class="side-title">Agent</div>
+        <div id="projectList"></div>
+        <div class="side-title conversation-title">对话</div>
+        <div id="analysisList"></div>
+      </section>
+
+      <button class="settings" id="settingsBtn">⚙ 设置</button>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <h1 id="pageTitle">新建分析</h1>
+          <p id="pageDesc"></p>
+        </div>
+      </header>
+
+      <div class="content">
+        <section class="page" id="page-market">
+          <div class="page-grid">
+            <div class="market-toolbar">
+              <div class="market-search">
+                <span>⌕</span>
+                <input type="text" value="" placeholder="搜索 Agent、业务场景、数据集或知识库" aria-label="搜索 Agent、业务场景、数据集或知识库">
+              </div>
+            </div>
+
+              <div class="market-segment-row">
+                <div class="market-segment-cluster">
+                  <div class="market-control-group market-source-group">
+                    <div class="market-segment agent-owner-segment" role="tablist" aria-label="Agent 来源">
+                      <button class="active" data-agent-owner="official" role="tab" aria-selected="true">官方 Agent</button>
+                      <button data-agent-owner="mine" role="tab" aria-selected="false">我的 Agent</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="market-actions">
+                  <button class="plain-btn" id="createTemplateBtn">＋ 新建 Agent</button>
+                </div>
+              </div>
+
+            <div class="market-panel active" id="officialTemplatesPanel">
+              <div class="solution-grid" id="solutionGrid"></div>
+            </div>
+
+            <div class="market-panel" id="myTemplatesPanel">
+              <div class="template-board" id="myTemplateBoard"></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="page" id="page-datasets">
+          <div class="page-grid">
+            <div class="market-toolbar dataset-toolbar">
+              <div class="market-search">
+                <span>⌕</span>
+                <input type="text" value="" placeholder="搜索数据集、字段或指标" aria-label="搜索数据集、字段或指标">
+              </div>
+            </div>
+            <div class="market-segment-row">
+              <div class="market-segment" role="tablist" aria-label="数据集视图">
+                <button class="active" data-dataset-segment="official" role="tab" aria-selected="true">官方数据集</button>
+                <button data-dataset-segment="mine" role="tab" aria-selected="false">我的数据集</button>
+              </div>
+              <button class="plain-btn hidden" id="createDatasetBtn">＋ 新建数据集</button>
+            </div>
+
+            <div class="dataset-panel active" id="availableDatasetsPanel">
+              <div class="dataset-panel-note">官方预置的数据集已经完成字段语义学习，可以直接用于模板和报告生成。</div>
+                <div class="dataset-grid" id="datasetGrid"></div>
+            </div>
+
+            <div class="dataset-panel" id="createDatasetsPanel">
+              <div class="dataset-panel-note">这里展示你自己创建的数据集，也可以从本地文件或企业已接入数据源新建。</div>
+                <div class="dataset-grid my-dataset-grid" id="myDatasetGrid"></div>
+            </div>
+            <input id="datasetPageFileInput" class="hidden-file-input" type="file" accept=".xls,.xlsx,.csv">
+          </div>
+        </section>
+
+        <section class="page" id="page-knowledge">
+          <div class="page-grid">
+            <div class="market-toolbar knowledge-toolbar">
+              <div class="market-search">
+                <span>⌕</span>
+                <input type="text" value="" placeholder="搜索知识库、文件、网页或业务口径" aria-label="搜索知识库、文件、网页或业务口径">
+              </div>
+            </div>
+            <div class="market-segment-row">
+              <div class="market-segment" role="tablist" aria-label="知识库类型">
+                <button class="active" data-knowledge-segment="official" role="tab" aria-selected="true">官方知识库</button>
+                <button data-knowledge-segment="mine" role="tab" aria-selected="false">我的知识库</button>
+              </div>
+              <button class="plain-btn hidden" id="createKnowledgeBtn">＋ 新建知识库</button>
+            </div>
+            <div class="market-segment-row compact-market-row">
+              <div class="market-segment" role="tablist" aria-label="知识库分类">
+                <button class="active" data-knowledge-type="all" role="tab" aria-selected="true">全部</button>
+                <button data-knowledge-type="business" role="tab" aria-selected="false">业务知识</button>
+                <button data-knowledge-type="template" role="tab" aria-selected="false">分析模版</button>
+              </div>
+            </div>
+
+            <div class="knowledge-panel active" id="officialKnowledgePanel">
+              <div class="knowledge-grid" id="knowledgeGrid"></div>
+            </div>
+
+            <div class="knowledge-panel" id="myKnowledgePanel">
+              <div class="knowledge-grid" id="myKnowledgeGrid"></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="page" id="page-skills">
+          <div class="page-grid">
+            <div class="market-toolbar skillhub-toolbar">
+              <div class="market-search">
+                <span>⌕</span>
+                <input type="text" value="" placeholder="搜索 Skill、业务能力或使用场景" aria-label="搜索 Skill、业务能力或使用场景">
+              </div>
+            </div>
+            <div class="market-segment-row">
+              <div class="market-segment" role="tablist" aria-label="Skill 类型">
+                <button class="active" data-skill-segment="all" role="tab" aria-selected="true">全部</button>
+                <button data-skill-segment="official" role="tab" aria-selected="false">官方</button>
+                <button data-skill-segment="enterprise" role="tab" aria-selected="false">企业</button>
+                <button data-skill-segment="mine" role="tab" aria-selected="false">我的</button>
+              </div>
+              <button class="plain-btn" id="publishSkillBtn">＋ 发布 Skill</button>
+            </div>
+            <div class="skillhub-grid" id="skillHubGrid"></div>
+          </div>
+        </section>
+
+        <section class="page chat-page active" id="page-chat">
+          <div class="chat-workspace empty" id="chatWorkspace">
+            <div class="chat-empty-hero" id="chatEmptyHero">
+              <div class="chat-empty-head">
+                <h2>我可以帮你完成数据分析工作</h2>
+                <p></p>
+              </div>
+            </div>
+            <div class="chat-scroll" id="chatScroll">
+              <div class="chat-stream" id="chatStream">
+                <div class="message assistant">
+                  <div class="avatar">AI</div>
+                  <div class="bubble">
+                    <strong>我可以帮你把数据变成一份完整报告。</strong>
+                    <p>你可以直接描述需求，也可以从方案广场带入方案和数据，我会继续完成分析、可视化和报告生成。</p>
+                    <div class="quick-row">
+                      <button data-template="经营复盘">经营复盘</button>
+                      <button data-template="活动效果分析">活动效果分析</button>
+                      <button data-template="销售诊断">销售诊断</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <aside class="inline-report-panel hidden" id="inlineReportPanel">
+              <div class="inline-report-head">
+                <div>
+                  <span class="card-kicker">REPORT PREVIEW</span>
+                  <h2 id="inlineReportTitle">AI 数据分析报告</h2>
+                </div>
+                <button class="drawer-close" id="closeInlineReport">×</button>
+              </div>
+              <div class="inline-report-actions">
+                <span class="status green" id="inlineReportModeStatus">预览模式</span>
+                <span class="status" id="inlineReportSaveStatus">未保存</span>
+                <button class="plain-btn" id="inlineManualEditBtn">手动修改</button>
+                <button class="plain-btn" id="inlineSaveReportBtn">保存报告</button>
+                <button class="dark-btn" id="inlineExportReportBtn">导出</button>
+              </div>
+              <div class="inline-report-body">
+                <div class="report-preview inline-report-preview" id="inlineReportEditable">
+                  <div class="metric-row">
+                    <div><span>GMV</span><strong>¥18.6M</strong><small>环比 +8.4%</small></div>
+                    <div><span>毛利率</span><strong>31.2%</strong><small>环比 -2.1pp</small></div>
+                    <div><span>ROI</span><strong>2.8</strong><small>低于目标 0.4</small></div>
+                  </div>
+                  <div class="fake-chart"><span style="height:42%"></span><span style="height:70%"></span><span style="height:55%"></span><span style="height:82%"></span><span style="height:48%"></span><span style="height:64%"></span></div>
+                  <h3>核心结论</h3>
+                  <p>本期收入达成率为 104%，增长主要来自华东和华南区域；但毛利率连续两周下滑，主要受低毛利活动品类占比提升影响。</p>
+                  <h3>建议动作</h3>
+                  <p>下月建议将直播渠道从单纯 GMV 目标切换为“GMV + 毛利保护”双目标，并对家清品类设置活动价格下限。</p>
+                </div>
+              </div>
+            </aside>
+
+            <div class="composer-shell">
+              <div class="conversation-module-meta hidden" id="conversationModuleMeta"></div>
+              <div class="module-entry-bar" id="modeTabs">
+                <button data-task-mode="data"><i>◉</i><span>小T问数</span></button>
+                <button data-task-mode="excel"><i>▦</i><span>小T表格</span></button>
+                <button data-task-mode="report"><i>◫</i><span>小T报告</span></button>
+                <button data-task-mode="knowledge"><i>✦</i><span>小T问答</span></button>
+              </div>
+              <div class="report-composer">
+                <div class="composer-top hidden" id="composerTop">
+                  <div class="active-mode-bar" id="activeModeBar">
+                    <div class="active-mode-left">
+                      <span class="active-mode-chip" id="activeModeChip">
+                        <i id="activeModeIcon">◫</i>
+                        <b id="activeModeLabel">小T报告</b>
+                      </span>
+                      <span class="active-mode-assist">为您回答</span>
+                    </div>
+                    <button class="active-mode-close" id="clearTaskModeBtn">
+                      <span id="activeModeTitle">我的报告</span>
+                      <i>×</i>
+                    </button>
+                  </div>
+                  <span class="mode-text hidden" id="composerStatus"></span>
+                </div>
+                <div class="context-chips" id="contextChips"></div>
+                <textarea id="analysisText"></textarea>
+                <div class="tool-strip">
+                  <button class="tool-chip" id="dataSelectBtn">◎ 数据</button>
+                  <button class="tool-chip" id="knowledgeBtn">▣ 知识</button>
+                  <button class="tool-chip" id="webSearchBtn">○ 联网</button>
+                  <button class="send-btn" id="sendPrompt">↑</button>
+                </div>
+                <input id="excelInput" class="hidden-file-input" type="file" accept=".xls,.xlsx,.csv">
+                <div class="composer-hint" id="uploadSub"></div>
+              </div>
+            </div>
+            <div class="empty-template-grid" id="emptyTemplateGrid"></div>
+          </div>
+        </section>
+
+        <section class="page" id="page-history">
+          <div class="page-grid">
+            <div class="section-head">
+              <span class="card-kicker">REPORT LIBRARY</span>
+              <h2>历史报告</h2>
+              <p>这里仅展示用户主动保存的正式报告产物，不混入未保存的对话过程。</p>
+            </div>
+            <div class="history-table" id="savedReportsTable"></div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <div class="modal hidden" id="reportModal">
+      <div class="modal-card report-workbench">
+        <div class="modal-head report-workbench-head">
+          <div>
+            <span class="card-kicker">REPORT WORKBENCH</span>
+            <h2 id="reportTitle">产销协同关键业务指标分析报告</h2>
+          </div>
+          <div class="report-head-actions">
+            <span class="status green" id="reportModeStatus">预览模式</span>
+            <button class="plain-btn" id="manualEditBtn">手动修改</button>
+            <button class="dark-btn">导出</button>
+          </div>
+          <button id="closeModal">×</button>
+        </div>
+        <div class="report-workbench-body">
+          <aside class="report-outline">
+            <span>目录</span>
+            <button class="active">核心结论</button>
+            <button>指标表现</button>
+            <button>归因分析</button>
+            <button>建议动作</button>
+          </aside>
+          <div class="report-preview" id="reportEditable">
+            <div class="metric-row">
+              <div><span>GMV</span><strong>¥18.6M</strong><small>环比 +8.4%</small></div>
+              <div><span>毛利率</span><strong>31.2%</strong><small>环比 -2.1pp</small></div>
+              <div><span>ROI</span><strong>2.8</strong><small>低于目标 0.4</small></div>
+            </div>
+            <div class="fake-chart"><span style="height:42%"></span><span style="height:70%"></span><span style="height:55%"></span><span style="height:82%"></span><span style="height:48%"></span><span style="height:64%"></span></div>
+            <h3>核心结论</h3>
+            <p>本期收入达成率为 104%，增长主要来自华东和华南区域；但毛利率连续两周下滑，主要受低毛利活动品类占比提升影响。</p>
+            <h3>建议动作</h3>
+            <p>下月建议将直播渠道从单纯 GMV 目标切换为“GMV + 毛利保护”双目标，并对家清品类设置活动价格下限。</p>
+          </div>
+          <aside class="report-comments">
+            <span>AI 修改建议</span>
+            <div class="comment-card">
+              <strong>适合老板汇报</strong>
+              <p>可以把核心结论压缩到三条，并把风险动作放到第一页。</p>
+            </div>
+            <div class="comment-card">
+              <strong>补充渠道视角</strong>
+              <p>直播渠道增长快但折扣深，可以增加一段渠道毛利解释。</p>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </div>
+    <div class="drawer-overlay hidden" id="drawerOverlay"></div>
+    <aside class="side-drawer hidden" id="sideDrawer"></aside>
+  </div>
+  <script src="./app.js"></script>
+</body>
+</html>

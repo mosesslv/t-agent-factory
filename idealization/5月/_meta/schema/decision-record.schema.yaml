@@ -1,0 +1,19 @@
+type: decision-record
+required:
+  - id
+  - type
+  - topic
+  - status
+  - created
+  - updated
+  - source_sessions
+allowed_status:
+  - proposed
+  - accepted
+  - superseded
+  - deprecated
+required_prefix:
+  id: adr-
+notes:
+  - Decision records live under formal topic directories in 主题库.
+  - Decisions preserve tradeoffs and rollback paths.

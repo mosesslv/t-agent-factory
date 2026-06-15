@@ -1,0 +1,282 @@
+{
+  "generated_by": "tools/kb refresh-index",
+  "updated": "2026-06-13",
+  "items": [
+    {
+      "kind": "source-note",
+      "priority": 10,
+      "reason": "source ready for human review",
+      "path": "_workbench/inbox/2026-06-13-Claude-Code-ToolSearch机制研究.md",
+      "topic": "agent-harness-skill-system",
+      "status": "draft",
+      "review_status": "linked-to-session",
+      "check_ok": true,
+      "blocking_checks": [],
+      "next_action": "preview-source-review",
+      "preview_command": "tools/kb preview-source-review _workbench/inbox/2026-06-13-Claude-Code-ToolSearch机制研究.md",
+      "decision_commands": [
+        "tools/kb review-source _workbench/inbox/2026-06-13-Claude-Code-ToolSearch机制研究.md reviewed --note \"摘要和初步判断已人工确认\"",
+        "tools/kb review-source _workbench/inbox/2026-06-13-Claude-Code-ToolSearch机制研究.md needs-evidence --note \"需要补充或修订\"",
+        "tools/kb review-source _workbench/inbox/2026-06-13-Claude-Code-ToolSearch机制研究.md rejected --note \"不采用该来源\""
+      ],
+      "detail_error": "",
+      "evidence_summary": {
+        "summary_items": 5,
+        "judgment_items": 3,
+        "linked_sessions": 1,
+        "blocking_checks": [],
+        "warnings": []
+      },
+      "decision_options": [
+        {
+          "id": "reviewed",
+          "label": "Mark source reviewed",
+          "when_to_use": "摘要、初步判断、关联 session 都已人工确认，且该来源可作为后续沉淀依据。",
+          "effect": "Only marks the source note reviewed; it does not promote formal knowledge.",
+          "risk": "A weak source can later bias distillation if reviewed too early.",
+          "command": "tools/kb review-source _workbench/inbox/2026-06-13-Claude-Code-ToolSearch机制研究.md reviewed --note \"摘要和初步判断已人工确认\"",
+          "note_template": "摘要、初步判断和关联 session 已人工确认，可作为来源。"
+        },
+        {
+          "id": "needs-evidence",
+          "label": "Request more evidence",
+          "when_to_use": "来源可信度、摘要、判断或与 session 的关系仍不够清楚。",
+          "effect": "Keeps the source in workbench for completion.",
+          "risk": "Slows down promotion, but avoids weak evidence entering the chain.",
+          "command": "tools/kb review-source _workbench/inbox/2026-06-13-Claude-Code-ToolSearch机制研究.md needs-evidence --note \"需要补充或修订\"",
+          "note_template": "需要补充原始链接、可信度说明或与当前议题的关系。"
+        },
+        {
+          "id": "rejected",
+          "label": "Reject source",
+          "when_to_use": "来源与议题无关、质量过低、重复或不应进入当前知识链。",
+          "effect": "Marks the source deprecated/rejected.",
+          "risk": "Rejected sources will be deprioritized for future distillation.",
+          "command": "tools/kb review-source _workbench/inbox/2026-06-13-Claude-Code-ToolSearch机制研究.md rejected --note \"不采用该来源\"",
+          "note_template": "该来源与当前议题关系弱或不采用。"
+        }
+      ],
+      "protected": true
+    },
+    {
+      "kind": "distillation-candidate",
+      "priority": 20,
+      "reason": "distillation ready for human review",
+      "path": "_workbench/distillations/2026-06-13-ToolSearch与知识库主动被动更新机制-沉淀候选.md",
+      "id": "ds-20260613-001",
+      "topic": "agent-harness-skill-system",
+      "promotion_status": "pending-human-review",
+      "target_topic_path": "主题库/Agent协作与Harness/",
+      "check_ok": true,
+      "promotion_conflict_free": true,
+      "blocking_checks": [],
+      "conflicts": [],
+      "next_action": "preview-distillation-review",
+      "preview_command": "tools/kb preview-distillation-review _workbench/distillations/2026-06-13-ToolSearch与知识库主动被动更新机制-沉淀候选.md",
+      "decision_commands": [
+        "tools/kb review-distillation _workbench/distillations/2026-06-13-ToolSearch与知识库主动被动更新机制-沉淀候选.md approve --note \"沉淀内容和入库计划已人工确认\"",
+        "tools/kb review-distillation _workbench/distillations/2026-06-13-ToolSearch与知识库主动被动更新机制-沉淀候选.md needs-revision --note \"需要补充或修订\"",
+        "tools/kb review-distillation _workbench/distillations/2026-06-13-ToolSearch与知识库主动被动更新机制-沉淀候选.md reject --note \"不进入正式知识库\""
+      ],
+      "detail_error": "",
+      "evidence_summary": {
+        "stable_judgments": 6,
+        "concept_definitions": 5,
+        "decision_candidates": 5,
+        "source_sessions": 1,
+        "source_debates": 0,
+        "planned_files": 4,
+        "conflicts": 0,
+        "blocking_checks": []
+      },
+      "decision_options": [
+        {
+          "id": "approve",
+          "label": "Approve for promotion preflight",
+          "when_to_use": "稳定判断、概念定义、决策候选、来源和目标文件计划均已人工确认。",
+          "effect": "Marks the candidate approved-for-promotion; formal knowledge is still not written until promote --confirm.",
+          "risk": "Approval unlocks formal promotion, so weak claims should be revised first.",
+          "command": "tools/kb review-distillation _workbench/distillations/2026-06-13-ToolSearch与知识库主动被动更新机制-沉淀候选.md approve --note \"沉淀内容和入库计划已人工确认\"",
+          "note_template": "沉淀内容、来源链和入库计划已人工确认，可进入 promote 前置状态。"
+        },
+        {
+          "id": "needs-revision",
+          "label": "Request revision",
+          "when_to_use": "结论表达、证据链、目标主题、冲突处理或待验证问题还需要打磨。",
+          "effect": "Keeps the candidate in pending-human-review and records a revision request.",
+          "risk": "Delays formalization, but protects the knowledge base from premature consensus.",
+          "command": "tools/kb review-distillation _workbench/distillations/2026-06-13-ToolSearch与知识库主动被动更新机制-沉淀候选.md needs-revision --note \"需要补充或修订\"",
+          "note_template": "需要补充证据、收敛表达或调整入库计划。"
+        },
+        {
+          "id": "reject",
+          "label": "Reject candidate",
+          "when_to_use": "该候选不应成为正式知识，或议题方向已被推翻。",
+          "effect": "Marks the candidate rejected/deprecated without writing formal knowledge.",
+          "risk": "Rejected candidate will no longer be the main promotion path.",
+          "command": "tools/kb review-distillation _workbench/distillations/2026-06-13-ToolSearch与知识库主动被动更新机制-沉淀候选.md reject --note \"不进入正式知识库\"",
+          "note_template": "该候选不进入正式知识库。"
+        }
+      ],
+      "protected": true
+    },
+    {
+      "kind": "debate-session",
+      "priority": 88,
+      "reason": "debate already drafted a distillation",
+      "path": "_workbench/debates/2026-06-09-企业技术部门-AI-转型红蓝攻防.md",
+      "id": "db-20260609-001",
+      "topic": "enterprise-ai-tech-org",
+      "status": "draft",
+      "stage": "convergence",
+      "check_ok": true,
+      "blocking_checks": [],
+      "next_action": "distillation-drafted",
+      "preview_command": "tools/kb preview-debate-review _workbench/debates/2026-06-09-企业技术部门-AI-转型红蓝攻防.md",
+      "decision_commands": [
+        "tools/kb preview-debate-review _workbench/debates/2026-06-09-企业技术部门-AI-转型红蓝攻防.md",
+        "tools/kb preview-distillation-review _workbench/distillations/2026-06-08-企业技术部门在Agent时代的定位-沉淀候选.md"
+      ],
+      "detail_error": "",
+      "evidence_summary": {
+        "round_1_items": 35,
+        "round_2_items": 8,
+        "round_3_items": 9,
+        "distillation_suggestions": 4,
+        "drafted_distillations": 1,
+        "blocking_checks": []
+      },
+      "decision_options": [
+        {
+          "id": "preview-debate",
+          "label": "Preview debate",
+          "when_to_use": "需要先阅读红蓝攻防材料、收敛结论和沉淀建议。",
+          "effect": "No state change.",
+          "risk": "Low.",
+          "command": "tools/kb preview-debate-review _workbench/debates/2026-06-09-企业技术部门-AI-转型红蓝攻防.md",
+          "note_template": "先阅读辩论材料和已生成的沉淀候选。"
+        },
+        {
+          "id": "review-drafted-distillation",
+          "label": "Review drafted distillation",
+          "when_to_use": "辩论已经转成沉淀候选，应在候选层面做人工审阅决定。",
+          "effect": "No state change unless a separate review-distillation command is explicitly run.",
+          "risk": "Low while previewing; high if later approving without human confirmation.",
+          "command": "tools/kb preview-distillation-review _workbench/distillations/2026-06-08-企业技术部门在Agent时代的定位-沉淀候选.md",
+          "note_template": "转入沉淀候选审阅，不直接处理辩论文件。"
+        }
+      ],
+      "protected": false
+    },
+    {
+      "kind": "source-note",
+      "priority": 90,
+      "reason": "source already reviewed",
+      "path": "_workbench/inbox/2026-06-09-Anthropic-Skills-官方仓库-skill-creator.md",
+      "topic": "agent-harness-skill-system",
+      "status": "reviewed",
+      "review_status": "reviewed",
+      "check_ok": true,
+      "blocking_checks": [],
+      "next_action": "source-reviewed",
+      "preview_command": "tools/kb preview-source-review _workbench/inbox/2026-06-09-Anthropic-Skills-官方仓库-skill-creator.md",
+      "decision_commands": [],
+      "detail_error": "",
+      "evidence_summary": {
+        "summary_items": 3,
+        "judgment_items": 5,
+        "linked_sessions": 1,
+        "blocking_checks": [],
+        "warnings": []
+      },
+      "decision_options": [
+        {
+          "id": "reviewed",
+          "label": "Mark source reviewed",
+          "when_to_use": "摘要、初步判断、关联 session 都已人工确认，且该来源可作为后续沉淀依据。",
+          "effect": "Only marks the source note reviewed; it does not promote formal knowledge.",
+          "risk": "A weak source can later bias distillation if reviewed too early.",
+          "command": "",
+          "note_template": "摘要、初步判断和关联 session 已人工确认，可作为来源。"
+        },
+        {
+          "id": "needs-evidence",
+          "label": "Request more evidence",
+          "when_to_use": "来源可信度、摘要、判断或与 session 的关系仍不够清楚。",
+          "effect": "Keeps the source in workbench for completion.",
+          "risk": "Slows down promotion, but avoids weak evidence entering the chain.",
+          "command": "",
+          "note_template": "需要补充原始链接、可信度说明或与当前议题的关系。"
+        },
+        {
+          "id": "rejected",
+          "label": "Reject source",
+          "when_to_use": "来源与议题无关、质量过低、重复或不应进入当前知识链。",
+          "effect": "Marks the source deprecated/rejected.",
+          "risk": "Rejected sources will be deprioritized for future distillation.",
+          "command": "",
+          "note_template": "该来源与当前议题关系弱或不采用。"
+        }
+      ],
+      "protected": true
+    },
+    {
+      "kind": "source-note",
+      "priority": 90,
+      "reason": "source already reviewed",
+      "path": "_workbench/inbox/2026-06-08-Agent时代企业技术部门资料占位.md",
+      "topic": "enterprise-ai-tech-org",
+      "status": "reviewed",
+      "review_status": "reviewed",
+      "check_ok": true,
+      "blocking_checks": [],
+      "next_action": "source-reviewed",
+      "preview_command": "tools/kb preview-source-review _workbench/inbox/2026-06-08-Agent时代企业技术部门资料占位.md",
+      "decision_commands": [],
+      "detail_error": "",
+      "evidence_summary": {
+        "summary_items": 4,
+        "judgment_items": 5,
+        "linked_sessions": 1,
+        "blocking_checks": [],
+        "warnings": []
+      },
+      "decision_options": [
+        {
+          "id": "reviewed",
+          "label": "Mark source reviewed",
+          "when_to_use": "摘要、初步判断、关联 session 都已人工确认，且该来源可作为后续沉淀依据。",
+          "effect": "Only marks the source note reviewed; it does not promote formal knowledge.",
+          "risk": "A weak source can later bias distillation if reviewed too early.",
+          "command": "",
+          "note_template": "摘要、初步判断和关联 session 已人工确认，可作为来源。"
+        },
+        {
+          "id": "needs-evidence",
+          "label": "Request more evidence",
+          "when_to_use": "来源可信度、摘要、判断或与 session 的关系仍不够清楚。",
+          "effect": "Keeps the source in workbench for completion.",
+          "risk": "Slows down promotion, but avoids weak evidence entering the chain.",
+          "command": "",
+          "note_template": "需要补充原始链接、可信度说明或与当前议题的关系。"
+        },
+        {
+          "id": "rejected",
+          "label": "Reject source",
+          "when_to_use": "来源与议题无关、质量过低、重复或不应进入当前知识链。",
+          "effect": "Marks the source deprecated/rejected.",
+          "risk": "Rejected sources will be deprioritized for future distillation.",
+          "command": "",
+          "note_template": "该来源与当前议题关系弱或不采用。"
+        }
+      ],
+      "protected": true
+    }
+  ],
+  "guardrails": [
+    "This guide is read-only and must not be treated as human approval.",
+    "Use preview commands before any review decision.",
+    "Only run review-source, review-distillation, approve-distillation, or promote --confirm after explicit human confirmation.",
+    "Prefer needs-revision when evidence, wording, target path, or scope is uncertain."
+  ]
+}

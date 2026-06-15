@@ -1,0 +1,25 @@
+type: source-note
+required:
+  - type
+  - status
+  - created
+  - updated
+  - source_type
+  - source_title
+  - topic
+  - review_status
+allowed_status:
+  - inbox
+  - draft
+  - reviewed
+  - promoted
+  - deprecated
+allowed_review_status:
+  - unreviewed
+  - summarized
+  - linked-to-session
+  - promoted-to-source
+  - rejected
+notes:
+  - Source notes normally live under _workbench/inbox.
+  - Source notes are not formal knowledge until reviewed and promoted.

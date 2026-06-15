@@ -1,0 +1,1430 @@
+﻿<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>企业数据分析平台能力规划汇报 v2</title>
+  <style>
+    :root {
+      --ink: #111827;
+      --muted: #5d6675;
+      --subtle: #eef2f6;
+      --line: #c9d1dc;
+      --deep: #0b1f33;
+      --blue: #1d4f86;
+      --cyan: #0f8fa6;
+      --red: #c41230;
+      --amber: #c98600;
+      --green: #1f7a5a;
+      --paper: #ffffff;
+      --bg: #f3f5f8;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", Arial, sans-serif;
+    }
+    .deck {
+      display: grid;
+      gap: 28px;
+      padding: 28px;
+    }
+    .slide {
+      width: 1280px;
+      height: 720px;
+      margin: 0 auto;
+      background: var(--paper);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 18px 60px rgba(17, 24, 39, 0.16);
+      padding: 42px 54px 38px;
+    }
+    .topline {
+      position: absolute;
+      left: 54px;
+      top: 0;
+      width: 170px;
+      height: 5px;
+      background: var(--red);
+    }
+    .kicker {
+      color: var(--red);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 1.4px;
+      text-transform: uppercase;
+      margin-bottom: 9px;
+    }
+    h1, h2, h3, p { margin: 0; }
+    h1 {
+      max-width: 1040px;
+      font-size: 42px;
+      line-height: 1.12;
+      font-weight: 760;
+      color: var(--deep);
+    }
+    h2 {
+      max-width: 1100px;
+      font-size: 31px;
+      line-height: 1.18;
+      font-weight: 760;
+      color: var(--deep);
+    }
+    .subtitle {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.42;
+      max-width: 1080px;
+    }
+    .footer {
+      position: absolute;
+      left: 54px;
+      right: 54px;
+      bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid #e2e6ec;
+      padding-top: 8px;
+      color: #87909e;
+      line-height: 1.15;
+      font-size: 10px;
+    }
+    .page-no {
+      color: var(--red);
+      font-weight: 800;
+    }
+
+    .axis-wrap {
+      margin-top: 24px;
+      display: grid;
+      grid-template-columns: 118px 1fr;
+      grid-template-rows: 1fr 44px;
+      height: 502px;
+      gap: 10px;
+    }
+    .y-axis {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: var(--deep);
+      font-weight: 800;
+      border-right: 3px solid var(--deep);
+      letter-spacing: 2px;
+      overflow: hidden;
+    }
+    .y-axis span {
+      display: block;
+      transform: rotate(90deg);
+      white-space: nowrap;
+      letter-spacing: 1px;
+    }
+    .x-axis {
+      grid-column: 2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: var(--deep);
+      font-weight: 800;
+      border-top: 3px solid var(--deep);
+      letter-spacing: 1px;
+    }
+      .scenario-matrix {
+      display: grid;
+      grid-template-columns: 175px repeat(3, 1fr);
+      grid-template-rows: 38px repeat(7, 1fr);
+      border-left: 1px solid var(--line);
+      border-top: 1px solid var(--line);
+      font-size: 12.4px;
+    }
+    .scell {
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 9px 10px;
+      line-height: 1.22;
+      background: #fff;
+    }
+    .scell.head {
+      background: var(--deep);
+      color: white;
+      font-weight: 800;
+      min-height: 34px;
+    }
+    .scell.row {
+      background: #f7f9fc;
+      color: var(--deep);
+      font-weight: 800;
+    }
+    .p0 { border-left: 5px solid var(--red); background: #fff8f8; }
+    .p1 { border-left: 5px solid var(--blue); background: #f6f9fd; }
+    .p2 { border-left: 5px solid var(--amber); background: #fffaf0; }
+    .mark {
+      display: inline-block;
+      font-weight: 800;
+      color: var(--red);
+      margin-bottom: 3px;
+    }
+
+    .asset-layout {
+      margin-top: 24px;
+      display: grid;
+      grid-template-columns: 1.08fr 0.92fr;
+      gap: 28px;
+      align-items: start;
+    }
+    .asset-stack {
+      display: grid;
+      gap: 8px;
+    }
+    .asset-level {
+      display: grid;
+      grid-template-columns: 70px 178px 1fr;
+      gap: 12px;
+      align-items: center;
+      border-left: 5px solid var(--blue);
+      background: #f7f9fc;
+      padding: 10px 13px;
+      min-height: 56px;
+    }
+    .asset-level:nth-child(1) { border-color: var(--deep); }
+    .asset-level:nth-child(2) { border-color: var(--blue); }
+    .asset-level:nth-child(3) { border-color: var(--cyan); }
+    .asset-level:nth-child(4) { border-color: var(--green); }
+    .asset-level:nth-child(5) { border-color: var(--amber); }
+    .asset-level:nth-child(6) { border-color: var(--red); }
+    .asset-level:nth-child(7) { border-color: #7c3aed; }
+    .lvl {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--deep);
+    }
+    .asset-level b {
+      display: block;
+      color: var(--deep);
+      font-size: 15px;
+    }
+    .asset-level span {
+      color: var(--muted);
+      font-size: 12.5px;
+      line-height: 1.32;
+    }
+    .right-panel {
+      border-top: 4px solid var(--red);
+      padding-top: 14px;
+    }
+    .right-panel h3 {
+      font-size: 20px;
+      color: var(--deep);
+      margin-bottom: 12px;
+    }
+    .mission-grid {
+      display: grid;
+      gap: 12px;
+    }
+    .mission {
+      border-bottom: 1px solid #dfe5ec;
+      padding-bottom: 10px;
+    }
+    .mission b {
+      color: var(--deep);
+      display: block;
+      font-size: 15px;
+      margin-bottom: 4px;
+    }
+    .mission span {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.4;
+    }
+    .asset-heatmap {
+      margin-top: 22px;
+      display: grid;
+      grid-template-columns: 72px 195px 1fr 115px 210px;
+      border-top: 2px solid var(--deep);
+      border-left: 1px solid var(--line);
+      font-size: 12.3px;
+    }
+    .asset-hcell {
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 9px 10px;
+      min-height: 57px;
+      line-height: 1.28;
+      background: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .asset-hcell.head {
+      min-height: 36px;
+      background: var(--deep);
+      color: white;
+      font-weight: 800;
+      font-size: 11.5px;
+    }
+    .asset-hcell.level {
+      font-size: 25px;
+      font-weight: 850;
+      color: var(--deep);
+      align-items: center;
+      border-left: 5px solid var(--blue);
+    }
+    .asset-hcell.asset-name {
+      color: var(--deep);
+      font-weight: 800;
+      font-size: 14px;
+    }
+    .asset-hcell.desc,
+    .asset-hcell.delivery {
+      color: var(--muted);
+    }
+    .asset-hcell.delivery-merged {
+      color: var(--deep);
+      background: #fff8f8;
+      border-left: 4px solid var(--red);
+      justify-content: flex-start;
+      padding-top: 12px;
+    }
+    .asset-hcell.delivery-merged b {
+      color: var(--red);
+      font-size: 14px;
+      margin-bottom: 6px;
+    }
+    .asset-hcell.delivery-merged ul {
+      margin: 0;
+      padding-left: 17px;
+      color: var(--muted);
+      font-size: 11.5px;
+      line-height: 1.35;
+    }
+    .asset-hcell .past {
+      color: var(--ink);
+      font-weight: 700;
+    }
+    .asset-hcell .now {
+      display: block;
+      color: var(--red);
+      font-weight: 800;
+      margin-top: 3px;
+    }
+    .coverage {
+      align-items: center;
+      text-align: center;
+      font-weight: 850;
+      color: var(--deep);
+    }
+    .coverage span {
+      display: inline-block;
+      min-width: 74px;
+      padding: 5px 8px;
+      border-radius: 14px;
+      color: white;
+      font-size: 13px;
+    }
+    .cov-high span { background: var(--green); }
+    .cov-mid span { background: var(--amber); }
+    .cov-low span { background: var(--red); }
+    .cov-start span { background: #7c3aed; }
+    .asset-summary {
+      margin-top: 14px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    .asset-summary .note {
+      margin: 0;
+    }
+
+    .matrix-table {
+      margin-top: 22px;
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12.3px;
+    }
+    .matrix-table th {
+      background: var(--deep);
+      color: #fff;
+      padding: 9px 8px;
+      text-align: left;
+      font-size: 11.5px;
+      vertical-align: bottom;
+    }
+    .matrix-table td {
+      border-bottom: 1px solid #dfe5ec;
+      padding: 9px 8px;
+      line-height: 1.3;
+      vertical-align: top;
+    }
+    .matrix-table tr:nth-child(even) td { background: #f8fafc; }
+    .highlight-col {
+      background: #fff7f7 !important;
+      border-left: 3px solid var(--red);
+      border-right: 3px solid var(--red);
+      color: var(--deep);
+      font-weight: 700;
+    }
+    .tag {
+      display: inline-block;
+      padding: 2px 7px;
+      border-radius: 10px;
+      background: #eef3fa;
+      color: var(--blue);
+      font-size: 11px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+    .note-row {
+      margin-top: 14px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    .note {
+      border-top: 4px solid var(--red);
+      padding-top: 10px;
+      font-size: 13px;
+      line-height: 1.38;
+      color: var(--muted);
+    }
+    .note b {
+      display: block;
+      color: var(--deep);
+      font-size: 16px;
+      margin-bottom: 4px;
+    }
+
+    .agg-arch {
+      margin-top: 22px;
+      display: grid;
+      gap: 10px;
+    }
+    .arch-band {
+      display: grid;
+      grid-template-columns: 150px 1fr 250px;
+      gap: 12px;
+      align-items: stretch;
+      min-height: 86px;
+    }
+    .arch-label {
+      background: var(--deep);
+      color: white;
+      padding: 13px 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border-left: 5px solid var(--red);
+    }
+    .arch-label b {
+      font-size: 16px;
+      line-height: 1.2;
+      margin-bottom: 4px;
+    }
+    .arch-label span {
+      color: #b9c6d6;
+      font-size: 11px;
+      line-height: 1.3;
+    }
+    .arch-modules {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      background: #f7f9fc;
+      border: 1px solid #dce3ec;
+      padding: 10px;
+    }
+    .arch-module {
+      background: white;
+      border-top: 4px solid var(--blue);
+      padding: 9px 10px;
+      min-height: 62px;
+      box-shadow: inset 0 0 0 1px #edf1f6;
+    }
+    .arch-module.ready {
+      border-top-color: var(--blue);
+      background: #f6f9fd;
+    }
+    .arch-module.cyan {
+      border-top-color: var(--cyan);
+      background: #f3fbfd;
+    }
+    .arch-module.build {
+      border-top-color: var(--amber);
+      background: #fffbf0;
+    }
+    .arch-module.focus {
+      border-top-color: var(--red);
+      background: #fff7f7;
+    }
+    .arch-module:nth-child(2) { border-color: var(--cyan); }
+    .arch-module:nth-child(3) { border-color: var(--amber); }
+    .arch-module:nth-child(4) { border-color: var(--red); }
+    .arch-module b {
+      display: block;
+      color: var(--deep);
+      font-size: 13.5px;
+      margin-bottom: 4px;
+    }
+    .arch-module span {
+      display: block;
+      color: var(--muted);
+      font-size: 11.5px;
+      line-height: 1.25;
+    }
+    .arch-value {
+      border-left: 4px solid var(--line);
+      padding: 10px 12px;
+      background: #fbfcfe;
+      color: var(--muted);
+      font-size: 12.2px;
+      line-height: 1.35;
+    }
+    .arch-value b {
+      display: block;
+      color: var(--deep);
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+    .db-gpt-band .arch-label,
+    .db-gpt-band .arch-modules,
+    .db-gpt-band .arch-value {
+      background: #fff7f7;
+      border-color: #f0c5cc;
+    }
+    .db-gpt-band {
+      border: 2px solid var(--red);
+      background: #fff7f7;
+      padding: 10px;
+    }
+    .db-gpt-band .arch-label {
+      background: var(--red);
+      border-left-color: var(--deep);
+    }
+    .flow-arrow {
+      text-align: center;
+      color: var(--red);
+      font-size: 18px;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .platform-grid {
+      margin-top: 23px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+    .platform-domain {
+      border-top: 5px solid var(--blue);
+      background: #f7f9fc;
+      padding: 14px 14px 12px;
+      min-height: 244px;
+    }
+    .platform-domain:nth-child(2) { border-color: var(--cyan); }
+    .platform-domain:nth-child(3) { border-color: var(--amber); }
+    .platform-domain:nth-child(4) { border-color: var(--red); }
+    .platform-domain h3 {
+      font-size: 17px;
+      color: var(--deep);
+      margin-bottom: 10px;
+    }
+    .platform-domain ul {
+      margin: 0;
+      padding-left: 17px;
+      color: var(--muted);
+      font-size: 12.8px;
+      line-height: 1.48;
+    }
+    .split-role {
+      display: grid;
+      gap: 8px;
+      margin-top: 9px;
+    }
+    .role-box {
+      background: white;
+      border-left: 4px solid var(--blue);
+      padding: 8px 9px;
+      box-shadow: inset 0 0 0 1px #edf1f6;
+    }
+    .role-box:nth-child(2) { border-left-color: var(--red); }
+    .role-box b {
+      display: block;
+      color: var(--deep);
+      font-size: 13px;
+      margin-bottom: 3px;
+    }
+    .role-box span {
+      display: block;
+      color: var(--muted);
+      font-size: 11.5px;
+      line-height: 1.28;
+    }
+    .object-strip {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      border-top: 2px solid var(--deep);
+      border-left: 1px solid var(--line);
+      font-size: 12px;
+    }
+    .object {
+      min-height: 76px;
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 9px;
+      background: #fff;
+    }
+    .object b {
+      color: var(--deep);
+      display: block;
+      font-size: 13px;
+      margin-bottom: 4px;
+    }
+    .object span {
+      color: var(--muted);
+      line-height: 1.3;
+    }
+    .boundary-grid {
+      margin-top: 22px;
+      display: grid;
+      grid-template-columns: 1fr 0.88fr;
+      gap: 22px;
+    }
+    .boundary-panel {
+      border-top: 5px solid var(--red);
+      background: #f7f9fc;
+      padding: 14px;
+      min-height: 340px;
+    }
+    .boundary-panel:nth-child(2) { border-top-color: var(--blue); }
+    .boundary-panel h3 {
+      font-size: 20px;
+      color: var(--deep);
+      margin-bottom: 12px;
+    }
+    .boundary-modules {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+    .boundary-module {
+      background: white;
+      border-left: 4px solid var(--red);
+      padding: 9px 10px;
+      min-height: 74px;
+      box-shadow: inset 0 0 0 1px #edf1f6;
+    }
+    .boundary-panel:nth-child(2) .boundary-module { border-left-color: var(--blue); }
+    .boundary-module b {
+      display: block;
+      color: var(--deep);
+      font-size: 13.5px;
+      margin-bottom: 4px;
+    }
+    .boundary-module span {
+      display: block;
+      color: var(--muted);
+      font-size: 11.7px;
+      line-height: 1.28;
+    }
+    .boundary-callout {
+      margin-top: 13px;
+      border-top: 1px solid #dfe5ec;
+      padding-top: 10px;
+      color: var(--muted);
+      font-size: 12.5px;
+      line-height: 1.36;
+    }
+    .boundary-callout b {
+      color: var(--deep);
+    }
+    .scope-table {
+      margin-top: 20px;
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12.4px;
+    }
+    .scope-table th {
+      background: var(--deep);
+      color: white;
+      text-align: left;
+      padding: 9px 10px;
+      font-size: 11.5px;
+    }
+    .scope-table td {
+      border-bottom: 1px solid #dfe5ec;
+      padding: 8px 10px;
+      vertical-align: top;
+      line-height: 1.3;
+    }
+    .scope-table tr:nth-child(even) td { background: #f8fafc; }
+    .scope-table td:nth-child(1) {
+      width: 128px;
+      color: var(--deep);
+      font-weight: 800;
+    }
+    .scope-table td:nth-child(2) {
+      border-left: 4px solid var(--red);
+      background: #fff8f8;
+      color: var(--deep);
+    }
+    .scope-table td:nth-child(3) {
+      color: var(--muted);
+    }
+    .scope-callouts {
+      margin-top: 14px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    .scope-callout {
+      border-top: 4px solid var(--red);
+      padding-top: 9px;
+      color: var(--muted);
+      font-size: 12.5px;
+      line-height: 1.34;
+    }
+    .scope-callout:nth-child(2) { border-color: var(--blue); }
+    .scope-callout:nth-child(3) { border-color: var(--amber); }
+    .scope-callout b {
+      display: block;
+      color: var(--deep);
+      font-size: 15px;
+      margin-bottom: 4px;
+    }
+    .hub-map {
+      margin-top: 22px;
+      display: grid;
+      grid-template-columns: 210px 1fr 210px;
+      gap: 18px;
+      align-items: stretch;
+    }
+    .side-stack {
+      display: grid;
+      gap: 10px;
+    }
+    .side-title {
+      border-top: 5px solid var(--blue);
+      padding-top: 10px;
+      color: var(--deep);
+      font-size: 18px;
+      font-weight: 800;
+    }
+    .side-box {
+      background: #f7f9fc;
+      border-left: 4px solid var(--blue);
+      padding: 10px 11px;
+      min-height: 64px;
+      color: var(--muted);
+      font-size: 12.3px;
+      line-height: 1.3;
+    }
+    .side-box b {
+      display: block;
+      color: var(--deep);
+      font-size: 13.5px;
+      margin-bottom: 4px;
+    }
+    .side-stack.right .side-title { border-color: var(--red); }
+    .side-stack.right .side-box { border-left-color: var(--red); }
+    .agent-hub {
+      border: 2px solid #e6c1c8;
+      background: #fff8f8;
+      padding: 16px 18px;
+    }
+    .hub-title {
+      text-align: center;
+      color: var(--red);
+      font-size: 21px;
+      font-weight: 850;
+      margin-bottom: 13px;
+    }
+    .hub-capabilities {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+    .hub-cap {
+      background: white;
+      border-top: 5px solid var(--red);
+      min-height: 114px;
+      padding: 11px 11px 10px;
+      box-shadow: inset 0 0 0 1px #f0d6db;
+    }
+    .hub-cap:nth-child(2),
+    .hub-cap:nth-child(5) { border-top-color: var(--blue); }
+    .hub-cap:nth-child(3),
+    .hub-cap:nth-child(6) { border-top-color: var(--amber); }
+    .hub-cap b {
+      display: block;
+      color: var(--deep);
+      font-size: 15px;
+      margin-bottom: 6px;
+    }
+    .hub-cap span {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.32;
+      display: block;
+    }
+    .hub-footer {
+      margin-top: 12px;
+      border-top: 1px solid #efcbd2;
+      padding-top: 9px;
+      text-align: center;
+      color: var(--deep);
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .arrow-label {
+      margin-top: 12px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      color: var(--muted);
+      font-size: 12.5px;
+      line-height: 1.35;
+    }
+    .arrow-label b {
+      display: block;
+      color: var(--deep);
+      font-size: 15px;
+      margin-bottom: 4px;
+    }
+
+    .gap-layout {
+      margin-top: 22px;
+      display: grid;
+      grid-template-columns: 0.98fr 1.02fr;
+      gap: 24px;
+    }
+    .scorecards {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+    .score {
+      border-top: 5px solid var(--red);
+      background: #f8fafc;
+      padding: 13px 14px;
+      min-height: 118px;
+    }
+    .score:nth-child(2) { border-color: var(--blue); }
+    .score:nth-child(3) { border-color: var(--amber); }
+    .score:nth-child(4) { border-color: var(--cyan); }
+    .score strong {
+      color: var(--deep);
+      font-size: 29px;
+      display: block;
+      line-height: 1;
+      margin-bottom: 7px;
+    }
+    .score b {
+      display: block;
+      color: var(--deep);
+      font-size: 15px;
+      margin-bottom: 5px;
+    }
+    .score span {
+      color: var(--muted);
+      font-size: 12.5px;
+      line-height: 1.32;
+    }
+    .gap-list {
+      border-top: 4px solid var(--deep);
+      padding-top: 12px;
+    }
+    .gap-item {
+      display: grid;
+      grid-template-columns: 92px 1fr 82px;
+      gap: 12px;
+      border-bottom: 1px solid #dfe5ec;
+      padding: 9px 0;
+      align-items: start;
+      font-size: 13px;
+    }
+    .gap-item b { color: var(--deep); }
+    .gap-item span { color: var(--muted); line-height: 1.32; }
+    .priority {
+      color: var(--red);
+      font-weight: 800;
+      text-align: right;
+    }
+
+    .build-table {
+      margin-top: 20px;
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12.1px;
+    }
+    .build-table th {
+      background: var(--deep);
+      color: white;
+      text-align: left;
+      padding: 8px 8px;
+      font-size: 11px;
+    }
+    .build-table th:nth-child(3) {
+      background: var(--blue);
+    }
+    .build-table td {
+      border-bottom: 1px solid #dfe5ec;
+      padding: 8px 8px;
+      vertical-align: top;
+      line-height: 1.28;
+    }
+    .build-table tr:nth-child(even) td { background: #f8fafc; }
+    .build-table td:nth-child(3) {
+      background: #f3f8ff;
+      border-left: 4px solid var(--blue);
+    }
+    .build-table tr.legacy td {
+      background: #f2f4f7;
+    }
+    .build-table tr.legacy td:nth-child(2) {
+      border-left-color: #c9d1dc;
+      background: #eef1f5;
+    }
+    .build-legend {
+      margin-top: 8px;
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      font-size: 11.5px;
+      color: var(--muted);
+    }
+    .build-legend span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .build-legend i {
+      width: 10px;
+      height: 10px;
+      border-radius: 2px;
+      display: inline-block;
+      background: var(--blue);
+    }
+    .build-legend i.ext {
+      background: #c9d1dc;
+    }
+    .build-table .phase {
+      display: block;
+      margin-bottom: 4px;
+      line-height: 1.28;
+    }
+    .build-table .phase.now {
+      color: var(--red);
+      font-weight: 800;
+    }
+    .build-table .phase.later {
+      color: var(--blue);
+      font-weight: 700;
+    }
+    .role-ai {
+      color: var(--blue);
+      font-weight: 800;
+    }
+    .role-ext {
+      color: var(--muted);
+    }
+    .timeline {
+      margin-top: 16px;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      border-top: 2px solid var(--deep);
+    }
+    .milestone {
+      position: relative;
+      min-height: 98px;
+      padding: 16px 10px 0;
+      border-right: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 12.2px;
+      line-height: 1.32;
+    }
+    .milestone:last-child { border-right: none; }
+    .milestone::before {
+      content: "";
+      position: absolute;
+      top: -7px;
+      left: 11px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--red);
+    }
+    .milestone b {
+      display: block;
+      color: var(--deep);
+      font-size: 14px;
+      margin-bottom: 5px;
+    }
+
+    .business-map {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: 1.05fr 1.05fr 0.9fr;
+      gap: 18px;
+      height: 348px;
+    }
+    .persona-panel {
+      border-top: 5px solid var(--blue);
+      background: #f7f9fc;
+      padding: 14px 16px 13px;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      min-height: 0;
+    }
+    .persona-panel.super {
+      border-top-color: var(--red);
+      background: #fff8f8;
+    }
+    .persona-panel.consumer {
+      border-top-color: var(--amber);
+      background: #fffaf0;
+    }
+    .persona-panel h3 {
+      color: var(--deep);
+      font-size: 20px;
+      line-height: 1.15;
+    }
+    .persona-panel .role {
+      color: var(--muted);
+      font-size: 12.4px;
+      line-height: 1.35;
+      min-height: 32px;
+    }
+    .persona-flow {
+      display: grid;
+      gap: 7px;
+      margin-top: 2px;
+    }
+    .flow-box {
+      background: white;
+      border-left: 4px solid var(--blue);
+      padding: 8px 10px;
+      min-height: 58px;
+    }
+    .persona-panel.super .flow-box { border-left-color: var(--red); }
+    .persona-panel.consumer .flow-box { border-left-color: var(--amber); }
+    .flow-box b {
+      display: block;
+      color: var(--deep);
+      font-size: 13.3px;
+      margin-bottom: 3px;
+    }
+    .flow-box span {
+      color: var(--muted);
+      font-size: 11.7px;
+      line-height: 1.32;
+    }
+    .strategic-strip {
+      margin-top: 12px;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr 1fr;
+      border-top: 3px solid var(--deep);
+      background: #fbfcfe;
+    }
+    .strategic-strip div {
+      padding: 12px 14px;
+      border-right: 1px solid var(--line);
+      min-height: 62px;
+    }
+    .strategic-strip div:last-child { border-right: none; }
+    .strategic-strip b {
+      display: block;
+      color: var(--deep);
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+    .strategic-strip span {
+      color: var(--muted);
+      font-size: 11.8px;
+      line-height: 1.35;
+    }
+
+    @media print {
+      body { background: white; }
+      .deck { padding: 0; gap: 0; }
+      .slide {
+        width: 100vw;
+        height: 56.25vw;
+        max-height: 100vh;
+        box-shadow: none;
+        page-break-after: always;
+      }
+      @page { size: 16in 9in; margin: 0; }
+    }
+  </style>
+</head>
+<body>
+  <main class="deck">
+    <section class="slide">
+      <div class="topline"></div>
+      <div class="kicker">1. Business scenario lens | 用户类型 × 分析生产方式</div>
+      <h1>未来企业数据分析不是单一 BI 入口，而是三类人群共同生产和消费分析资产</h1>
+      <p class="subtitle">战略上应把 Data Agent 放在“数据资产、分析知识和业务入口”之间：让企业公民即时探索，让超级个体生产新资产，让管理层和团队稳定消费高质量结论。</p>
+      <div class="business-map">
+        <div class="persona-panel">
+          <h3>企业公民</h3>
+          <div class="role">一线业务、运营、财务、人事等普通业务用户；重点是低门槛、自助、快速验证。</div>
+          <div class="persona-flow">
+            <div class="flow-box"><b>即时探索</b><span>用 ChatExcel / 问表能力上传文件或选择业务表，快速问趋势、排行、异常和字段统计。</span></div>
+            <div class="flow-box"><b>次抛型数据产品</b><span>AI Coding 或低代码生成一次性 BI 看板、临时图表和专题分析，用完即沉淀为样例。</span></div>
+            <div class="flow-box"><b>进入治理流程</b><span>高频问题和高价值文件再升级为部门模板、黄金数据集或固定看板。</span></div>
+          </div>
+        </div>
+        <div class="persona-panel super">
+          <h3>超级个体</h3>
+          <div class="role">懂业务、懂数据、会用 AI 工具的分析骨干；重点是把个人能力放大为部门级资产。</div>
+          <div class="persona-flow">
+            <div class="flow-box"><b>资产摄取</b><span>把文件、数仓宽表、黄金数据集、指标、历史报告和分析知识组合进一个任务。</span></div>
+            <div class="flow-box"><b>创作新产品</b><span>生成分析 Agent、报告模板、领域看板、洞察卡和可复用的数据分析流程。</span></div>
+            <div class="flow-box"><b>服务他人</b><span>把自己的分析方法变成团队可调用的能力，而不是停留在个人经验。</span></div>
+          </div>
+        </div>
+        <div class="persona-panel consumer">
+          <h3>消费者</h3>
+          <div class="role">管理层、团队负责人和跨部门协作者；重点是可信、稳定、可解释的经营结论。</div>
+          <div class="persona-flow">
+            <div class="flow-box"><b>固定消费</b><span>消费已经固化的经营看板、例行报告、订阅摘要和管理层材料。</span></div>
+            <div class="flow-box"><b>按场景追问</b><span>在 T-Claw / PI-Claw、ChatBI、小Q式入口里追问原因、目标差异和行动建议。</span></div>
+            <div class="flow-box"><b>形成共识</b><span>从一次性结论走向统一口径、统一指标和企业级分析知识。</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="strategic-strip">
+        <div><b>业务抽象</b><span>从“谁有 BI 权限”转为“谁能生产、复用和消费分析资产”。</span></div>
+        <div><b>建设重点</b><span>P0 先打通企业公民和超级个体的高频闭环：问数、问表、知识库和报告初版。</span></div>
+        <div><b>承接关系</b><span>下一页再落到数据对象 × 场景层级，明确哪些资产先进入 Data Agent。</span></div>
+      </div>
+      <div class="footer">
+        <span>Key message: Data Agent 的战略价值，是把分散的个人探索转化为可复用、可治理、可消费的企业分析资产</span>
+        <span class="page-no">1 / 7</span>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="topline"></div>
+      <div class="kicker">2. Scenario map | 能力 × 场景</div>
+      <h1>未来企业数据分析体系全景图</h1>
+      <p class="subtitle">以“数据对象 × 使用场景层级”组织分析资产：从百花齐放的个人探索，逐步沉淀为企业共识。下表中的 P0 / P1 / P2，代表未来 Data Agent 需要承接的建设重点。</p>
+      <div class="axis-wrap">
+        <div class="y-axis"><span>多样程度：百花启发 → 企业共识</span></div>
+        <div class="scenario-matrix">
+          <div class="scell head">数据对象 \ 场景层级</div>
+          <div class="scell head">个人探索</div>
+          <div class="scell head">领域 / 部门共享</div>
+          <div class="scell head">企业经营</div>
+
+          <div class="scell row">个人文件<br>Excel / CSV</div>
+          <div class="scell p0"><span class="mark">P0</span><br>业务人员自主选取/上传数据集，进行 AI 探索、解读和分析。</div>
+          <div class="scell">高频个人文件通过治理流程升级到数仓宽表。</div>
+          <div class="scell"></div>
+
+          <div class="scell row">个人分析知识<br>历史产物 Artifact</div>
+          <div class="scell">个人历史问数、分析过程和结论复用。</div>
+          <div class="scell p2" style="grid-column: span 2;"><span class="mark">P2 未来建设</span><br>基于部门/企业级场景沉淀分析模板、样例问题、经营报告素材和复盘知识，未来演进为模板市场。</div>
+
+          <div class="scell row">数仓宽表</div>
+          <div class="scell">仅限专业用户：数据开发、分析师做验证和排查。</div>
+          <div class="scell p0"><span class="mark">P0</span><br>部门高频问数、维度下钻、专题分析底表。</div>
+          <div class="scell"><span class="mark" style="color: var(--muted);">历史舒适区</span><br>宽表支撑经营专题和跨部门分析；非未来建设重点。</div>
+
+          <div class="scell row">领域黄金数据集<br>语义数据集</div>
+          <div class="scell p0" style="grid-column: span 3;"><span class="mark">P0</span><br>从数仓宽表升级为领域黄金数据集：补语义、口径、样例问题和反问澄清，个人、部门、企业场景通用。</div>
+
+          <div class="scell row">指标</div>
+          <div class="scell p2" style="grid-column: span 3;"><span class="mark">P2 未来建设</span><br>统一口径的指标体系，支撑个人查询、部门解释、企业经营目标跟踪和跨期对比。</div>
+
+          <div class="scell row">看板 / 报表</div>
+          <div class="scell" style="grid-column: span 3;"><span class="mark" style="color: var(--muted);">历史舒适区</span><br>个人、部门、企业都可消费看板/报表；固定摘要、订阅和常规报表服务属于已有 BI 能力，非未来重点建设。</div>
+
+          <div class="scell row">领域分析模板</div>
+          <div class="scell p0" style="grid-column: span 3;"><span class="mark">P0</span><br>针对个人、部门、企业场景通用的分析起手式、章节结构和问题模板，支撑快速复用和标准化输出。</div>
+
+        </div>
+        <div></div>
+        <div class="x-axis">场景层级：个人探索 → 领域 / 部门共享 → 企业经营</div>
+      </div>
+      <div class="footer">
+        <span class="page-no">2 / 7</span>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="topline"></div>
+      <div class="kicker">3. Big data department offering | 资产全景 L0-L6</div>
+      <h2>大数据部门的资产应从“能取数”升级为“能被业务和智能体直接使用”</h2>
+      <p class="subtitle">传统数仓能力已经覆盖底层数据供给，但越靠近 AI 分析消费，当前成熟度越低；下一步重点是补齐可问数据、分析技能、报告资产和运营反馈。</p>
+      <div class="asset-heatmap">
+        <div class="asset-hcell head">层级</div>
+        <div class="asset-hcell head">资产名称</div>
+        <div class="asset-hcell head">建设重点：BI 时代 → AI 时代</div>
+        <div class="asset-hcell head">当前满足度</div>
+        <div class="asset-hcell head">主要提供方式</div>
+
+        <div class="asset-hcell level">L0</div>
+        <div class="asset-hcell asset-name">数据连接与原始数据</div>
+        <div class="asset-hcell desc"><span class="past">BI 时代：数据源接入、权限账号、连接管理。</span><span class="now">AI 时代：统一给智能分析安全访问。</span></div>
+        <div class="asset-hcell coverage cov-high"><span>80%+</span></div>
+        <div class="asset-hcell delivery">传统数据平台 / 数据源管理集成。</div>
+
+        <div class="asset-hcell level">L1</div>
+        <div class="asset-hcell asset-name">标准表与领域宽表</div>
+        <div class="asset-hcell desc"><span class="past">BI 时代：主题宽表、标准字段、稳定刷新。</span><span class="now">AI 时代：成为可被问数和解释的领域数据底座。</span></div>
+        <div class="asset-hcell coverage cov-high"><span>80%+</span></div>
+        <div class="asset-hcell delivery">传统数仓建设、主题域宽表、数据质量治理。</div>
+
+        <div class="asset-hcell level">L2</div>
+        <div class="asset-hcell asset-name">可问数据集</div>
+        <div class="asset-hcell desc"><span class="past">BI 时代：数据集主要服务报表和自助分析。</span><span class="now">AI 时代：补字段含义、别名、样例问题和可问范围。</span></div>
+        <div class="asset-hcell coverage cov-mid"><span>30%</span></div>
+        <div class="asset-hcell delivery delivery-merged" style="grid-row: span 4;"><b>Data Agent 提供</b><ul><li>可问数据包装：字段别名、样例问题、可问范围</li><li>语义与知识注入：指标口径、业务术语、诊断框架</li><li>Skill 编排：问数、解读、归因、报告能力组合</li><li>产物沉淀：洞察卡、报告素材、引用关系和反馈</li></ul></div>
+
+        <div class="asset-hcell level">L3</div>
+        <div class="asset-hcell asset-name">指标与业务知识</div>
+        <div class="asset-hcell desc"><span class="past">BI 时代：指标用于看板展示和经营监控。</span><span class="now">AI 时代：把口径、术语、诊断框架注入分析过程。</span></div>
+        <div class="asset-hcell coverage cov-mid"><span>40%</span></div>
+
+        <div class="asset-hcell level">L4</div>
+        <div class="asset-hcell asset-name">分析技能</div>
+        <div class="asset-hcell desc"><span class="past">BI 时代：分析动作依赖个人经验和人工操作。</span><span class="now">AI 时代：沉淀问数、解读、归因、报告技能。</span></div>
+        <div class="asset-hcell coverage cov-low"><span>10%</span></div>
+
+        <div class="asset-hcell level">L5</div>
+        <div class="asset-hcell asset-name">分析产物</div>
+        <div class="asset-hcell desc"><span class="past">BI 时代：看板和报表是主要交付物。</span><span class="now">AI 时代：沉淀问数结果、洞察卡、报告素材和引用关系。</span></div>
+        <div class="asset-hcell coverage cov-low"><span>20%</span></div>
+
+        <div class="asset-hcell level">L6</div>
+        <div class="asset-hcell asset-name">运营反馈</div>
+        <div class="asset-hcell desc"><span class="past">BI 时代：主要看访问量和报表使用情况。</span><span class="now">AI 时代：运营准确率、成功率、成本、延迟和反馈。</span></div>
+        <div class="asset-hcell coverage cov-start"><span>起步</span></div>
+        <div class="asset-hcell delivery">评测运营看板 + 人工反馈闭环。</div>
+      </div>
+      <div class="asset-summary">
+        <div class="note"><b>已有优势</b>底层连接、标准表和领域宽表属于传统大数据能力，成熟度较高。</div>
+        <div class="note"><b>核心缺口</b>可问数据集、分析技能、报告产物和运营反馈还没有平台化沉淀。</div>
+        <div class="note"><b>建设抓手</b>Data Agent + Skill Hub + 指标/知识库集成，把数据资产变成可消费服务。</div>
+      </div>
+      <div class="footer">
+        <span>Key message: 黑字代表 BI 时代已有能力；红字代表 AI 时代需要重点补齐的建设项</span>
+        <span class="page-no">3 / 7</span>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="topline"></div>
+      <div class="kicker">4. 能力矩阵 | 产品与资产分工</div>
+      <h2>Data Agent 的定位是把底层数据、分析能力和业务入口聚合起来，形成企业级智能分析平台</h2>
+      <p class="subtitle">它不替代 ChatBI、小Q或传统 BI，而是在中间层统一数据对象、业务口径、问数过程、解读结果和报告产物，让不同入口都能调用同一套可信分析能力。蓝色表示成熟可用，橙色表示在建增强，红色表示重点建设。</p>
+      <div class="agg-arch">
+        <div class="arch-band">
+          <div class="arch-label"><b>业务入口层</b><span>用户在哪里使用</span></div>
+          <div class="arch-modules">
+            <div class="arch-module ready"><b>ChatBI / 小Q</b><span>自然语言提问、多轮追问、结果解释</span></div>
+            <div class="arch-module ready"><b>FineBI / 看板</b><span>稳定报表、图表门户、日常经营监控</span></div>
+            <div class="arch-module build"><b>T-Claw / PI-Claw</b><span>个人级 / 部门级智能入口，承接问数与追问</span></div>
+            <div class="arch-module focus"><b>Data Agent 市场</b><span>分析门户、应用分发、模板与技能市场</span></div>
+          </div>
+          <div class="arch-value"><b>解决问题</b>提供百花齐放的数据分析入口和形态。聚合数据资产、分析能力和业务入口，对外提供可调用、可追踪、可运营的智能分析服务。</div>
+        </div>
+        <div class="flow-arrow">↑</div>
+        <div class="arch-band">
+          <div class="arch-label"><b>分析能力层</b><span>平台对外提供什么</span></div>
+          <div class="arch-modules">
+            <div class="arch-module ready"><b>问数服务</b><span>用户提问，返回安全查询结果、表格和图表</span></div>
+            <div class="arch-module cyan"><b>表格分析服务</b><span>用户上传 Excel 或从黄金数据集选取业务表进行分析</span></div>
+            <div class="arch-module build"><b>报告服务</b><span>按模板生成章节化经营分析材料</span></div>
+            <div class="arch-module focus"><b>洞察服务（含归因）</b><span>解释趋势、异常、变化和归因线索，并给出建议</span></div>
+          </div>
+          <div class="arch-value"><b>解决问题</b>针对不同层次的数据场景，提供不同层次的 Data + AI 应用能力。</div>
+        </div>
+        <div class="flow-arrow">↑</div>
+        <div class="arch-band db-gpt-band">
+          <div class="arch-label"><b>Data Agent</b><span>统一编排和治理</span></div>
+          <div class="arch-modules">
+            <div class="arch-module focus"><b>领域黄金数据集</b><span>沉淀可问的数据对象、字段含义、指标口径和数据质量说明</span></div>
+            <div class="arch-module focus"><b>分析知识库</b><span>沉淀业务术语、诊断框架、样例问题、报告模板和历史经验</span></div>
+            <div class="arch-module build"><b>分析 Agent 系统人设</b><span>定义角色边界、分析风格、追问方式、输出标准和风险提示</span></div>
+            <div class="arch-module focus"><b>分析任务编排</b><span>组织问数、解读、洞察、报告等多步骤分析过程</span></div>
+          </div>
+          <div class="arch-value"><b>解决问题</b>把分散的 Data + AI 能力集成为企业平台级的统一能力。</div>
+        </div>
+        <div class="flow-arrow">↑</div>
+        <div class="arch-band">
+          <div class="arch-label"><b>数据资产层</b><span>大数据部门提供什么</span></div>
+          <div class="arch-modules">
+            <div class="arch-module ready"><b>文件与库表</b><span>Excel、CSV、数据库表和接口数据</span></div>
+            <div class="arch-module ready"><b>主题宽表</b><span>经营、销售、财务、供应链等分析对象</span></div>
+            <div class="arch-module build"><b>指标与口径</b><span>指标定义、维度层级、计算规则</span></div>
+            <div class="arch-module build"><b>业务知识</b><span>术语、样例问题、诊断框架和历史报告</span></div>
+          </div>
+          <div class="arch-value"><b>解决问题</b>提供企业级、AI 可理解的数据内容支撑上层数据消费。</div>
+        </div>
+      </div>
+      <div class="footer">
+        <span class="page-no">4 / 7</span>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="topline"></div>
+      <div class="kicker">5. Platform product scope | Data Agent 产品边界</div>
+      <h2>Data Agent 是连接数据资产与业务入口的中间平台，让分析能力可用、可信、可复用</h2>
+      <p class="subtitle">向下接入数仓、指标、知识和 BI 资产；向上服务 T-claw、ChatBI、小Q式入口和管理报告。自身聚焦把问数、解读、洞察、报告做成可运营的企业服务。</p>
+      <div class="hub-map">
+        <div class="side-stack">
+          <div class="side-title">向下连接</div>
+          <div class="side-box"><b>数据平台 / 数仓</b>物理表、主题宽表、数据质量、血缘、刷新规则。</div>
+          <div class="side-box"><b>指标平台</b>指标定义、口径版本、维度层级、计算规则。</div>
+          <div class="side-box"><b>知识库 / 模板库</b>业务术语、SOP、诊断框架、历史报告。</div>
+          <div class="side-box"><b>BI 资产</b>看板、图表、报表门户、筛选上下文。</div>
+        </div>
+        <div class="agent-hub">
+          <div class="hub-title">Data Agent 提供的六类平台能力</div>
+          <div class="hub-capabilities">
+            <div class="hub-cap"><b>接得上</b><span>统一接入数据、指标、知识、图表和文件，避免分析入口各自接一套。</span></div>
+            <div class="hub-cap"><b>问得准</b><span>把字段别名、指标口径、业务术语和样例问题带入问数过程。</span></div>
+            <div class="hub-cap"><b>跑得稳</b><span>组织问数、解读、洞察、报告的多步骤流程，并记录状态。</span></div>
+            <div class="hub-cap"><b>管得住</b><span>控制只读、限量、超时、敏感字段、权限和审计，不绕过安全规则。</span></div>
+            <div class="hub-cap"><b>留得下</b><span>沉淀结果、图表、洞察、报告、引用关系和人工反馈，形成资产。</span></div>
+            <div class="hub-cap"><b>评得清</b><span>持续看准确率、成功率、响应时间、成本和用户反馈，支撑迭代。</span></div>
+          </div>
+          <div class="hub-footer">Data Agent 不重做数仓、不重做 BI、不替代 T-claw；它负责对外提供多种形态的统一数据分析服务和分析必须的知识体系（指标定义、分析思路、黄金数据集等）。</div>
+        </div>
+        <div class="side-stack right">
+          <div class="side-title">服务接口</div>
+          <div class="side-box"><b>T-Claw / PI-Claw</b>个人级 / 部门级智能入口、身份、对话、任务分发和消息触达。</div>
+          <div class="side-box"><b>ChatBI / 小Q式入口</b>自然语言问数、多轮追问、结果解释和交互体验。</div>
+          <div class="side-box"><b>FineBI / 看板门户</b>稳定报表、经营看板、图表展示和门户分发。</div>
+          <div class="side-box"><b>报告生成接口</b>面向月报、专题分析和管理汇报，提供生成、审批和导出能力。</div>
+        </div>
+      </div>
+      <div class="arrow-label">
+        <div><b>边界 1：数据和口径仍归源头系统</b>数仓负责数据正确，指标平台负责口径正确，知识库负责业务解释。</div>
+        <div><b>边界 2：体验入口可多样化</b>T-claw、ChatBI、小Q和 BI 门户都可以调用同一套 Data Agent 能力。</div>
+      </div>
+      <div class="footer">
+        <span>Architecture principle: Data Agent 做中间能力层，清晰连接上下游系统，而不是重做所有企业数据产品</span>
+        <span class="page-no">5 / 7</span>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="topline"></div>
+      <div class="kicker">6. DB-GPT current fit | 能力对标与建设重点</div>
+      <h2>T-Agent 已具备运行时雏形，但缺数据资产层和可信运行层；建设重点应该落在语义完备的黄金数据集体系建设、分析思路知识化、运行过程可审计检测</h2>
+      <p class="subtitle">当前 DB-GPT 对标 QuickBI 小Q整体覆盖约 22%。可复用的是连接、Scene、LLM、SQL 和 Dashboard 图表；差距集中在 Dataset、Metric、Run、Trace、Artifact、Insight 和治理能力。</p>
+      <div class="gap-layout">
+        <div class="scorecards">
+          <div class="score"><strong>30%</strong><b>整体覆盖率</b><span>对标小Q“问数、解读、洞察、报告”的综合能力覆盖。</span></div>
+          <div class="score"><strong>35%</strong><b>ChatExcel 问数</b><span>已有上传、DuckDB 和 NL2SQL，缺资产化、质量画像和语义配置。</span></div>
+          <div class="score"><strong>25%</strong><b>ChatDB / Data</b><span>已有 schema 问数和 SQL 执行，缺 SQL 安全和数据集层。</span></div>
+          <div class="score"><strong>20%</strong><b>ChatDashboard / 报告</b><span>已有图表生成，缺多章节叙事和报告任务化；mvt_demo 是突破口。</span></div>
+        </div>
+        <div class="gap-list">
+          <div class="gap-item"><b>可复用</b><span>数据源连接、Chat Scene、LLM 调用、Excel/CSV 到 DuckDB、SQL 执行、Dashboard 图表数据、mvt_demo 4 章报告链路。</span><div class="priority">保留</div></div>
+          <div class="gap-item"><b>关键缺口</b><span>DataSource/DataSet/DataField、MetricCatalog、QuestionConfig、Skill Registry、Run/Event/Trace/Artifact。</span><div class="priority">P0/P1</div></div>
+          <div class="gap-item"><b>安全风险</b><span>ChatWithDbAutoExecute 仍偏裸 SQL 执行，缺 AST 校验、只读限制、限行、超时和审计。</span><div class="priority">P0</div></div>
+          <div class="gap-item"><b>体验差距</b><span>当前用户流程是“选择库表 → 提问 → SQL → 结果”，缺字段质量、业务口径、反问澄清、结果解读。</span><div class="priority">P1</div></div>
+          <div class="gap-item"><b>差异化场景</b><span>深度经营报告、私有化部署、模型自由度是 DB-GPT 路线相对 QuickBI 的重点机会。</span><div class="priority">聚焦</div></div>
+        </div>
+      </div>
+      <div class="note-row">
+        <div class="note"><b>重点建设场景 1：基于黄金数据集的可信问数</b>围绕企业常用问题，先把问数做准、做稳、做可解释。</div>
+        <div class="note"><b>重点建设场景 2：分析知识驱动的分析报告产出</b>新增分析知识库，让 Agent 在每次生成分析报告时主动提供分析思路，进一步驱动大模型展开数据和经营分析。</div>
+        <div class="note"><b>重点建设场景 3：运行元数据沉淀与自学习闭环</b>把每次分析运行的元数据信息记录并落库，结合 Eval 体系持续提升 Data Agent 在不同领域的分析能力和知识体系，实现自我提升与自学习。</div>
+      </div>
+      <div class="footer">
+        <span>Strategic answer: DB-GPT 不是小Q替代品；更适合作为开放可控的 Data Agent Runtime</span>
+        <span class="page-no">6 / 7</span>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="topline"></div>
+      <div class="kicker">7. Build plan | 模块二开、人力与用户可体验节点</div>
+      <h2>建议以 4-6 周可演示闭环为第一目标，再用 10-16 周补齐平台雏形</h2>
+      <p class="subtitle">第一批建设先交付 4-6 周可感知的两类体验：一是 ChatExcel 的经营分析深度提升，二是可自定义的分析知识库；10-16 周再补齐自定义分析 Agent 人设、领域数据集持续学习和黄金数据集选择。</p>
+      <div class="build-legend">
+        <span><i></i>蓝色：AI 团队可投入角色</span>
+        <span><i class="ext"></i>灰色：需大数据团队协同</span>
+        <span>人天占比示例：高级算法 1、初级算法 0.5、高级 AI 产品 0.5、初级 AI 产品 1、后端 0.5</span>
+      </div>
+      <table class="build-table">
+        <thead>
+          <tr>
+            <th>模块</th>
+            <th>核心二开内容</th>
+            <th>关键角色</th>
+            <th>人天 / 周期</th>
+            <th>首个用户体验</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="legacy">
+            <td><b>ChatBI 问数能力</b></td>
+            <td>接口和 Skill 集成</td>
+            <td>-</td>
+            <td>-</td>
+            <td>T+0：接口和 Skill 集成，直接接入现有问数入口。</td>
+          </tr>
+          <tr>
+            <td><b>ChatExcel</b></td>
+            <td><span class="phase now">4-6周：上传 Excel/CSV 或选取业务表，结合黄金数据集做深度问数，直接得到表、图和结论。</span><span class="phase later">长期：支持自定义分析知识库加载，按领域/场景持续提升经营分析深度。</span></td>
+            <td><span class="role-ai">AI团队：高级算法 0.5、初级算法 0.5、高级 AI 产品 0.5、初级 AI 产品 0.5、后端 0.5</span><br><span class="role-ext">其他工程资源：数据产品、数据工程</span></td>
+            <td>约 35-55 pd；MVP 内先做最小闭环</td>
+            <td>T+1 周：基于黄金数据集提问，结合用户自定义知识库，产出可看的分析结论和报告 MVP。</td>
+          </tr>
+          <tr>
+            <td><b>ChatDB / ChatData</b></td>
+            <td><span class="phase now">4-6周：先根据输出链接选择业务表，再做基础数据分析，如问趋势、字段统计和对比。</span><span class="phase later">长期：按语义口径问数，逐步扩展到更多领域分析场景。</span></td>
+            <td><span class="role-ai">AI团队：高级算法 0.5、后端 0.5、初级 AI 产品 0.5</span><br><span class="role-ext">其他工程资源：数据工程、数据产品</span></td>
+            <td>约 45-70 pd；P0/P1 关键路径</td>
+            <td>T+2 周：选择业务表后，完成趋势、字段统计和对比分析。</td>
+          </tr>
+          <tr>
+            <td><b>ChatReport / fin-report</b></td>
+            <td><span class="phase now">4-6周：把分析结果整理成经营报告，先生成可看的初版。</span><span class="phase later">长期：由分析知识库驱动报告思路和章节结构自动补充。</span></td>
+            <td><span class="role-ai">AI团队：高级算法 0.5、高级 AI 产品 0.5、后端 0.5</span><br><span class="role-ext">其他工程资源：前端、BI 专家</span></td>
+            <td>MVP 约 25-40 pd；P1 加编辑器</td>
+            <td>T+4-6 周：把分析结果整理成可看的经营报告初版。</td>
+          </tr>
+          <tr>
+            <td><b>平台底座</b></td>
+            <td><span class="phase now">4-6周：沉淀黄金数据集、分析知识库和运行留痕。</span><span class="phase later">长期：支持用户自定义分析 Agent 人设、领域数据集持续学习和黄金数据集选择。</span></td>
+            <td><span class="role-ai">AI团队：高级算法 0.5、高级 AI 产品 0.5、后端 0.5</span><br><span class="role-ext">其他工程资源：架构师、DevOps、QA</span></td>
+            <td>P1 约 80-120 pd；持续演进</td>
+            <td>T+12-16 周：统一承载问数、分析和报告入口，并沉淀运行留痕和知识资产。</td>
+          </tr>
+        </tbody>
+      </table>
+            <div class="timeline">
+        <div class="milestone"><b>T+1 周</b>先接入黄金数据集，用户可以围绕业务对象直接提问，看到基础表、图和初步结论。</div>
+        <div class="milestone"><b>T+2 周</b>用户可以先选业务表，再做趋势、字段统计和对比分析，形成可解释的基础分析结果。</div>
+        <div class="milestone"><b>T+4-6 周</b>完成可看的分析报告初版，支持把分析结果整理成经营报告 MVP。</div>
+        <div class="milestone"><b>T+8-12 周</b>补齐分析知识库和运行留痕，让每次分析过程可追踪、可复盘、可持续优化。</div>
+        <div class="milestone"><b>T+12-16 周</b>统一问数、分析和报告入口，支持自定义分析 Agent、人设和知识资产沉淀。</div>
+      </div>
+      <div class="note-row">
+        <div class="note"><b>MVP 投入</b>64-95 人天；3-5 人小队，4-6 周形成可演示闭环。</div>
+        <div class="note"><b>平台雏形</b>182-283 人天；5-7 人小队，10-16 周形成数据集、解读、报告编辑主线。</div>
+        <div class="note"><b>企业增强</b>365-585 人天；补指标目录、归因洞察、真实业务模型、审计权限和导出。</div>
+      </div>
+      <div class="footer">
+        <span>Decision request: MVP 范围 / 演示数据 / LLM 验收 / 第一批平台对象</span>
+        <span class="page-no">7 / 7</span>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
+
+

@@ -1,0 +1,627 @@
+{
+  "generated_by": "tools/kb refresh-index",
+  "updated": "2026-06-13",
+  "items": [
+    {
+      "kind": "source-note",
+      "priority": 10,
+      "reason": "source ready for human review",
+      "path": "_workbench/inbox/2026-06-13-Claude-Code-ToolSearch机制研究.md",
+      "topic": "agent-harness-skill-system",
+      "status": "draft",
+      "review_status": "linked-to-session",
+      "check_ok": true,
+      "blocking_checks": [],
+      "next_action": "preview-source-review",
+      "preview_command": "tools/kb preview-source-review _workbench/inbox/2026-06-13-Claude-Code-ToolSearch机制研究.md",
+      "decision_commands": [
+        "tools/kb review-source _workbench/inbox/2026-06-13-Claude-Code-ToolSearch机制研究.md reviewed --note \"摘要和初步判断已人工确认\"",
+        "tools/kb review-source _workbench/inbox/2026-06-13-Claude-Code-ToolSearch机制研究.md needs-evidence --note \"需要补充或修订\"",
+        "tools/kb review-source _workbench/inbox/2026-06-13-Claude-Code-ToolSearch机制研究.md rejected --note \"不采用该来源\""
+      ],
+      "detail": {
+        "path": "_workbench/inbox/2026-06-13-Claude-Code-ToolSearch机制研究.md",
+        "source_title": "Claude Code ToolSearch 机制研究摘录",
+        "topic": "agent-harness-skill-system",
+        "status": "draft",
+        "review_status": "linked-to-session",
+        "check_ok": true,
+        "review_ready": true,
+        "summary_items": [
+          "用户提供的材料判断：这里应称为 `ToolSearch`，它不是代码搜索，而是工具定义的搜索与延迟加载机制。",
+          "材料区分了教学仓库 `shareAI-lab/learn-claude-code` 与 Claude Code 官方产品：前者有工具注册、分发、任务工具和记忆/任务系统教学实现，但没有完整的 ToolSearch；后者公开工具清单中包含 ToolSearch，源码层面的更多细节来自非官方源码研究与结构推断。",
+          "ToolSearch 的核心价值是把工具空间从“全量暴露”改为“按需发现”：常驻少量核心工具，把 MCP、插件和长尾业务工具作为 deferred tools，在需要时通过工具搜索加载完整 schema。",
+          "该机制解决的是工具数量膨胀后的上下文成本、工具选择噪音、MCP/插件生态扩展、prompt cache 稳定性和权限治理问题。",
+          "对本 Knowledge Workbench 的启发是：知识更新和记忆沉淀也不应只依赖当前会话的主观判断，应逐步设计“候选发现 -> 风险分层 -> 按需加载证据 -> 人工确认 -> 正式入库”的能力检索与受控沉淀链路。"
+        ],
+        "judgment_items": [
+          "可信度：medium。材料综合了公开文档、教学仓库和非官方源码研究；其中“官方公开工具清单存在 ToolSearch”可信度较高，具体内部实现细节应标为结构推断，不能当作官方源码事实。",
+          "与当前知识库关系：补强 `Agent协作与Harness` 主题中的“能力空间治理”部分，也给当前 Knowledge Workbench 的主动/被动知识更新机制提供了设计类比。",
+          "是否建议进入 session：是，已进入 `ws-20260613-001`。建议后续把“ToolSearch 作为能力检索机制”与“知识沉淀候选发现机制”合并提炼成候选知识。"
+        ],
+        "linked_sessions": [
+          {
+            "path": "_workbench/sessions/2026-06-13-ToolSearch与知识更新机制审计.md",
+            "id": "ws-20260613-001",
+            "topic": "agent-harness-skill-system",
+            "status": "draft",
+            "stage": "distillation"
+          }
+        ],
+        "checks": [
+          {
+            "name": "type is source-note",
+            "ok": true,
+            "severity": "error"
+          },
+          {
+            "name": "schema validation passes",
+            "ok": true,
+            "severity": "error"
+          },
+          {
+            "name": "topic is set",
+            "ok": true,
+            "severity": "error"
+          },
+          {
+            "name": "source title is set",
+            "ok": true,
+            "severity": "error"
+          },
+          {
+            "name": "source is linked to a session",
+            "ok": true,
+            "severity": "error"
+          },
+          {
+            "name": "summary has content",
+            "ok": true,
+            "severity": "error"
+          },
+          {
+            "name": "initial judgment has content",
+            "ok": true,
+            "severity": "error"
+          },
+          {
+            "name": "manual source may omit source_url",
+            "ok": true,
+            "severity": "warning"
+          }
+        ],
+        "recommended_commands": [
+          "tools/kb review-source _workbench/inbox/2026-06-13-Claude-Code-ToolSearch机制研究.md reviewed --note \"摘要和初步判断已人工确认\"",
+          "tools/kb review-source _workbench/inbox/2026-06-13-Claude-Code-ToolSearch机制研究.md needs-evidence --note \"需要补充或修订\"",
+          "tools/kb review-source _workbench/inbox/2026-06-13-Claude-Code-ToolSearch机制研究.md rejected --note \"不采用该来源\""
+        ]
+      }
+    },
+    {
+      "kind": "distillation-candidate",
+      "priority": 20,
+      "reason": "distillation ready for human review",
+      "path": "_workbench/distillations/2026-06-13-ToolSearch与知识库主动被动更新机制-沉淀候选.md",
+      "id": "ds-20260613-001",
+      "topic": "agent-harness-skill-system",
+      "promotion_status": "pending-human-review",
+      "target_topic_path": "主题库/Agent协作与Harness/",
+      "check_ok": true,
+      "promotion_conflict_free": true,
+      "blocking_checks": [],
+      "conflicts": [],
+      "next_action": "preview-distillation-review",
+      "preview_command": "tools/kb preview-distillation-review _workbench/distillations/2026-06-13-ToolSearch与知识库主动被动更新机制-沉淀候选.md",
+      "decision_commands": [
+        "tools/kb review-distillation _workbench/distillations/2026-06-13-ToolSearch与知识库主动被动更新机制-沉淀候选.md approve --note \"沉淀内容和入库计划已人工确认\"",
+        "tools/kb review-distillation _workbench/distillations/2026-06-13-ToolSearch与知识库主动被动更新机制-沉淀候选.md needs-revision --note \"需要补充或修订\"",
+        "tools/kb review-distillation _workbench/distillations/2026-06-13-ToolSearch与知识库主动被动更新机制-沉淀候选.md reject --note \"不进入正式知识库\""
+      ],
+      "detail": {
+        "path": "_workbench/distillations/2026-06-13-ToolSearch与知识库主动被动更新机制-沉淀候选.md",
+        "id": "ds-20260613-001",
+        "topic": "agent-harness-skill-system",
+        "status": "draft",
+        "promotion_status": "pending-human-review",
+        "check_ok": true,
+        "promotion_conflict_free": true,
+        "review_ready": true,
+        "promote_ready": false,
+        "topic_title": "ToolSearch 与知识库主动/被动更新机制",
+        "target_topic_path": "主题库/Agent协作与Harness",
+        "stable_judgments": [
+          "ToolSearch 的本质不是搜索代码或数据，而是面向 Agent 工具空间的能力检索与按需装载机制。",
+          "当工具、MCP server、插件和业务能力数量膨胀时，把所有 tool schema 常驻上下文会带来 token 成本、上下文污染、工具选择困难、prompt cache 不稳定和权限治理压力。",
+          "更可扩展的模式是：常驻少量核心工具，把长尾工具作为 deferred tools，通过轻量索引、`searchHint` 和按需 schema 加载缩小 action space。",
+          "Knowledge Workbench 的知识更新机制可以借鉴 ToolSearch 的思想：不要把所有潜在沉淀直接写入正式知识库，而是先做候选发现、候选索引、风险分层和按需审阅。",
+          "当前 Knowledge Workbench 已有被动沉淀工作流、审阅队列、RAG scope、工具权限目录和项目级 reflection，但尚未形成完整的主动巡检与会话钩子闭环。",
+          "知识更新的自动化边界应是“自动发现候选、自动生成只读审阅包、自动刷新索引”，而不是自动 review、approve 或 promote。"
+        ],
+        "concept_definitions": [
+          "Capability search：面向 Agent 可调用能力的检索机制，搜索对象是工具、技能、工作流或 adapter 的定义，而不是业务数据本身。",
+          "Deferred tool：默认不把完整 schema 暴露给模型，只在被搜索命中或明确选择后加载完整定义的工具。",
+          "主动知识更新机制：由定时任务、后台 worker 或显式巡检命令触发，扫描 Git diff、工作台队列、会话产物、验证结果和高价值变更，生成可审阅的沉淀候选。",
+          "被动知识更新机制：在用户与 Agent 会话过程中，Agent 根据规则判断当前内容是否值得沉淀，并在工作台生成 source note、session、distillation candidate、reflection 或 correction。",
+          "Capture candidate：自动或半自动发现的“可能值得沉淀”条目，只能进入工作台队列，不能直接成为正式知识。"
+        ],
+        "decision_candidates": [
+          "下一阶段不应直接建设“自动入库”，而应先建设“候选发现层”，把主动和被动发现的沉淀机会统一进入工作台队列。",
+          "自动化工具最多可写 `_workbench/capture-candidates/`、`_workbench/reflections/`、`_workbench/corrections/` 和 `_index/`，不得自动写 `主题库/`。",
+          "主动扫描应优先覆盖 Git 变更、Codex session 产物、review queue、validation 结果和高频用户确认，而不是泛化爬取所有内容。",
+          "被动捕获应绑定“非平凡会话结束检查”，避免每句话都沉淀，也避免重要用户纠正和可复用框架丢失。",
+          "候选评分应区分四类输出：source note、distillation candidate、reflection/correction、project rule update candidate。"
+        ],
+        "validation_questions": [
+          "Codex desktop 是否能提供可靠的 session 结束 hook 或自动化提醒入口。",
+          "是否需要新增 typed schema：`capture-candidate`、`scheduled-scan-report` 或 `knowledge-update-audit`。",
+          "主动扫描的最小周期应是 daily、weekly，还是只在 Git commit/session end 后触发。",
+          "候选评分阈值如何避免噪音：哪些内容只是过程材料，哪些应该进入 review queue。",
+          "是否需要为 Codex、Claude Code、Obsidian、MCP server 分别设计 adapter。"
+        ],
+        "knowledge_relationship": [
+          "新增：为 `Agent协作与Harness` 补充“能力检索/延迟加载”视角。",
+          "新增：为 Knowledge Workbench 补充“主动/被动知识更新闭环”的演进方向。",
+          "更新：把已有 reflection/correction 机制定位为被动项目自改进的一部分，而不是完整知识更新系统。",
+          "复用：现有 source note、session、distillation、review queue、decision-guide、rag-scope、tool-catalog 和 promote gate。",
+          "冲突：暂无直接冲突；但会限制任何“自动正式入库”的设计。"
+        ],
+        "source_sessions": [
+          {
+            "ref": "ws-20260613-001",
+            "path": "_workbench/sessions/2026-06-13-ToolSearch与知识更新机制审计.md",
+            "id": "ws-20260613-001",
+            "topic": "agent-harness-skill-system",
+            "status": "draft",
+            "stage": "distillation"
+          }
+        ],
+        "source_debates": [],
+        "planned_files": [
+          {
+            "role": "topic-index",
+            "path": "主题库/Agent协作与Harness/README.md",
+            "exists": true,
+            "operation": "append"
+          },
+          {
+            "role": "knowledge-card",
+            "path": "主题库/Agent协作与Harness/专业知识/01-ToolSearch-与知识库主动-被动更新机制.md",
+            "exists": false,
+            "operation": "create"
+          },
+          {
+            "role": "decision-record",
+            "path": "主题库/Agent协作与Harness/决策记录/ADR-001-下一阶段不应直接建设“自动入库”，而应先建设“候选发现层”，把主动和被动发现的沉淀机会统一进入工作台队列。.md",
+            "exists": false,
+            "operation": "create"
+          },
+          {
+            "role": "distillation-candidate",
+            "path": "_workbench/distillations/2026-06-13-ToolSearch与知识库主动被动更新机制-沉淀候选.md",
+            "exists": true,
+            "operation": "update-status-on-confirm"
+          }
+        ],
+        "conflicts": [],
+        "checks": [
+          {
+            "name": "type is distillation-candidate",
+            "ok": true,
+            "severity": "error"
+          },
+          {
+            "name": "schema validation passes",
+            "ok": true,
+            "severity": "error"
+          },
+          {
+            "name": "promotion_status is reviewable",
+            "ok": true,
+            "severity": "error"
+          },
+          {
+            "name": "source_sessions are set",
+            "ok": true,
+            "severity": "error"
+          },
+          {
+            "name": "source_sessions exist",
+            "ok": true,
+            "severity": "error"
+          },
+          {
+            "name": "source_debates exist when set",
+            "ok": true,
+            "severity": "error"
+          },
+          {
+            "name": "target_topic_path is under 主题库/",
+            "ok": true,
+            "severity": "error"
+          },
+          {
+            "name": "stable judgments are present",
+            "ok": true,
+            "severity": "error"
+          },
+          {
+            "name": "concept definitions are present",
+            "ok": true,
+            "severity": "error"
+          },
+          {
+            "name": "decision candidates are present",
+            "ok": true,
+            "severity": "error"
+          },
+          {
+            "name": "validation questions are present",
+            "ok": true,
+            "severity": "warning"
+          },
+          {
+            "name": "knowledge relationship section is present",
+            "ok": true,
+            "severity": "warning"
+          },
+          {
+            "name": "human confirmation is stated",
+            "ok": true,
+            "severity": "warning"
+          }
+        ],
+        "recommended_commands": [
+          "tools/kb review-distillation _workbench/distillations/2026-06-13-ToolSearch与知识库主动被动更新机制-沉淀候选.md approve --note \"沉淀内容和入库计划已人工确认\"",
+          "tools/kb review-distillation _workbench/distillations/2026-06-13-ToolSearch与知识库主动被动更新机制-沉淀候选.md needs-revision --note \"需要补充或修订\"",
+          "tools/kb review-distillation _workbench/distillations/2026-06-13-ToolSearch与知识库主动被动更新机制-沉淀候选.md reject --note \"不进入正式知识库\""
+        ]
+      }
+    },
+    {
+      "kind": "debate-session",
+      "priority": 88,
+      "reason": "debate already drafted a distillation",
+      "path": "_workbench/debates/2026-06-09-企业技术部门-AI-转型红蓝攻防.md",
+      "id": "db-20260609-001",
+      "topic": "enterprise-ai-tech-org",
+      "status": "draft",
+      "stage": "convergence",
+      "check_ok": true,
+      "blocking_checks": [],
+      "next_action": "distillation-drafted",
+      "preview_command": "tools/kb preview-debate-review _workbench/debates/2026-06-09-企业技术部门-AI-转型红蓝攻防.md",
+      "decision_commands": [
+        "tools/kb preview-debate-review _workbench/debates/2026-06-09-企业技术部门-AI-转型红蓝攻防.md",
+        "tools/kb preview-distillation-review _workbench/distillations/2026-06-08-企业技术部门在Agent时代的定位-沉淀候选.md"
+      ],
+      "detail": {
+        "path": "_workbench/debates/2026-06-09-企业技术部门-AI-转型红蓝攻防.md",
+        "id": "db-20260609-001",
+        "topic": "enterprise-ai-tech-org",
+        "status": "draft",
+        "stage": "convergence",
+        "target_topic_path": "主题库/企业技术部门AI转型/",
+        "check_ok": true,
+        "review_ready": false,
+        "next_action": "distillation-drafted",
+        "source_sessions": [
+          {
+            "ref": "ws-20260608-002",
+            "path": "_workbench/sessions/2026-06-08-企业技术部门在Agent时代的定位.md",
+            "id": "ws-20260608-002",
+            "topic": "enterprise-ai-tech-org",
+            "status": "reviewed",
+            "stage": "distillation"
+          }
+        ],
+        "round_1_items": [
+          "Claim: 第一阶段不应包装成“企业 AI 战略平台”，而应落到一个业务用户能感知的可信问数和分析闭环。",
+          "Evidence: `ws-20260608-002` 已把 MVP 收敛到“可问数据集 -> 语义指标 -> 问数/解读 -> 报告素材 -> 反馈评测 -> 资产沉淀”。",
+          "Risk: 如果没有明确用户入口和反馈动作，底座建设会变成技术部门内部工程，业务侧只看到另一个复杂平台。",
+          "Question: 第一阶段样板用户是谁，日常任务是什么，什么结果会让他们愿意重复使用？",
+          "Recommendation: 保留“可信数据智能底座”判断，但在沉淀候选中补充用户可感知的验收指标。",
+          "Claim: “企业智能能力提供方”是可保留的定位，但它必须表达为组织能力资产，而不是技术部门权责扩张口号。",
+          "Evidence: 现有知识库中大数据团队 AI 时代重新定义、Data Agent 能力分层、A1-A13 能力树都指向资产化、语义化、治理化。",
+          "Risk: 如果组织考核仍按项目交付和需求响应计算，技术部门很难真正转向能力资产运营。",
+          "Question: 哪些能力资产应该由技术部门强制统一，哪些应允许业务团队自治？",
+          "Recommendation: 入库时标注这是战略定位和阶段性框架，不写成已经验证的组织事实。",
+          "Claim: 平台层优先级应从 Agent Runtime 下调到语义、权限、工具边界、Run Trace 和 Eval。",
+          "Evidence: `ds-20260608-002` 已列出 P0 能力：可问数据集、指标语义、权限治理、SQL / Tool Guard、运行留痕、黄金问题集。",
+          "Risk: 过早建设统一 Agent Runtime 会把团队拖入编排框架选型，而不是解决企业数据可信和可审计问题。",
+          "Question: 现有 BI、数据平台、知识库和工具系统中，哪些能力能复用为底座，哪些需要新建？",
+          "Recommendation: 把“统一平台”改写为“统一语义、治理、评测底座 + 多应用适配”的可降级架构。",
+          "Claim: 样板场景必须覆盖完整生命周期，而不是只证明模型能回答问题。",
+          "Evidence: session 中已经强调反馈、评测和资产沉淀；这比一次性 ChatBI 演示更接近企业长期价值。",
+          "Risk: 如果样板场景太宽，团队会把精力消耗在接入系统和权限协调上，无法证明单点价值。",
+          "Question: 样板场景是否应限定在一个高频分析域，例如经营指标复盘、销售漏斗诊断或成本异常归因？",
+          "Recommendation: 沉淀候选应补充“样板场景选择标准”，而不是只写平台能力清单。",
+          "Claim: 当前候选最大问题是“正确但泛”，缺少反证条件和失败判据。",
+          "Evidence: “组织智能能力提供方”“能力资产”“Agentic Platform”都容易被认可，但也容易落成 PPT 和 Demo。",
+          "Risk: 技术部门可能用新名词包装旧工作流：报表换成问答、数据目录换成知识中心、接口平台换成 Tool Hub。",
+          "Question: 如果 3 个月后业务仍然绕开平台用个人 AI 工具，如何判定本路线失败并调整？",
+          "Recommendation: 必须加入失败判据：无复用、无评测、无反馈、无权限审计时，不得宣称完成 AI 转型。",
+          "Claim: 现有候选可以进入人工审阅，但需要补一层“边界和验收”后再考虑 approve。",
+          "Evidence: 候选已有稳定判断、概念定义、建设优先级和决策记录候选，结构完整。",
+          "Risk: 如果不补边界，正式知识卡会把愿景、策略、架构、实施路径混在一起，后续难以复用。",
+          "Question: 正式入库时应拆成一张知识卡，还是一张知识卡加一条 ADR？",
+          "Recommendation: 保持当前目标文件计划，但在知识卡中强调适用边界，在 ADR 中强调“不以统一聊天入口为第一阶段目标”。",
+          "Claim: 下一步不应直接 promote，而应先把来源资料审阅和候选审阅走完。",
+          "Evidence: 当前 review queue 仍有 source-note 和 `ds-20260608-002` 等待人工确认；版本状态已能支持回退。",
+          "Risk: 如果跳过来源审阅，正式知识库会沉淀缺证据的战略判断；如果跳过候选审阅，会破坏工作台门禁。",
+          "Question: 是否需要先补真实外部来源或企业内部案例，再 approve 该候选？",
+          "Recommendation: 本 debate 先作为 `source_debates` 补强 `ds-20260608-002`，不生成重复候选。"
+        ],
+        "round_2_items": [
+          "红队质询产品经理：如果业务用户只关心“快点得到答案”，为什么他们会接受指标语义、权限和评测带来的使用成本？",
+          "产品经理回应：第一阶段必须把治理成本藏在产品体验背后，例如推荐问题、引用来源、可信度提示和一键反馈，而不是要求用户理解底座。",
+          "架构专家质询战略专家：如果不建设统一 Runtime，如何避免每个业务系统重复造 Agent？",
+          "战略专家回应：先统一语义、工具注册、权限、Trace 和 Eval，Runtime 可以多实现并存；统一的是治理协议，不一定是单一运行框架。",
+          "红队质询架构专家：Run Trace 和 Eval 很容易变成日志工程，怎么证明它产生业务价值？",
+          "架构专家回应：必须绑定黄金问题集通过率、失败回放关闭率、重复问题自动化率和工具调用审计覆盖率。",
+          "知识编辑专家质询全体：哪些内容现在已经足够稳定，可以进入正式知识库？",
+          "研发交付专家回应：定位、底座优先级、第一阶段不做统一聊天入口可以作为候选；组织架构、预算、框架选型不能入库。"
+        ],
+        "round_3_items": [
+          "共识：企业技术部门在 Agent 时代应从项目交付和模型接入，升级为可信智能能力资产的建设和运营方。",
+          "共识：第一阶段应优先建设可问数据集、指标语义、权限治理、工具边界、运行留痕和评测闭环，而不是统一聊天入口。",
+          "共识：正式知识必须把“组织定位”“平台能力”“样板场景”“失败判据”拆清楚，避免宏大叙事。",
+          "分歧：是否需要统一 Agent Runtime 仍未定；当前更稳妥的表述是统一语义、治理、评测协议，运行框架可阶段性多元。",
+          "分歧：样板场景由哪个团队主导仍需结合组织实际，不能在知识库中写死。",
+          "最弱假设：技术部门的考核和资源配置能支持能力资产运营，而不是继续以项目需求吞吐为主。",
+          "最弱假设：业务侧愿意在受控数据集和可审计 Agent 下工作，而不是继续使用个人 AI 工具或影子 IT。",
+          "待验证：黄金问题集通过率、失败回放关闭率、复用资产数量、工具调用审计覆盖率是否能成为有效验收指标。",
+          "待验证：一个高频样板场景能否证明资产沉淀比一次性问答有更高复用价值。"
+        ],
+        "distillation_suggestions": [
+          "是否生成沉淀候选：不生成重复候选；将本 debate 作为现有 `ds-20260608-002` 的 `source_debates` 补强来源。",
+          "建议来源 session：`ws-20260608-002`",
+          "建议目标主题：`主题库/企业技术部门AI转型/`",
+          "建议补强内容：在现有沉淀候选中加入失败判据、样板场景选择标准、统一 Runtime 的降级表述和审阅前置要求。"
+        ],
+        "drafted_distillations": [
+          {
+            "path": "_workbench/distillations/2026-06-08-企业技术部门在Agent时代的定位-沉淀候选.md",
+            "id": "ds-20260608-002",
+            "promotion_status": "promoted",
+            "status": "promoted"
+          }
+        ],
+        "checks": [
+          {
+            "name": "type is debate-session",
+            "ok": true,
+            "severity": "error"
+          },
+          {
+            "name": "schema validation passes",
+            "ok": true,
+            "severity": "error"
+          },
+          {
+            "name": "source_sessions are set",
+            "ok": true,
+            "severity": "error"
+          },
+          {
+            "name": "source_sessions exist",
+            "ok": true,
+            "severity": "error"
+          },
+          {
+            "name": "issue is present",
+            "ok": true,
+            "severity": "error"
+          },
+          {
+            "name": "round 1 has at least three expert positions",
+            "ok": true,
+            "severity": "error"
+          },
+          {
+            "name": "round 2 has cross-examination",
+            "ok": true,
+            "severity": "error"
+          },
+          {
+            "name": "round 3 has convergence",
+            "ok": true,
+            "severity": "error"
+          },
+          {
+            "name": "distillation suggestion is present",
+            "ok": true,
+            "severity": "error"
+          },
+          {
+            "name": "debate setting has content",
+            "ok": true,
+            "severity": "warning"
+          },
+          {
+            "name": "target_topic_path is set or supplied during draft",
+            "ok": true,
+            "severity": "warning"
+          }
+        ],
+        "recommended_commands": [
+          "tools/kb preview-distillation-review _workbench/distillations/2026-06-08-企业技术部门在Agent时代的定位-沉淀候选.md"
+        ]
+      }
+    },
+    {
+      "kind": "source-note",
+      "priority": 90,
+      "reason": "source already reviewed",
+      "path": "_workbench/inbox/2026-06-09-Anthropic-Skills-官方仓库-skill-creator.md",
+      "topic": "agent-harness-skill-system",
+      "status": "reviewed",
+      "review_status": "reviewed",
+      "check_ok": true,
+      "blocking_checks": [],
+      "next_action": "source-reviewed",
+      "preview_command": "tools/kb preview-source-review _workbench/inbox/2026-06-09-Anthropic-Skills-官方仓库-skill-creator.md",
+      "decision_commands": [],
+      "detail": {
+        "path": "_workbench/inbox/2026-06-09-Anthropic-Skills-官方仓库-skill-creator.md",
+        "source_title": "Anthropic Skills 官方仓库 skill-creator",
+        "topic": "agent-harness-skill-system",
+        "status": "reviewed",
+        "review_status": "reviewed",
+        "check_ok": true,
+        "review_ready": false,
+        "summary_items": [
+          "Anthropic 官方 `skills` 仓库展示了 Skills 的基本形态：每个 skill 是一个自包含文件夹，由 `SKILL.md`、可选脚本、参考资料、资产和评测/展示工具组成，用于让 Agent 在特定任务上形成可重复行为。",
+          "`skills/skill-creator` 的核心价值不只是“写提示词”，而是把 skill 生命周期做成 harness：捕获意图、编写 skill、构造测试提示、跑 with-skill 与 baseline、让人审阅结果、用断言和 benchmark 评估，再迭代 skill 与触发描述。",
+          "对当前 Knowledge Workbench 的启发是：专家能力不能只沉淀为角色设定或长 prompt，而应封装成“触发条件 + 上下文加载 + 可执行资源 + 评测反馈 + 人类审阅”的可迁移工作单元。"
+        ],
+        "judgment_items": [
+          "可信度：high。来源是 Anthropic 官方 GitHub 仓库，已固定到 commit `c30d329f5814647c1e2f071020c1e8c1c9893ef1`；但该仓库声明其示例主要用于演示和教育，不能等同于 Claude 产品的全部行为承诺。",
+          "与当前知识库关系：直接补强“人和 Agent 共同编织知识网络”的工程层。它把我们之前讨论的专家 profile、工作台、入库边界和多轮研讨，进一步推进到可验证的 agent harness 设计。",
+          "是否建议进入 session：是，已进入 `ws-20260609-001`。后续建议生成一个沉淀候选，主题为“真正的 Agent harness 思想”，但暂不直接进入 `主题库/`。",
+          "适配判断：应抽象为跨工具原则，而不是 Claude Code 专属实现。对 Codex、Claude Code、OpenAI Agents SDK、MCP、Obsidian 插件而言，可迁移的是结构、触发、资源、评测和审阅机制。",
+          "风险：如果只学习 `description` 和 `SKILL.md` 形式，会退化成提示词模板；如果忽略 baseline、eval、transcript、human review 和版本快照，就没有形成真正 harness。"
+        ],
+        "linked_sessions": [
+          {
+            "path": "_workbench/sessions/2026-06-09-Anthropic-Skills-官方仓库与-harness-思想.md",
+            "id": "ws-20260609-001",
+            "topic": "agent-harness-skill-system",
+            "status": "draft",
+            "stage": "distillation"
+          }
+        ],
+        "checks": [
+          {
+            "name": "type is source-note",
+            "ok": true,
+            "severity": "error"
+          },
+          {
+            "name": "schema validation passes",
+            "ok": true,
+            "severity": "error"
+          },
+          {
+            "name": "topic is set",
+            "ok": true,
+            "severity": "error"
+          },
+          {
+            "name": "source title is set",
+            "ok": true,
+            "severity": "error"
+          },
+          {
+            "name": "source is linked to a session",
+            "ok": true,
+            "severity": "error"
+          },
+          {
+            "name": "summary has content",
+            "ok": true,
+            "severity": "error"
+          },
+          {
+            "name": "initial judgment has content",
+            "ok": true,
+            "severity": "error"
+          },
+          {
+            "name": "manual source may omit source_url",
+            "ok": true,
+            "severity": "warning"
+          }
+        ],
+        "recommended_commands": []
+      }
+    },
+    {
+      "kind": "source-note",
+      "priority": 90,
+      "reason": "source already reviewed",
+      "path": "_workbench/inbox/2026-06-08-Agent时代企业技术部门资料占位.md",
+      "topic": "enterprise-ai-tech-org",
+      "status": "reviewed",
+      "review_status": "reviewed",
+      "check_ok": true,
+      "blocking_checks": [],
+      "next_action": "source-reviewed",
+      "preview_command": "tools/kb preview-source-review _workbench/inbox/2026-06-08-Agent时代企业技术部门资料占位.md",
+      "decision_commands": [],
+      "detail": {
+        "path": "_workbench/inbox/2026-06-08-Agent时代企业技术部门资料占位.md",
+        "source_title": "Agent时代企业技术部门资料占位",
+        "topic": "enterprise-ai-tech-org",
+        "status": "reviewed",
+        "review_status": "reviewed",
+        "check_ok": true,
+        "review_ready": false,
+        "summary_items": [
+          "该来源与研讨议题相关：Agent / LLM 冲击下，企业技术部门未来应提供什么、建设什么，以及如何避免停留在“接入模型和聊天入口”的浅层改造。",
+          "企业技术部门在 Agent 时代的定位应升级为企业智能能力提供方。",
+          "核心建设对象不是聊天入口，而是数据、语义、知识、工具、治理、评测和资产运营底座。",
+          "技术部门应把能力沉淀为可被人、Agent、BI、业务系统共同消费的资产。"
+        ],
+        "judgment_items": [
+          "可信度：medium，来自已关联 session 的阶段性研讨上下文，仍需人工确认。",
+          "与当前知识库关系：用于补充来源资料，不直接代表正式知识。",
+          "是否建议进入 session：是，已作为 session source input。",
+          "待验证：企业技术部门是否具备从项目交付转向能力资产运营的组织条件。",
+          "待验证：业务侧是否愿意通过受控数据集、指标语义和可审计 Agent 进行自助分析。"
+        ],
+        "linked_sessions": [
+          {
+            "path": "_workbench/sessions/2026-06-08-企业技术部门在Agent时代的定位.md",
+            "id": "ws-20260608-002",
+            "topic": "enterprise-ai-tech-org",
+            "status": "reviewed",
+            "stage": "distillation"
+          }
+        ],
+        "checks": [
+          {
+            "name": "type is source-note",
+            "ok": true,
+            "severity": "error"
+          },
+          {
+            "name": "schema validation passes",
+            "ok": true,
+            "severity": "error"
+          },
+          {
+            "name": "topic is set",
+            "ok": true,
+            "severity": "error"
+          },
+          {
+            "name": "source title is set",
+            "ok": true,
+            "severity": "error"
+          },
+          {
+            "name": "source is linked to a session",
+            "ok": true,
+            "severity": "error"
+          },
+          {
+            "name": "summary has content",
+            "ok": true,
+            "severity": "error"
+          },
+          {
+            "name": "initial judgment has content",
+            "ok": true,
+            "severity": "error"
+          },
+          {
+            "name": "manual source may omit source_url",
+            "ok": true,
+            "severity": "warning"
+          }
+        ],
+        "recommended_commands": []
+      }
+    }
+  ]
+}

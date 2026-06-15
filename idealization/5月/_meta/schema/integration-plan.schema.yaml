@@ -1,0 +1,14 @@
+type: integration-plan
+required:
+  - type
+  - status
+  - created
+  - updated
+  - scope
+allowed_status:
+  - active
+  - draft
+  - deprecated
+notes:
+  - Integration plans live under _integrations.
+  - Integrations are optional clients and must not replace Markdown/Git as the source of truth.

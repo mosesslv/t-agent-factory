@@ -1,0 +1,401 @@
+{
+  "generated_by": "tools/kb refresh-index",
+  "updated": "2026-06-13",
+  "summary": {
+    "total_typed_files": 46,
+    "by_type": {
+      "agent-profile": 7,
+      "debate-session": 1,
+      "decision-record": 3,
+      "discussion-session": 4,
+      "distillation-candidate": 4,
+      "governance-rule": 2,
+      "implementation-plan": 1,
+      "index": 4,
+      "integration-plan": 6,
+      "knowledge-card": 3,
+      "source-note": 3,
+      "tool-doc": 1,
+      "topic-index": 3,
+      "workflow": 3,
+      "workspace-home": 1
+    },
+    "by_status": {
+      "accepted": 3,
+      "active": 21,
+      "draft": 12,
+      "promoted": 6,
+      "reviewed": 4
+    }
+  },
+  "files": [
+    {
+      "type": "agent-profile",
+      "status": "active",
+      "topic": "",
+      "id": "agent-product-lead",
+      "path": "_agents/产品专家.md",
+      "updated": "2026-06-08"
+    },
+    {
+      "type": "agent-profile",
+      "status": "active",
+      "topic": "",
+      "id": "agent-product-manager",
+      "path": "_agents/产品经理.md",
+      "updated": "2026-06-08"
+    },
+    {
+      "type": "agent-profile",
+      "status": "active",
+      "topic": "",
+      "id": "agent-strategist",
+      "path": "_agents/战略专家.md",
+      "updated": "2026-06-08"
+    },
+    {
+      "type": "agent-profile",
+      "status": "active",
+      "topic": "",
+      "id": "agent-architect",
+      "path": "_agents/架构专家.md",
+      "updated": "2026-06-08"
+    },
+    {
+      "type": "agent-profile",
+      "status": "active",
+      "topic": "",
+      "id": "agent-knowledge-editor",
+      "path": "_agents/知识编辑专家.md",
+      "updated": "2026-06-08"
+    },
+    {
+      "type": "agent-profile",
+      "status": "active",
+      "topic": "",
+      "id": "agent-delivery-lead",
+      "path": "_agents/研发交付专家.md",
+      "updated": "2026-06-08"
+    },
+    {
+      "type": "agent-profile",
+      "status": "active",
+      "topic": "",
+      "id": "agent-red-team",
+      "path": "_agents/红队专家.md",
+      "updated": "2026-06-08"
+    },
+    {
+      "type": "debate-session",
+      "status": "draft",
+      "topic": "enterprise-ai-tech-org",
+      "id": "db-20260609-001",
+      "path": "_workbench/debates/2026-06-09-企业技术部门-AI-转型红蓝攻防.md",
+      "updated": "2026-06-09"
+    },
+    {
+      "type": "decision-record",
+      "status": "accepted",
+      "topic": "agent-harness-skill-system",
+      "id": "adr-20260609-003",
+      "path": "主题库/Agent协作与Harness/决策记录/ADR-001-下一阶段不把专家系统升级理解为“写更多人设-prompt”，而是逐步把高频专家协作升级为可评测-harness。.md",
+      "updated": "2026-06-09"
+    },
+    {
+      "type": "decision-record",
+      "status": "accepted",
+      "topic": "human-agent-knowledge-network",
+      "id": "adr-20260609-002",
+      "path": "主题库/人和Agent共同编织知识网络/决策记录/ADR-001-V0-不迁移现有旧知识，只新增工作台结构和索引。.md",
+      "updated": "2026-06-09"
+    },
+    {
+      "type": "decision-record",
+      "status": "accepted",
+      "topic": "enterprise-ai-tech-org",
+      "id": "adr-20260609-001",
+      "path": "主题库/企业技术部门AI转型/决策记录/ADR-001-第一阶段不把目标定义为“建设统一聊天入口”，而定义为“建设可信数据智能底座”。.md",
+      "updated": "2026-06-09"
+    },
+    {
+      "type": "discussion-session",
+      "status": "draft",
+      "topic": "agent-harness-skill-system",
+      "id": "ws-20260609-001",
+      "path": "_workbench/sessions/2026-06-09-Anthropic-Skills-官方仓库与-harness-思想.md",
+      "updated": "2026-06-09"
+    },
+    {
+      "type": "discussion-session",
+      "status": "draft",
+      "topic": "agent-harness-skill-system",
+      "id": "ws-20260613-001",
+      "path": "_workbench/sessions/2026-06-13-ToolSearch与知识更新机制审计.md",
+      "updated": "2026-06-13"
+    },
+    {
+      "type": "discussion-session",
+      "status": "reviewed",
+      "topic": "human-agent-knowledge-network",
+      "id": "ws-20260608-001",
+      "path": "_workbench/sessions/2026-06-08-人和Agent共同编织知识网络.md",
+      "updated": "2026-06-08"
+    },
+    {
+      "type": "discussion-session",
+      "status": "reviewed",
+      "topic": "enterprise-ai-tech-org",
+      "id": "ws-20260608-002",
+      "path": "_workbench/sessions/2026-06-08-企业技术部门在Agent时代的定位.md",
+      "updated": "2026-06-08"
+    },
+    {
+      "type": "distillation-candidate",
+      "status": "draft",
+      "topic": "agent-harness-skill-system",
+      "id": "ds-20260613-001",
+      "path": "_workbench/distillations/2026-06-13-ToolSearch与知识库主动被动更新机制-沉淀候选.md",
+      "updated": "2026-06-13"
+    },
+    {
+      "type": "distillation-candidate",
+      "status": "promoted",
+      "topic": "human-agent-knowledge-network",
+      "id": "ds-20260608-001",
+      "path": "_workbench/distillations/2026-06-08-人和Agent共同编织知识网络-沉淀候选.md",
+      "updated": "2026-06-09"
+    },
+    {
+      "type": "distillation-candidate",
+      "status": "promoted",
+      "topic": "enterprise-ai-tech-org",
+      "id": "ds-20260608-002",
+      "path": "_workbench/distillations/2026-06-08-企业技术部门在Agent时代的定位-沉淀候选.md",
+      "updated": "2026-06-09"
+    },
+    {
+      "type": "distillation-candidate",
+      "status": "promoted",
+      "topic": "agent-harness-skill-system",
+      "id": "ds-20260609-003",
+      "path": "_workbench/distillations/2026-06-09-真正的-Agent-harness-思想-沉淀候选.md",
+      "updated": "2026-06-09"
+    },
+    {
+      "type": "governance-rule",
+      "status": "active",
+      "topic": "",
+      "id": "",
+      "path": "_meta/版本管理规则.md",
+      "updated": "2026-06-09"
+    },
+    {
+      "type": "governance-rule",
+      "status": "active",
+      "topic": "",
+      "id": "",
+      "path": "_meta/知识入库规则.md",
+      "updated": "2026-06-08"
+    },
+    {
+      "type": "implementation-plan",
+      "status": "active",
+      "topic": "",
+      "id": "",
+      "path": "_meta/Knowledge Workbench V0 实施计划.md",
+      "updated": "2026-06-08"
+    },
+    {
+      "type": "index",
+      "status": "active",
+      "topic": "",
+      "id": "",
+      "path": "_index/promotion-queue.md",
+      "updated": "2026-06-08"
+    },
+    {
+      "type": "index",
+      "status": "active",
+      "topic": "",
+      "id": "",
+      "path": "_index/status.md",
+      "updated": "2026-06-09"
+    },
+    {
+      "type": "index",
+      "status": "draft",
+      "topic": "",
+      "id": "",
+      "path": "_index/manifest.md",
+      "updated": "2026-06-08"
+    },
+    {
+      "type": "index",
+      "status": "draft",
+      "topic": "",
+      "id": "",
+      "path": "_index/topic-map.md",
+      "updated": "2026-06-08"
+    },
+    {
+      "type": "integration-plan",
+      "status": "active",
+      "topic": "",
+      "id": "",
+      "path": "_integrations/obsidian/V1-视图说明.md",
+      "updated": "2026-06-09"
+    },
+    {
+      "type": "integration-plan",
+      "status": "draft",
+      "topic": "",
+      "id": "",
+      "path": "_integrations/agent-framework-radar-2026-06.md",
+      "updated": "2026-06-09"
+    },
+    {
+      "type": "integration-plan",
+      "status": "draft",
+      "topic": "",
+      "id": "",
+      "path": "_integrations/khoj/README.md",
+      "updated": "2026-06-08"
+    },
+    {
+      "type": "integration-plan",
+      "status": "draft",
+      "topic": "",
+      "id": "",
+      "path": "_integrations/mcp/README.md",
+      "updated": "2026-06-09"
+    },
+    {
+      "type": "integration-plan",
+      "status": "draft",
+      "topic": "",
+      "id": "",
+      "path": "_integrations/obsidian/Web-Clipper输入规范.md",
+      "updated": "2026-06-08"
+    },
+    {
+      "type": "integration-plan",
+      "status": "draft",
+      "topic": "",
+      "id": "",
+      "path": "_integrations/workspace-ui/README.md",
+      "updated": "2026-06-09"
+    },
+    {
+      "type": "knowledge-card",
+      "status": "promoted",
+      "topic": "agent-harness-skill-system",
+      "id": "kc-20260609-003",
+      "path": "主题库/Agent协作与Harness/专业知识/01-真正的-Agent-harness-思想.md",
+      "updated": "2026-06-09"
+    },
+    {
+      "type": "knowledge-card",
+      "status": "promoted",
+      "topic": "human-agent-knowledge-network",
+      "id": "kc-20260609-002",
+      "path": "主题库/人和Agent共同编织知识网络/专业知识/01-人和-Agent-共同编织知识网络.md",
+      "updated": "2026-06-09"
+    },
+    {
+      "type": "knowledge-card",
+      "status": "promoted",
+      "topic": "enterprise-ai-tech-org",
+      "id": "kc-20260609-001",
+      "path": "主题库/企业技术部门AI转型/专业知识/01-企业技术部门在-Agent-时代的定位.md",
+      "updated": "2026-06-09"
+    },
+    {
+      "type": "source-note",
+      "status": "draft",
+      "topic": "agent-harness-skill-system",
+      "id": "",
+      "path": "_workbench/inbox/2026-06-13-Claude-Code-ToolSearch机制研究.md",
+      "updated": "2026-06-13"
+    },
+    {
+      "type": "source-note",
+      "status": "reviewed",
+      "topic": "enterprise-ai-tech-org",
+      "id": "",
+      "path": "_workbench/inbox/2026-06-08-Agent时代企业技术部门资料占位.md",
+      "updated": "2026-06-09"
+    },
+    {
+      "type": "source-note",
+      "status": "reviewed",
+      "topic": "agent-harness-skill-system",
+      "id": "",
+      "path": "_workbench/inbox/2026-06-09-Anthropic-Skills-官方仓库-skill-creator.md",
+      "updated": "2026-06-09"
+    },
+    {
+      "type": "tool-doc",
+      "status": "active",
+      "topic": "",
+      "id": "",
+      "path": "tools/README.md",
+      "updated": "2026-06-09"
+    },
+    {
+      "type": "topic-index",
+      "status": "active",
+      "topic": "agent-harness-skill-system",
+      "id": "",
+      "path": "主题库/Agent协作与Harness/README.md",
+      "updated": "2026-06-09"
+    },
+    {
+      "type": "topic-index",
+      "status": "active",
+      "topic": "human-agent-knowledge-network",
+      "id": "",
+      "path": "主题库/人和Agent共同编织知识网络/README.md",
+      "updated": "2026-06-09"
+    },
+    {
+      "type": "topic-index",
+      "status": "active",
+      "topic": "enterprise-ai-tech-org",
+      "id": "",
+      "path": "主题库/企业技术部门AI转型/README.md",
+      "updated": "2026-06-09"
+    },
+    {
+      "type": "workflow",
+      "status": "active",
+      "topic": "",
+      "id": "",
+      "path": "_meta/agent-improvement-rules.md",
+      "updated": "2026-06-09"
+    },
+    {
+      "type": "workflow",
+      "status": "active",
+      "topic": "",
+      "id": "",
+      "path": "_meta/skills-recommendation.md",
+      "updated": "2026-06-09"
+    },
+    {
+      "type": "workflow",
+      "status": "active",
+      "topic": "",
+      "id": "",
+      "path": "_meta/工作流说明.md",
+      "updated": "2026-06-09"
+    },
+    {
+      "type": "workspace-home",
+      "status": "active",
+      "topic": "",
+      "id": "",
+      "path": "00-知识工作台入口.md",
+      "updated": "2026-06-09"
+    }
+  ]
+}

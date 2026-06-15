@@ -1,0 +1,13 @@
+type: tool-doc
+required:
+  - type
+  - status
+  - created
+  - updated
+allowed_status:
+  - active
+  - draft
+  - deprecated
+notes:
+  - Tool docs live under tools.
+  - Tool docs explain local helper commands and should not become formal domain knowledge.

@@ -1,0 +1,14 @@
+type: topic-index
+required:
+  - type
+  - status
+  - created
+  - updated
+  - topic
+allowed_status:
+  - active
+  - draft
+  - deprecated
+notes:
+  - Topic indexes live under formal topic directories in 主题库.
+  - Topic indexes are human-facing entry points for formal knowledge topics.

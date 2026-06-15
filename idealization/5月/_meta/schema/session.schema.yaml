@@ -1,0 +1,20 @@
+type: discussion-session
+required:
+  - id
+  - type
+  - topic
+  - status
+  - created
+  - updated
+  - stage
+allowed_status:
+  - inbox
+  - draft
+  - reviewed
+  - promoted
+  - deprecated
+required_prefix:
+  id: ws-
+notes:
+  - Session files live under _workbench/sessions.
+  - Session content is process material, not formal knowledge.

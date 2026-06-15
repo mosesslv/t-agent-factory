@@ -1,0 +1,10 @@
+.DS_Store
+*/.DS_Store
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+_index/generated-version-status.md
+_index/generated-version-status.json
+_index/generated-promote-audit.md
+_index/generated-promote-audit.json
+_index/generated-agent-brief.md
+_index/generated-agent-brief.json
