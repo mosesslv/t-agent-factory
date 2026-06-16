@@ -20,7 +20,7 @@ When a substantive topic arrives, Codex should:
 3. query ProductFactory if product judgment is involved;
 4. apply `expert-style-guide.md` for Chinese writing, evidence discipline, and diagram expectations;
 5. produce a recommendation, debate summary, or project artifact update;
-6. for knowledge-base capability work, apply `productivity-skills-integration.md`, `self-improvement-protocol.md`, and `docs-as-code-governance.md`;
+6. for knowledge-base capability work, apply `productivity-skills-integration.md`, `self-improvement-protocol.md`, `feedback-driven-improvement-protocol.md`, and `docs-as-code-governance.md`;
 7. store durable conclusions in the correct project folder.
 
 The routing rules live in:
@@ -28,8 +28,10 @@ The routing rules live in:
 - `default-router.md`
 - `roundtable-protocol.md`
 - `iteration-direction-research-protocol.md`
+- `feedback-driven-improvement-protocol.md`
 - `.agents/skills/t-agent-product-roundtable/SKILL.md`
 - `.agents/skills/t-agent-iteration-direction-research/SKILL.md`
+- `.agents/skills/t-agent-feedback-improvement/SKILL.md`
 
 ## Initial Roster
 
@@ -69,6 +71,7 @@ Then it should converge the discussion into the smallest useful next artifact.
 - `expert-style-guide.md`: Chinese-first writing standard and Anthropic / Google / Google DeepMind inspired expert review style.
 - `productivity-skills-integration.md`: how `grill-me`, `handoff`, `write-a-skill`, `teach`, and `self-improvement` pair with resident agents.
 - `self-improvement-protocol.md`: review-gated learning loop for corrections, errors, recurring workflows, and skill promotion.
+- `feedback-driven-improvement-protocol.md`: review-gated path for turning positive/negative user feedback about agent behavior into learning events, one-file proposals, evals, and accepted rule changes.
 - `obsidian-codex-workflow.md`: how Obsidian, Codex, ProductFactory, and Git fit together.
 - `agent-harness-spec.md`: profile structure and quality rules.
 

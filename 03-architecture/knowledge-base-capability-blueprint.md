@@ -2,12 +2,13 @@
 type: architecture-blueprint
 status: accepted
 created: 2026-06-15
-updated: 2026-06-15
+updated: 2026-06-16
 capability: knowledge-base-capability
 related:
   - 06-iteration/docs-as-code-governance.md
   - 09-agents/productivity-skills-integration.md
   - 09-agents/self-improvement-protocol.md
+  - 09-agents/feedback-driven-improvement-protocol.md
   - 07-evals/golden-questions/knowledge-base-capability-golden-questions.md
 ---
 
@@ -48,6 +49,8 @@ Knowledge Base Capability = Intake + Source + Evidence + Decision + Artifact + E
 | `DecisionRecord` | `05-decisions/` | PDR / ADR，改变产品或架构方向 |
 | `KnowledgeAsset` | `01-product/`, `02-roadmap/`, `03-architecture/`, `07-evals/`, `09-agents/` | 已进入工作台的正式资产 |
 | `LearningEvent` | `06-iteration/learnings/` | 错误、纠正、缺失能力、重复模式 |
+| `FeedbackSignal` | conversation / `06-iteration/learnings/` | 用户对 agent 行为、风格、路由、skill 或工作流的正负反馈 |
+| `ImprovementProposal` | `06-iteration/improvement-proposals/` | 将反馈转成可评审、可批准、可回滚的一文件改进提案 |
 | `SkillCandidate` | `.agents/skills/` 或 `06-iteration/review-queue/` | 可复用 workflow 的候选封装 |
 | `EvalCase` | `07-evals/` | 验证知识更新和 agent 行为是否正确 |
 
@@ -59,6 +62,7 @@ flowchart TD
   B --> C1["06-iteration/inbox"]
   B --> C2["04-sources/source-register"]
   B --> C3["06-iteration/learnings"]
+  B --> C4["06-iteration/improvement-proposals"]
   B --> D["Resident agent routing"]
   D --> E1["Knowledge Librarian"]
   D --> E2["Product Lead"]
@@ -70,6 +74,8 @@ flowchart TD
   E3 --> H["Contract / Skill / Protocol"]
   E4 --> I["Golden questions / Failure cases"]
   E5 --> J["Risk / Non-goals / Review gate"]
+  C4 --> H
+  C4 --> I
   F --> K["Promotion decision"]
   G --> K
   H --> K
@@ -90,6 +96,7 @@ flowchart TD
 | 影响验收 | `07-evals/` | eval-lead |
 | 重复 workflow | `.agents/skills/` 候选或 `09-agents/` 协议 | agent-architect, eval-lead |
 | 用户纠正 / 错误 | `06-iteration/learnings/` | knowledge-librarian, eval-lead |
+| 用户反馈 agent 行为 / 默认偏好 | `06-iteration/improvement-proposals/` + `09-agents/feedback-driven-improvement-protocol.md` | knowledge-librarian, agent-architect, eval-lead, red-team |
 
 ## 6. Productivity Skills 作为能力组件
 
@@ -101,6 +108,7 @@ flowchart TD
 | `teach` | 新成员理解知识库规则、对象模型和更新路径 | product-lead, knowledge-librarian |
 | `caveman` | 低 token 快速沟通模式，不用于正式 canonical 文档 | product-lead |
 | `self-improvement` | 错误、纠正、缺失能力、重复模式的学习日志 | knowledge-librarian, eval-lead, red-team |
+| `feedback improvement` | 将正负反馈转成 learning event、improvement proposal、eval 或 skill 修正 | knowledge-librarian, agent-architect, eval-lead, red-team |
 
 详细搭配见 `09-agents/productivity-skills-integration.md`。
 
@@ -110,7 +118,7 @@ flowchart TD
 |---|---|---|
 | KB-0 | 文档规范和路由可用 | governance、router、local skill、templates、eval questions |
 | KB-1 | 候选到 accepted 的晋升闭环 | intake template、promotion checklist、Obsidian Base 状态视图、eval runner、真实外部 repo 演练 |
-| KB-2 | 学习闭环可复盘 | learning events、failure cases、skill candidates、eval 回归 |
+| KB-2 | 学习闭环可复盘 | learning events、feedback signals、improvement proposals、failure cases、skill candidates、eval 回归 |
 | KB-3 | 工作台视图 | Obsidian Bases / Canvas 或轻量 dashboard 展示状态、来源、决策、eval 覆盖 |
 | KB-4 | 产品化能力 | 在 t-agent UI 中暴露 source intake、artifact evidence、review gate 和 agent skill ops |
 
@@ -119,6 +127,7 @@ flowchart TD
 - 直接把聊天结论写进 roadmap。
 - 外部链接未登记来源就进入 PRD。
 - `self-improve` 自动改 `agent.md`。
+- 用户一句“以后都这样”就自动改 `AGENTS.md`、`agent.md` 或 local skill。
 - `grill-me` 只做聊天追问，不产出 decision / eval / backlog 变化。
 - skill 没有触发条件、反触发条件、输出契约和验收。
 - 只更新文档，不更新 eval、backlog 或 source register。

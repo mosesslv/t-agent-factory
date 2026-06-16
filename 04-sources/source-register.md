@@ -71,6 +71,10 @@
 | `07-evals/eval-runs/2026-06-15-knowledge-base-capability-eval-run.md` | eval-run | 当前工作区 | KB-1 验收运行记录 | 证明当前知识库能力基础链路 10/10 通过 |
 | `06-iteration/inbox/2026-06-15-self-improving-agent-source-intake.md` | knowledge-intake | 当前工作区 | self-improving-agent 外部 repo 输入记录 | 真实案例演练入口 |
 | `06-iteration/reports/2026-06-15-kb1-self-improving-agent-rehearsal.md` | rehearsal-report | 当前工作区 | KB-1 外部 repo 全流程演练 | 验证外部 repo 从 intake 到 eval 的闭环 |
+| `04-sources/evidence-cards/2026-06-16-feedback-driven-self-improvement-sources.md` | evidence-card | 当前工作区 | Matt Pocock productivity skills、BerriAI self-improving-agent、ProductFactory learning loop | 支撑 feedback-driven improvement 机制 |
+| `09-agents/feedback-driven-improvement-protocol.md` | agent-protocol | 当前工作区 | 正/负反馈到 learning/proposal/eval/promotion 的受控闭环 | 后续风格、agent 人设、skill 提示词自改进默认规范 |
+| `.agents/skills/t-agent-feedback-improvement/SKILL.md` | local-skill | 当前工作区 | 反馈驱动自改进入口 | Codex 项目内触发入口 |
+| `06-iteration/templates/improvement-proposal.md` | template | 当前工作区 | 单文件最小改进 proposal 模板 | 借鉴 BerriAI proposal 模式，避免自动污染 accepted truth |
 
 ## 3. 关联图
 

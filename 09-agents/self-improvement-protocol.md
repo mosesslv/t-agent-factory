@@ -7,6 +7,7 @@ related:
   - 03-architecture/knowledge-base-capability-blueprint.md
   - 06-iteration/docs-as-code-governance.md
   - 06-iteration/learnings/README.md
+  - 09-agents/feedback-driven-improvement-protocol.md
 ---
 
 # t-agent Self-Improvement Protocol
@@ -36,6 +37,7 @@ Error / Correction / Missing Capability / Recurring Pattern
 | recurring workflow | 同类更新、评审、来源处理多次出现 | skill candidate |
 | outdated knowledge | 外部 API / 官方文档 / 项目事实变化 | evidence card + learning |
 | better pattern | 发现更可靠的写入、评测、路由方式 | protocol candidate |
+| feedback signal | 用户对回答风格、agent 行为、skill 路由、工作流提出正/负反馈 | learning event 或 improvement proposal |
 
 ## 3. Promotion Rules
 
@@ -48,6 +50,7 @@ Error / Correction / Missing Capability / Recurring Pattern
 | 架构或工具变化 | ADR | Agent Architect + Eval Lead + Red Team 通过 |
 | 质量门禁变化 | eval pack | 有 golden question 或 failure case |
 | 交付范围变化 | backlog / PRD | 有 owner、版本和验收 |
+| 风格 / agent / skill 反馈 | improvement proposal | 有 feedback source、target file、exact snippet、risk 和 review |
 
 ## 4. Self-Improvement Loop
 
@@ -76,6 +79,7 @@ flowchart LR
 - 不自动写入 `agent.md`、roadmap、PRD、contract 或 eval。
 - 不创建后台监控、定时任务或跨项目同步，除非用户明确要求。
 - 所有晋升都要保留 diff、来源、理由和验收方式。
+- 正向/负向反馈可立即影响当前会话表现，但持久化修改必须走 `09-agents/feedback-driven-improvement-protocol.md`。
 
 ## 6. Minimum Learning Event
 
@@ -108,3 +112,19 @@ t-agent 的增强点：
 - learning 不放根目录 `.learnings/`，而纳入 `06-iteration/learnings/`；
 - 所有改进必须经过 resident agents 和 review gate；
 - 任何产品事实变化都受 `agent.md` 权威顺序约束。
+
+## 8. Relationship to BerriAI `self-improving-agent`
+
+BerriAI `self-improving-agent` 的价值在于：
+
+- 把“用户批评 agent 自己”与普通产品反馈分开；
+- 先生成最小 improvement proposal，而不是直接改 prompt；
+- 每个 proposal 包含目标文件、唯一原始片段、替换片段、原因和风险；
+- apply 需要明确批准，并通过 PR 保留审计链。
+
+t-agent 的本地化规则：
+
+- 当前不默认接入 GitHub PAT 或自动开 PR。
+- 当前先用 `06-iteration/templates/improvement-proposal.md` 记录 proposal。
+- 被批准后，按 docs-as-code / PDR / ADR / eval gate 应用。
+- 若未来接入 BerriAI 工具，应只作为 proposal/apply transport，不替代 t-agent 的 source、decision、eval 和 review gate。

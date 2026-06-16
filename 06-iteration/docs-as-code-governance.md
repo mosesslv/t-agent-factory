@@ -2,11 +2,12 @@
 type: operating-standard
 status: accepted
 created: 2026-06-15
-updated: 2026-06-15
+updated: 2026-06-16
 related:
   - 03-architecture/knowledge-base-capability-blueprint.md
   - 09-agents/default-router.md
   - 09-agents/self-improvement-protocol.md
+  - 09-agents/feedback-driven-improvement-protocol.md
 ---
 
 # t-agent Docs-as-Code 知识库治理规范
@@ -48,10 +49,12 @@ flowchart TD
   F -- "no" --> H{"Is it a recurring workflow or correction?"}
   H -- "workflow" --> I["Skill candidate + eval"]
   H -- "correction/error" --> J["06-iteration/learnings"]
+  H -- "agent feedback" --> L["06-iteration/improvement-proposals"]
   C --> K["Update PRD / roadmap / backlog / eval if needed"]
   E --> K
   I --> K
   J --> K
+  L --> K
 ```
 
 ## 4. Random Codex Section 更新规则
@@ -59,7 +62,7 @@ flowchart TD
 当用户说“这里补一下”“把这个观点加进去”“参考这个链接”“刚才说错了”时：
 
 1. 先读 `agent.md`。
-2. 判断输入类型：raw idea、source、evidence、decision、PRD、contract、eval、learning、skill。
+2. 判断输入类型：raw idea、source、evidence、decision、PRD、contract、eval、learning、skill、feedback signal。
 3. 选择最小 agent panel。
 4. 写入最小正确位置。
 5. 如果影响 accepted truth，必须更新对应 decision、backlog 或 eval。
@@ -75,6 +78,7 @@ flowchart TD
 | 架构 / object / skill | agent-architect, data-product, eval-lead | ADR, contract, local skill, eval |
 | 验收 / 失败样例 | eval-lead, data-product, product-lead | golden questions, failure cases |
 | 用户纠正 / 错误 | knowledge-librarian, eval-lead, red-team | learning event, correction, regression check |
+| 用户反馈 agent 行为 / 默认偏好 | knowledge-librarian, agent-architect, eval-lead, red-team | improvement proposal, skill/protocol patch, eval case |
 | 高影响争议 | full roundtable | roundtable record, PDR/ADR |
 
 ## 6. 文件写作规则
@@ -127,6 +131,7 @@ raw input
 |---|---|
 | 知识输入 | `06-iteration/templates/knowledge-intake.md` |
 | 晋升检查 | `06-iteration/templates/promotion-checklist.md` |
+| 反馈改进提案 | `06-iteration/templates/improvement-proposal.md`、`06-iteration/improvement-proposals/` |
 | 状态视图 | `06-iteration/views/knowledge-base-capability.base` |
 | 本地验证 | `scripts/knowledge-base/eval-kb-capability.py` |
 | 真实演练 | `06-iteration/reports/2026-06-15-kb1-self-improving-agent-rehearsal.md` |
@@ -142,3 +147,17 @@ raw input
 - 不允许把一次失败自动变成永久规则。
 
 详细规则见 `09-agents/self-improvement-protocol.md`。
+
+## 10. Feedback-Driven Improvement
+
+当用户反馈的是 Codex / t-agent 自身行为，例如“以后都这样”“别再这样回答”“你总是漏掉用户视角”“这个 skill 触发条件要改”，默认进入 `09-agents/feedback-driven-improvement-protocol.md`。
+
+执行顺序：
+
+1. 当前会话先按反馈调整回答方式。
+2. 判断是一次性偏好、重复模式、routing miss 还是 eval failure。
+3. 一次性反馈只记录 learning event 或保留在会话上下文。
+4. 影响默认行为、agent、skill、protocol 或 eval 的反馈，生成 `06-iteration/improvement-proposals/` 下的一文件 proposal。
+5. proposal 被批准并通过相关 eval 后，才允许修改 accepted truth。
+
+这条路径的目标是让工作台能学习，同时避免把偶发情绪、单次表扬或未经验证的偏好直接固化成全局规则。

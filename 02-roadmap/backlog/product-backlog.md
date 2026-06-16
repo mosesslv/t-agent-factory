@@ -1,7 +1,7 @@
 ---
 type: backlog
 status: active
-updated: 2026-06-15
+updated: 2026-06-16
 source_of_truth:
   - 02-roadmap/t-agent-roadmap.md
   - 05-decisions/product-decisions/PDR-2026-06-15-version-roadmap-ssot.md
@@ -83,6 +83,9 @@ These items make the t-agent workspace itself capable of managing knowledge upda
 | TA-KB-008 | Promotion Automation | Scripted checks for required knowledge-base assets and eval links | P1 | KB-1 | accepted | `scripts/knowledge-base/eval-kb-capability.py` |
 | TA-KB-009 | Promotion Checklist | Reusable checklist for moving candidate knowledge into accepted assets | P0 | KB-1 | accepted | `06-iteration/templates/promotion-checklist.md` |
 | TA-KB-010 | Real Case Rehearsal | Run external repo source through intake -> evidence -> roundtable -> decision -> protocol -> eval | P0 | KB-1 | accepted | `06-iteration/reports/2026-06-15-kb1-self-improving-agent-rehearsal.md` |
+| TA-KB-011 | Feedback Improvement | Review-gated protocol for turning positive/negative user feedback into learning events, proposals, evals, and accepted rule changes | P0 | KB-2 | accepted | `09-agents/feedback-driven-improvement-protocol.md` |
+| TA-KB-012 | Feedback Improvement | One-file improvement proposal template and proposal storage area | P0 | KB-2 | accepted | `06-iteration/templates/improvement-proposal.md` |
+| TA-KB-013 | Local Skill | `.agents/skills/t-agent-feedback-improvement/` triggerable project skill for feedback-driven improvement | P0 | KB-2 | accepted | Local skill |
 
 ## 3. V3 Backlog Seeds
 
@@ -112,5 +115,5 @@ These items make the t-agent workspace itself capable of managing knowledge upda
 - Any P0 requirement must have at least one PRD, contract, eval, or accepted decision source before entering `ready`.
 - Historical sales operating materials can seed eval/workflow packs, but they do not define V2 scope.
 - Any route change must update `05-decisions/` and this backlog together.
-- Knowledge-base capability changes must update docs-as-code governance, productivity skill pairing, self-improvement protocol, and eval cases together when relevant.
+- Knowledge-base capability changes must update docs-as-code governance, productivity skill pairing, self-improvement / feedback-driven protocols, and eval cases together when relevant.
 - Each release review must label P0 items as `accepted`, `blocked`, or explicitly removed from scope.

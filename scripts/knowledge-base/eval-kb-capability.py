@@ -2,8 +2,8 @@
 """Validate the t-agent knowledge-base capability wiring.
 
 This is a lightweight repository-local eval runner. It does not judge model
-quality; it checks whether the KB-1 operating assets exist and still satisfy
-the minimum contracts behind KB-EVAL-001..008.
+quality; it checks whether the KB operating assets exist and still satisfy
+the minimum contracts behind the KB-EVAL cases.
 """
 
 from __future__ import annotations
@@ -148,6 +148,51 @@ CASES: tuple[Case, ...] = (
             ("06-iteration/templates/promotion-checklist.md", "Required Gates"),
             ("06-iteration/templates/promotion-checklist.md", "target_asset"),
             ("06-iteration/templates/promotion-checklist.md", "如果改变验收，已有 eval 更新"),
+        ),
+    ),
+    Case(
+        "KB-EVAL-011",
+        "Positive reusable feedback becomes a signal/proposal path, not an unchecked permanent rule.",
+        (
+            "09-agents/feedback-driven-improvement-protocol.md",
+            "06-iteration/templates/improvement-proposal.md",
+            "06-iteration/improvement-proposals/README.md",
+            "06-iteration/docs-as-code-governance.md",
+            ".agents/skills/t-agent-feedback-improvement/SKILL.md",
+        ),
+        (
+            ("09-agents/feedback-driven-improvement-protocol.md", "positive reinforcement"),
+            ("09-agents/feedback-driven-improvement-protocol.md", "不要永久写规则"),
+            ("06-iteration/docs-as-code-governance.md", "feedback signal"),
+            ("06-iteration/improvement-proposals/README.md", "original_snippet"),
+            (".agents/skills/t-agent-feedback-improvement/SKILL.md", "positive reinforcement"),
+        ),
+    ),
+    Case(
+        "KB-EVAL-012",
+        "Negative feedback about assistant behavior can become a one-file improvement proposal.",
+        (
+            "09-agents/feedback-driven-improvement-protocol.md",
+            "06-iteration/templates/improvement-proposal.md",
+        ),
+        (
+            ("09-agents/feedback-driven-improvement-protocol.md", "negative correction"),
+            ("06-iteration/templates/improvement-proposal.md", "original_snippet"),
+            ("06-iteration/templates/improvement-proposal.md", "proposed_snippet"),
+            ("06-iteration/templates/improvement-proposal.md", "risk: low | medium | high"),
+        ),
+    ),
+    Case(
+        "KB-EVAL-013",
+        "Skill trigger changes route through harness review and eval.",
+        (
+            "09-agents/productivity-skills-integration.md",
+            ".agents/skills/t-agent-feedback-improvement/SKILL.md",
+        ),
+        (
+            ("09-agents/productivity-skills-integration.md", "write-a-skill"),
+            ("09-agents/productivity-skills-integration.md", "eval runner"),
+            (".agents/skills/t-agent-feedback-improvement/SKILL.md", "Skill trigger"),
         ),
     ),
 )
