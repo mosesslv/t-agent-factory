@@ -1,0 +1,92 @@
+filters:
+  or:
+    - 'file.inFolder("06-iteration/inbox")'
+    - 'file.inFolder("06-iteration/review-queue")'
+    - 'file.inFolder("06-iteration/improvement-proposals")'
+    - 'file.inFolder("06-iteration/learnings")'
+    - 'file.inFolder("06-iteration/reports")'
+    - 'file.inFolder("04-sources/evidence-cards")'
+    - 'file.inFolder("04-sources/external")'
+    - 'file.inFolder("07-evals/eval-runs")'
+
+formulas:
+  lifecycle: 'if(status, status, "missing-status")'
+  asset_type: 'if(type, type, "missing-type")'
+  age_days: '(now() - file.mtime).days.round(0)'
+  review_priority: 'if(formula.age_days > 3, "stale", if(status == "raw", "triage", if(status == "candidate", "review", if(status == "proposed", "proposal", "normal"))))'
+
+properties:
+  type:
+    displayName: "Type"
+  status:
+    displayName: "Status"
+  updated:
+    displayName: "Updated"
+  owner:
+    displayName: "Owner"
+  automation:
+    displayName: "Automation"
+  formula.asset_type:
+    displayName: "Asset Type"
+  formula.lifecycle:
+    displayName: "Lifecycle"
+  formula.age_days:
+    displayName: "Age Days"
+  formula.review_priority:
+    displayName: "Review Priority"
+  file.folder:
+    displayName: "Folder"
+  file.mtime:
+    displayName: "Modified"
+
+views:
+  - type: table
+    name: "Automation Queue"
+    order:
+      - file.name
+      - formula.asset_type
+      - formula.lifecycle
+      - formula.review_priority
+      - owner
+      - updated
+      - file.folder
+      - formula.age_days
+    groupBy:
+      property: formula.review_priority
+      direction: ASC
+
+  - type: cards
+    name: "Review Cards"
+    filters:
+      or:
+        - 'status == "raw"'
+        - 'status == "candidate"'
+        - 'status == "review"'
+        - 'status == "proposed"'
+    order:
+      - file.name
+      - formula.asset_type
+      - formula.lifecycle
+      - formula.review_priority
+      - owner
+      - formula.age_days
+
+  - type: table
+    name: "Automation Reports"
+    filters: 'type == "automation-report"'
+    order:
+      - file.name
+      - automation
+      - status
+      - updated
+      - file.mtime
+
+  - type: table
+    name: "Improvement Proposals"
+    filters: 'file.inFolder("06-iteration/improvement-proposals")'
+    order:
+      - file.name
+      - formula.lifecycle
+      - updated
+      - owner
+      - formula.age_days

@@ -195,6 +195,51 @@ CASES: tuple[Case, ...] = (
             (".agents/skills/t-agent-feedback-improvement/SKILL.md", "Skill trigger"),
         ),
     ),
+    Case(
+        "KB-EVAL-014",
+        "Daily knowledge intake triage has sources, gates, cards, and a runnable script.",
+        (
+            "06-iteration/automation/knowledge-ingestion-automation-plan.md",
+            "scripts/knowledge-base/triage-knowledge-intake.py",
+            "06-iteration/automation/README.md",
+        ),
+        (
+            ("06-iteration/automation/knowledge-ingestion-automation-plan.md", "Daily Knowledge Intake Triage"),
+            ("06-iteration/automation/knowledge-ingestion-automation-plan.md", "初步质量门"),
+            ("06-iteration/automation/knowledge-ingestion-automation-plan.md", "Needs Source"),
+            ("scripts/knowledge-base/triage-knowledge-intake.py", "G0 Source"),
+        ),
+    ),
+    Case(
+        "KB-EVAL-015",
+        "Weekly KB harness eval has visual cards and an Obsidian queue view.",
+        (
+            "scripts/knowledge-base/run-kb-harness-weekly.py",
+            "06-iteration/views/knowledge-automation-queue.base",
+            "06-iteration/automation/knowledge-ingestion-automation-plan.md",
+        ),
+        (
+            ("scripts/knowledge-base/run-kb-harness-weekly.py", "Summary Cards"),
+            ("scripts/knowledge-base/run-kb-harness-weekly.py", "external ingest check"),
+            ("06-iteration/views/knowledge-automation-queue.base", "Review Cards"),
+            ("06-iteration/views/knowledge-automation-queue.base", "Automation Reports"),
+        ),
+    ),
+    Case(
+        "KB-EVAL-016",
+        "Knowledge automation is report-only and cannot bypass review gates.",
+        (
+            "06-iteration/automation/knowledge-ingestion-automation-plan.md",
+            "scripts/knowledge-base/triage-knowledge-intake.py",
+            "scripts/knowledge-base/run-kb-harness-weekly.py",
+        ),
+        (
+            ("06-iteration/automation/knowledge-ingestion-automation-plan.md", "不允许"),
+            ("06-iteration/automation/knowledge-ingestion-automation-plan.md", "自动晋升"),
+            ("scripts/knowledge-base/triage-knowledge-intake.py", "不得自动修改"),
+            ("scripts/knowledge-base/run-kb-harness-weekly.py", "不得自动修改"),
+        ),
+    ),
 )
 
 

@@ -67,7 +67,7 @@
 | `06-iteration/templates/knowledge-intake.md` | template | 当前工作区 | 知识更新输入模板 | 将外部来源、想法、纠偏和失败样例标准化进入工作台 |
 | `06-iteration/templates/promotion-checklist.md` | template | 当前工作区 | 知识晋升检查清单 | 判断 candidate 是否可进入 accepted truth |
 | `06-iteration/views/knowledge-base-capability.base` | obsidian-base | 当前工作区 | Obsidian 状态视图 | 查看知识资产 status/type/updated 和缺失状态 |
-| `scripts/knowledge-base/eval-kb-capability.py` | eval-runner | 当前工作区 | 知识库能力本地验证脚本 | 运行 KB-EVAL-001 到 KB-EVAL-010 |
+| `scripts/knowledge-base/eval-kb-capability.py` | eval-runner | 当前工作区 | 知识库能力本地验证脚本 | 运行 KB-EVAL-001 到 KB-EVAL-016 |
 | `07-evals/eval-runs/2026-06-15-knowledge-base-capability-eval-run.md` | eval-run | 当前工作区 | KB-1 验收运行记录 | 证明当前知识库能力基础链路 10/10 通过 |
 | `06-iteration/inbox/2026-06-15-self-improving-agent-source-intake.md` | knowledge-intake | 当前工作区 | self-improving-agent 外部 repo 输入记录 | 真实案例演练入口 |
 | `06-iteration/reports/2026-06-15-kb1-self-improving-agent-rehearsal.md` | rehearsal-report | 当前工作区 | KB-1 外部 repo 全流程演练 | 验证外部 repo 从 intake 到 eval 的闭环 |
@@ -75,6 +75,10 @@
 | `09-agents/feedback-driven-improvement-protocol.md` | agent-protocol | 当前工作区 | 正/负反馈到 learning/proposal/eval/promotion 的受控闭环 | 后续风格、agent 人设、skill 提示词自改进默认规范 |
 | `.agents/skills/t-agent-feedback-improvement/SKILL.md` | local-skill | 当前工作区 | 反馈驱动自改进入口 | Codex 项目内触发入口 |
 | `06-iteration/templates/improvement-proposal.md` | template | 当前工作区 | 单文件最小改进 proposal 模板 | 借鉴 BerriAI proposal 模式，避免自动污染 accepted truth |
+| `06-iteration/automation/knowledge-ingestion-automation-plan.md` | automation-plan | 当前工作区 | 知识摄取自动化迭代目标、质量门和验收标准 | 支撑 Daily Triage、Weekly Eval、Review Heartbeat |
+| `scripts/knowledge-base/triage-knowledge-intake.py` | automation-script | 当前工作区 | 每日知识摄取 triage 脚本 | 输出 source / metadata / boundary / safety / action gate 卡片 |
+| `scripts/knowledge-base/run-kb-harness-weekly.py` | automation-script | 当前工作区 | 每周 KB harness 验收脚本 | 聚合 KB eval、triage 和 external ingest check |
+| `06-iteration/views/knowledge-automation-queue.base` | obsidian-base | 当前工作区 | 知识自动化队列看板 | 查看 automation reports、review cards 和 stale candidates |
 
 ## 3. 关联图
 

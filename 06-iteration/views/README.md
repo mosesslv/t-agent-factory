@@ -2,7 +2,7 @@
 type: view-index
 status: active
 created: 2026-06-15
-updated: 2026-06-15
+updated: 2026-06-17
 ---
 
 # Iteration Views
@@ -12,6 +12,7 @@ updated: 2026-06-15
 ## 当前视图
 
 - `knowledge-base-capability.base`: 查看知识库能力相关的 intake、evidence、decision、eval、learning、skill 和 backlog 状态。
+- `knowledge-automation-queue.base`: 查看 daily triage、weekly eval、review queue、improvement proposals 和 automation reports。
 
 ## 使用方式
 

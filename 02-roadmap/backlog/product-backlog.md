@@ -86,6 +86,9 @@ These items make the t-agent workspace itself capable of managing knowledge upda
 | TA-KB-011 | Feedback Improvement | Review-gated protocol for turning positive/negative user feedback into learning events, proposals, evals, and accepted rule changes | P0 | KB-2 | accepted | `09-agents/feedback-driven-improvement-protocol.md` |
 | TA-KB-012 | Feedback Improvement | One-file improvement proposal template and proposal storage area | P0 | KB-2 | accepted | `06-iteration/templates/improvement-proposal.md` |
 | TA-KB-013 | Local Skill | `.agents/skills/t-agent-feedback-improvement/` triggerable project skill for feedback-driven improvement | P0 | KB-2 | accepted | Local skill |
+| TA-KB-014 | Knowledge Automation | Daily knowledge intake triage: scan queues, apply quality gates, and generate review cards | P0 | KBI-1 | accepted | `scripts/knowledge-base/triage-knowledge-intake.py` |
+| TA-KB-015 | Knowledge Automation | Weekly KB harness eval with visual report cards and optional external ingest check | P0 | KBI-1 | accepted | `scripts/knowledge-base/run-kb-harness-weekly.py` |
+| TA-KB-016 | Views | Obsidian Base queue for automation reports, stale candidates, and improvement proposals | P1 | KBI-1 | accepted | `06-iteration/views/knowledge-automation-queue.base` |
 
 ## 3. V3 Backlog Seeds
 
